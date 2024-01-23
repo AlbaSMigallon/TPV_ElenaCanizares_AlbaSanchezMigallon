@@ -8,23 +8,33 @@ import javazoom.jl.player.advanced.PlaybackListener;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class Musica {
-	
+
+	private ArrayList<String> opcionesMusica;
+
 	public Musica() {
-		lanzar();
+		// Inicializa la lista de opciones de música
+		opcionesMusica = new ArrayList<>();
+		opcionesMusica.add("resources/musica/piano.mp3");
+		opcionesMusica.add("resources/musica/otra_musica.mp3");
+		// Agrega más opciones según sea necesario
+		// lanzar();
 	}
-	
 
-	public  void lanzar() {
-		// Ruta del archivo MP3
-		String rutaMP3 = "resources/musica/piano.mp3";
+	public void lanzar(int indice) {
 
-		// Crear un objeto de la clase ReproductorMP3
-		
+		// VERIFICA SI EL INDICE ESTA DENTRO DEL RANGO
+		if (indice >= 0 && indice < opcionesMusica.size()) {
+			// OBTIENE LA RUTA DEL ARCHIVO MP3 BASANDOSE EN EL INDICE
+			String rutaMP3 = opcionesMusica.get(indice);
 
-		// Reproducir el sonido en bucle
-		this.reproducirEnBucle(rutaMP3);
+			// Crear un objeto de la clase ReproductorMP3
+
+			// Reproducir el sonido en bucle
+			this.reproducirEnBucle(rutaMP3);
+		}
 	}
 
 	public void reproducirEnBucle(String rutaMP3) {
