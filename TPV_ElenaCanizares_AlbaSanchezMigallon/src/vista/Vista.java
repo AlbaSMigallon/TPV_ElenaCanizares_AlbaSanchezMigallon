@@ -6,6 +6,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import controlador.Controlador;
+
 public class Vista extends JFrame {
 
 	private static final long serialVersionUID = 1L;
@@ -20,6 +22,7 @@ public class Vista extends JFrame {
 				try {
 					Vista frame = new Vista();
 					frame.setVisible(true);
+					Controlador controlador = new Controlador(frame);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
