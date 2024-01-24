@@ -52,11 +52,12 @@ public class Vista extends JFrame {
 		panelInicio.setLayout(null);
 
 		JButton btnMesa1 = new JButton();
-		btnMesa1.setIcon(new ImageIcon("src/resources/mesaPrueba.png"));
-		btnMesa1.setBounds(147, 66, 203, 141);
+		btnMesa1.setIcon(new ImageIcon(
+				"C:\\Users\\ELENA\\git\\TPV_ElenaCanizares_AlbaSanchezMigallon\\TPV_ElenaCanizares_AlbaSanchezMigallon\\TPV_ElenaCanizares_AlbaSanchezMigallon\\src\\resources\\mesa.png"));
+		btnMesa1.setBounds(61, 64, 171, 104);
 		btnMesa1.setOpaque(false);
 		btnMesa1.setContentAreaFilled(false);
-		btnMesa1.setBorderPainted(false);
+		btnMesa1.setBorderPainted(true);
 		panelInicio.add(btnMesa1);
 	}
 }
