@@ -15,14 +15,22 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import java.awt.Font;
+import javax.swing.JList;
+import javax.swing.JSpinner;
+import javax.swing.JScrollPane;
+import javax.swing.JComboBox;
+import java.awt.ScrollPane;
+import javax.swing.JScrollBar;
 
 public class Vista extends JFrame {
 
 	public static final long serialVersionUID = 1L;
-	public JPanel contentPane, panelInicio, panelCocteleria;
+	public JPanel contentPane, panelInicio, panelCocteleria, panelCaja, panelPedido, panelInventario, panelMusica;
 	public JLabel lblInicio;
+	public JList listRefrescos, listCerveza;
 	public JButton btnCaja, btnPedido, btnInventario, btnMusica, btnMesa1, btnMesa2, btnMesa3, btnMesa4, btnMesa5,
-			btnMesa6, btnMesa7, btnBarra;
+			btnMesa6, btnMesa7, btnBarra, btnAceptarCambios, btnRevertirCambios;
+	public JSpinner spinnerCantidadRefrescos, spinnerCantidadCerveza;
 
 	/**
 	 * Launch the application.
@@ -57,27 +65,8 @@ public class Vista extends JFrame {
 		panelInicio.setBounds(0, 0, 1684, 861);
 		contentPane.add(panelInicio);
 		panelInicio.setLayout(null);
-		lblInicio = new JLabel("INICIO");
-		lblInicio.setFont(new Font("Garamond", Font.ITALIC, 54));
-		lblInicio.setBounds(431, 36, 169, 55);
-		panelInicio.add(lblInicio);
 
-		btnCaja = new JButton("Caja");
-		btnCaja.setBounds(1286, 112, 317, 129);
-		panelInicio.add(btnCaja);
-
-		btnPedido = new JButton("Pedido");
-		btnPedido.setBounds(1286, 303, 317, 129);
-		panelInicio.add(btnPedido);
-
-		btnInventario = new JButton("Inventario");
-		btnInventario.setBounds(1286, 487, 317, 129);
-		panelInicio.add(btnInventario);
-
-		btnMusica = new JButton("Musica");
-		btnMusica.setBounds(1286, 667, 317, 129);
-		panelInicio.add(btnMusica);
-
+		/*---------------------------------PANEL COCTELERIA---------------------------------------------------*/
 		panelCocteleria = new JPanel();
 		panelCocteleria.setBounds(42, 133, 1031, 597);
 		panelInicio.add(panelCocteleria);
@@ -169,6 +158,98 @@ public class Vista extends JFrame {
 		btnBarra.setContentAreaFilled(false);
 		btnBarra.setBorderPainted(true);
 		panelCocteleria.add(btnBarra);
+		/*---------------------------------PANEL INVENTARIO---------------------------------------------------*/
+		panelInventario = new JPanel();
+		panelInventario.setBounds(0, 0, 1684, 861);
+		contentPane.add(panelInventario);
+		panelInventario.setVisible(false);
+		panelInventario.setLayout(null);
+		/*------------------------------------------------------------------------------------*/
+		spinnerCantidadRefrescos = new JSpinner();
+		spinnerCantidadRefrescos.setBounds(340, 29, 39, 33);
+		panelInventario.add(spinnerCantidadRefrescos);
+		spinnerCantidadRefrescos.setVisible(false);
+		/*------------------------------------------------------------------------------------*/
+
+		listRefrescos = new JList();
+		listRefrescos.setBounds(69, 29, 261, 72);
+
+		JScrollPane scrollPaneRefrescos = new JScrollPane(listRefrescos);
+		scrollPaneRefrescos.setBounds(69, 29, 261, 72);
+		panelInventario.add(scrollPaneRefrescos);
+
+		JScrollBar verticalScrollBarRefrescos = new JScrollBar(JScrollBar.VERTICAL);
+		scrollPaneRefrescos.setHorizontalScrollBar(verticalScrollBarRefrescos);
+		/*------------------------------------------------------------------------------------*/
+
+		listCerveza = new JList();
+		listCerveza.setBounds(71, 256, 259, 70);
+
+		JScrollPane scrollPaneInventario = new JScrollPane(listCerveza);
+		scrollPaneInventario.setBounds(71, 256, 259, 70);
+		panelInventario.add(scrollPaneInventario);
+
+		JScrollBar verticalScrollBarInventario = new JScrollBar(JScrollBar.VERTICAL);
+		scrollPaneInventario.setHorizontalScrollBar(verticalScrollBarInventario);
+		/*------------------------------------------------------------------------------------*/
+
+		spinnerCantidadCerveza = new JSpinner();
+		spinnerCantidadCerveza.setBounds(340, 278, 39, 33);
+		panelInventario.add(spinnerCantidadCerveza);
+		/*------------------------------------------------------------------------------------*/
+
+		btnAceptarCambios = new JButton("ACEPTAR CAMBIOS");
+		btnAceptarCambios.setBounds(614, 34, 151, 85);
+		panelInventario.add(btnAceptarCambios);
+
+		btnRevertirCambios = new JButton("REVERTIR CAMBIOS");
+		btnRevertirCambios.setBounds(614, 224, 151, 85);
+		panelInventario.add(btnRevertirCambios);
+		/*---------------------------------PANEL INICIO---------------------------------------------------*/
+
+		lblInicio = new JLabel("INICIO");
+		lblInicio.setFont(new Font("Garamond", Font.ITALIC, 54));
+		lblInicio.setBounds(431, 36, 169, 55);
+		panelInicio.add(lblInicio);
+
+		btnCaja = new JButton("Caja");
+		btnCaja.setBounds(1286, 112, 317, 129);
+		panelInicio.add(btnCaja);
+
+		btnPedido = new JButton("Pedido");
+		btnPedido.setBounds(1286, 303, 317, 129);
+		panelInicio.add(btnPedido);
+
+		btnInventario = new JButton("Inventario");
+		btnInventario.setBounds(1286, 487, 317, 129);
+		panelInicio.add(btnInventario);
+
+		btnMusica = new JButton("Musica");
+		btnMusica.setBounds(1286, 667, 317, 129);
+		panelInicio.add(btnMusica);
+		/*---------------------------------PANEL CAJA---------------------------------------------------*/
+
+		panelCaja = new JPanel();
+		panelCaja.setBounds(0, 0, 1684, 861);
+		contentPane.add(panelCaja);
+		panelCaja.setLayout(null);
+		panelCaja.setVisible(false);
+
+		/*---------------------------------PANEL PEDIDO---------------------------------------------------*/
+
+		panelPedido = new JPanel();
+		panelPedido.setBounds(0, 0, 1684, 861);
+		contentPane.add(panelPedido);
+		panelPedido.setLayout(null);
+		panelPedido.setVisible(false);
+
+		/*---------------------------------PANEL MUSICA---------------------------------------------------*/
+
+		panelMusica = new JPanel();
+		panelMusica.setBounds(0, 0, 1684, 861);
+		contentPane.add(panelMusica);
+		panelMusica.setLayout(null);
+		panelMusica.setVisible(false);
 
 	}
 }
