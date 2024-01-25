@@ -48,6 +48,19 @@ public class Controlador implements ActionListener {
 		this.pedido = pedido;
 		this.refresco = refresco;
 		this.vino = vino;
+		this.vista.btnCaja.addActionListener(this);
+		this.vista.btnPedido.addActionListener(this);
+		this.vista.btnInventario.addActionListener(this);
+		this.vista.btnMusica.addActionListener(this);
+		this.vista.btnMesa1.addActionListener(this);
+		this.vista.btnMesa2.addActionListener(this);
+		this.vista.btnMesa3.addActionListener(this);
+		this.vista.btnMesa4.addActionListener(this);
+		this.vista.btnMesa5.addActionListener(this);
+		this.vista.btnMesa6.addActionListener(this);
+		this.vista.btnMesa7.addActionListener(this);
+		this.vista.btnBarra.addActionListener(this);
+
 	}// FIN CONSTRUCTOR
 
 	@Override
