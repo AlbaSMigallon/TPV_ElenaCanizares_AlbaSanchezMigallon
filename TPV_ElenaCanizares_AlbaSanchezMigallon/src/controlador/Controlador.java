@@ -63,7 +63,28 @@ public class Controlador implements ActionListener {
 		 * int selectedIndex = comboBox.getSelectedIndex();
 		 * musica.lanzar(selectedIndex);
 		 */
-		
-		
+
 	}// FIN ACTION PERFORMED
+	/*
+	 * Controlador.vista.getList().addListSelectionListener(new
+	 * ListSelectionListener() {
+	 * 
+	 * @Override public void valueChanged(ListSelectionEvent e) { if
+	 * (!e.getValueIsAdjusting()) { // Obtenemos el índice del elemento clicado int
+	 * indice = vista.getList().getSelectedIndex(); if (indice != -1) {
+	 * vista.getComboBoxComensales().setSelectedIndex(0);
+	 * vista.getPanelPedidos().setVisible(true);
+	 * vista.getTextAreaMesas().setVisible(true); if (mesasSeleccionado) {
+	 * if(!mesas.get(indice).isServido()) {
+	 * vista.getBtnCrearComanda().setText("Crear comanda");
+	 * vista.getTextAreaMesas().setText(mesas.get(indice).getId() +
+	 * " sin clientes"); }else { vista.getBtnCrearComanda().setText("Añadir");
+	 * vista.getTextAreaMesas().setText(mesas.get(indice).toString()); } } else if
+	 * (barraSeleccionado) { if(!barras.get(indice).isServido()) {
+	 * vista.getBtnCrearComanda().setText("Crear comanda");
+	 * vista.getTextAreaMesas().setText(barras.get(indice).getId() +
+	 * " sin clientes"); }else { vista.getBtnCrearComanda().setText("Añadir");
+	 * vista.getTextAreaMesas().setText(barras.get(indice).toString()); } } } else {
+	 * vista.getTextAreaMesas().setText(""); } } } });
+	 */
 }
