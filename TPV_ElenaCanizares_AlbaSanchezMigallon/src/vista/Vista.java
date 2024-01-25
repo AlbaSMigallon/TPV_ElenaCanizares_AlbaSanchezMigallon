@@ -25,9 +25,9 @@ import javax.swing.JScrollBar;
 public class Vista extends JFrame {
 
 	public static final long serialVersionUID = 1L;
-	public JPanel contentPane, panelInicio, panelCocteleria, panelCaja, panelPedido, panelInventario, panelMusica;
+	public JPanel contentPane, panelInicio, panelCocteleria, panelCaja, panelPedido, panelInventario, panelMusica,panelPedidoNuevo;
 	public JLabel lblInicio;
-	public JList listRefrescos, listCerveza;
+	public JList listRefrescos, listCerveza, listPedido;
 	public JButton btnCaja, btnPedido, btnInventario, btnMusica, btnMesa1, btnMesa2, btnMesa3, btnMesa4, btnMesa5,
 			btnMesa6, btnMesa7, btnBarra, btnAceptarCambios, btnRevertirCambios;
 	public JSpinner spinnerCantidadRefrescos, spinnerCantidadCerveza;
@@ -60,6 +60,12 @@ public class Vista extends JFrame {
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+
+		panelPedido = new JPanel();
+		panelPedido.setBounds(0, 0, 1684, 861);
+		contentPane.add(panelPedido);
+		panelPedido.setLayout(null);
+		panelPedido.setVisible(false);
 
 		panelInicio = new JPanel();
 		panelInicio.setBounds(0, 0, 1684, 861);
@@ -237,11 +243,22 @@ public class Vista extends JFrame {
 
 		/*---------------------------------PANEL PEDIDO---------------------------------------------------*/
 
-		panelPedido = new JPanel();
-		panelPedido.setBounds(0, 0, 1684, 861);
-		contentPane.add(panelPedido);
-		panelPedido.setLayout(null);
-		panelPedido.setVisible(false);
+		listPedido = new JList();
+		listPedido.setBounds(1263, 46, 295, 336);
+
+		JScrollPane scrollPanePedido = new JScrollPane(listPedido);
+		scrollPanePedido.setBounds(1263, 46, 295, 336);
+		panelPedido.add(scrollPanePedido);
+		JScrollBar verticalScrollBarPedido = new JScrollBar(JScrollBar.VERTICAL);
+		scrollPanePedido.setHorizontalScrollBar(verticalScrollBarPedido);
+
+		/*---------------------------------PANEL PEDIDO NUEVO---------------------------------------------------*/
+
+		panelPedidoNuevo = new JPanel();
+		panelPedidoNuevo.setBounds(0, 0, 1684, 861);
+		contentPane.add(panelCaja);
+		panelPedidoNuevo.setLayout(null);
+		panelPedidoNuevo.setVisible(false);
 
 		/*---------------------------------PANEL MUSICA---------------------------------------------------*/
 

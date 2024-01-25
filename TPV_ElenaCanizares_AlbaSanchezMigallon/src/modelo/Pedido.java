@@ -23,4 +23,13 @@ public class Pedido {
 		return pedido;
 	}
 
+	public boolean esOcupada() {
+		return esOcupada;
+	}
+
+	public void setEsOcupada(boolean esOcupada) {
+		this.esOcupada = esOcupada;
+	}
+
+
 }// FIN CLASS

@@ -1,11 +1,13 @@
 package controlador;
 
 import vista.Vista;
+import java.util.*;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -105,6 +107,21 @@ public class Controlador implements ActionListener {
 		if (e.getSource() == vista.btnRevertirCambios) {
 			eliminarCambios();
 		} // ELIMINAR CAMBIOS
+		if (e.getSource() == vista.btnMesa1) {
+			int numeroMesa = 1; // Cambia esto según la mesa que corresponda al botón
+			Pedido pedidoMesa = obtenerPedidoPorNumeroMesa(numeroMesa);
+
+			if (pedidoMesa != null && pedidoMesa.esOcupada()) {
+				System.out.println("Mesa ocupada. Mostrando pedido...");
+				vista.panelInicio.setVisible(false);
+				vista.panelPedido.setVisible(true);
+				mostrarPedido("Mesa " + numeroMesa);
+			} else {
+				System.out.println("Mesa no ocupada. Redirigiendo a nuevo pedido...");
+				vista.panelInicio.setVisible(false);
+				vista.panelPedidoNuevo.setVisible(true);
+			}
+		}
 
 		// SUMA LAS CANTIDADES DE BEBIDAS DEL PEDIDO
 		HashMap<String, Integer> cantidadesTotalesSumarEjemplo = Suma.sumarCantidades(pedido.getBebidasPedido());
@@ -119,6 +136,78 @@ public class Controlador implements ActionListener {
 		 */
 
 	}// FIN actionPerformed
+
+	private void mostrarPedido(String mesaNombre) {
+	    // Obtenemos el id de la mesa por su nombre
+	    int numeroMesa = Integer.parseInt(mesaNombre.split(" ")[1]);
+
+	    // Obtenemos la información de la mesa y su pedido
+	    Pedido pedidoMesa = obtenerPedidoPorNumeroMesa(numeroMesa);
+
+	    // Verificamos si hay un pedido y si la mesa está ocupada
+	    boolean mesaOcupada = pedidoMesa != null && pedidoMesa.esOcupada();
+
+	    if (mesaOcupada) {
+	        // La mesa está ocupada, mostramos el panel de pedido con la información
+	        vista.panelInicio.setVisible(false);
+	        vista.panelPedido.setVisible(true);
+
+	        // Limpiamos el modelo del JList antes de agregar nuevos elementos
+	        DefaultListModel<String> model = new DefaultListModel<>();
+	        vista.listPedido.setModel(model);
+
+	        // Asumiendo que el pedido es un HashMap<String, Integer>
+	        HashMap<String, Integer> bebidasPedido = pedidoMesa.getBebidasPedido();
+
+	        // Llenamos el modelo del JList con los elementos del pedido
+	        for (HashMap.Entry<String, Integer> entry : bebidasPedido.entrySet()) {
+	            String bebida = entry.getKey();
+	            int cantidad = entry.getValue();
+	            model.addElement(bebida + " - Cantidad: " + cantidad);
+	        }
+	    } else {
+	        // La mesa no está ocupada, mostramos el panelNuevoPedido
+	        vista.panelInicio.setVisible(false);
+	        vista.panelPedidoNuevo.setVisible(true);
+	    }
+	}
+
+	private Pedido obtenerPedidoPorNumeroMesa(int numeroMesa) {
+
+		// Ejemplo ficticio para prueba de a que panel lleva dependiendo del booleano
+		if (numeroMesa == 1) {
+			Pedido pedido = new Pedido();
+			pedido.agregarBebida("Cerveza", 2);
+			pedido.setEsOcupada(true);
+			return pedido;
+		} else {
+			return null;
+		}
+	}
+
+	// Método ficticio para obtener información de la mesa (debes implementar tu
+	// lógica real aquí)
+	private String[] construirDatosMesa(long idMesa, boolean esOcupada, HashMap<String, Integer> bebidasPedido) {
+		ArrayList<String> datosMesa = new ArrayList<>();
+
+		// Añadir el id de la mesa
+		datosMesa.add("ID de la Mesa: " + idMesa);
+
+		// Añadir estado de ocupación
+		String estadoOcupacion = esOcupada ? "Ocupada" : "Libre";
+		datosMesa.add("Estado: " + estadoOcupacion);
+
+		// Añadir información del pedido
+		datosMesa.add("Pedido:");
+		for (HashMap.Entry<String, Integer> entry : bebidasPedido.entrySet()) {
+			String bebida = entry.getKey();
+			int cantidad = entry.getValue();
+			datosMesa.add("  - " + bebida + ": " + cantidad);
+		}
+
+		// Convertir el ArrayList a un array de strings
+		return datosMesa.toArray(new String[0]);
+	}
 
 	private void listarRefrescos() {
 		// Obtenemos el HashMap de refrescos y cantidades desde la instancia de la clase
