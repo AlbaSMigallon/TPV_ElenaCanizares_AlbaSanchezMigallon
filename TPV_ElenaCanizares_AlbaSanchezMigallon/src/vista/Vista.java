@@ -17,6 +17,7 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JList;
 import javax.swing.JSpinner;
+import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
 import javax.swing.JComboBox;
 import java.awt.ScrollPane;
@@ -25,11 +26,12 @@ import javax.swing.JScrollBar;
 public class Vista extends JFrame {
 
 	public static final long serialVersionUID = 1L;
-	public JPanel contentPane, panelInicio, panelCocteleria, panelCaja, panelPedido, panelInventario, panelMusica,panelPedidoNuevo;
+	public JPanel contentPane, panelInicio, panelCocteleria, panelCaja, panelPedido, panelInventario, panelMusica,
+			panelPedidoNuevo;
 	public JLabel lblInicio;
-	public JList listRefrescos, listCerveza, listPedido;
+	public JList listRefrescos, listCerveza, listPedido, listRefrescospanelPedidoNuevo, listPedidoMesa;
 	public JButton btnCaja, btnPedido, btnInventario, btnMusica, btnMesa1, btnMesa2, btnMesa3, btnMesa4, btnMesa5,
-			btnMesa6, btnMesa7, btnBarra, btnAceptarCambios, btnRevertirCambios;
+			btnMesa6, btnMesa7, btnBarra, btnAceptarCambios, btnRevertirCambios, btnRefrescos, btnAnadirAlPedido;
 	public JSpinner spinnerCantidadRefrescos, spinnerCantidadCerveza;
 
 	/**
@@ -60,6 +62,10 @@ public class Vista extends JFrame {
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		panelPedidoNuevo = new JPanel();
+		panelPedidoNuevo.setBounds(0, 0, 1684, 861);
+		contentPane.add(panelPedidoNuevo);
+		panelPedidoNuevo.setLayout(null);
 
 		panelPedido = new JPanel();
 		panelPedido.setBounds(0, 0, 1684, 861);
@@ -253,12 +259,34 @@ public class Vista extends JFrame {
 		scrollPanePedido.setHorizontalScrollBar(verticalScrollBarPedido);
 
 		/*---------------------------------PANEL PEDIDO NUEVO---------------------------------------------------*/
-
-		panelPedidoNuevo = new JPanel();
-		panelPedidoNuevo.setBounds(0, 0, 1684, 861);
-		contentPane.add(panelCaja);
-		panelPedidoNuevo.setLayout(null);
+		btnRefrescos = new JButton("Refrescos");
+		btnRefrescos.setBounds(587, 11, 170, 114);
+		panelPedidoNuevo.add(btnRefrescos);
 		panelPedidoNuevo.setVisible(false);
+
+		listRefrescospanelPedidoNuevo = new JList();
+		listRefrescospanelPedidoNuevo.setBounds(69, 29, 261, 72);
+
+		JScrollPane scrollPaneRefrescospanelPedidoNuevo = new JScrollPane(listRefrescospanelPedidoNuevo);
+		scrollPaneRefrescospanelPedidoNuevo.setBounds(69, 29, 261, 72);
+		panelPedidoNuevo.add(scrollPaneRefrescospanelPedidoNuevo);
+
+		JScrollBar verticalScrollBarRefrescospanelPedidoNuevo = new JScrollBar(JScrollBar.VERTICAL);
+		scrollPaneRefrescospanelPedidoNuevo.setHorizontalScrollBar(verticalScrollBarRefrescospanelPedidoNuevo);
+
+		listPedidoMesa = new JList();
+		listPedidoMesa.setBounds(200, 200, 200, 200);
+
+		JScrollPane scrollPanePedidoMesa = new JScrollPane(listPedidoMesa);
+		scrollPanePedidoMesa.setBounds(200, 200, 200, 200);
+		panelPedidoNuevo.add(scrollPanePedidoMesa);
+
+		JScrollBar verticalScrollBarPedidoMesa = new JScrollBar(JScrollBar.VERTICAL);
+		scrollPanePedidoMesa.setHorizontalScrollBar(verticalScrollBarPedidoMesa);
+
+		btnAnadirAlPedido = new JButton("AÑADIR AL PEDIDO");
+		btnAnadirAlPedido.setBounds(871, 40, 145, 90);
+		panelPedidoNuevo.add(btnAnadirAlPedido);
 
 		/*---------------------------------PANEL MUSICA---------------------------------------------------*/
 
