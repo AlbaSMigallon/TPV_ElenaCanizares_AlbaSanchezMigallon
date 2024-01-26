@@ -1,28 +1,25 @@
 package modelo;
 
-import java.util.ArrayList;
-
 public class Mesa {
-    private ArrayList<String> mesas;
-    private Pedido pedido;  // Agregar un campo de tipo Pedido
+	private int numeroMesa;
+	private Pedido pedido;
 
-    public Mesa() {
-        mesas = new ArrayList<>();
-        for (int i = 1; i <= 7; i++) {
-            mesas.add("Mesa " + i);
-        }
-        
-        // Crear una instancia de Pedido para cada mesa
-        pedido = new Pedido();
-    }
+	public Mesa() {
 
-    public ArrayList<String> getMesas() {
-        return mesas;
-    }
+	}
 
-    public Pedido getPedido() {
-        return pedido;
-    }
+	public Mesa(int numeroMesa) {
+		this.numeroMesa = numeroMesa;
+	}
 
-    // Puedes agregar otros métodos relacionados con la mesa y su pedido si es necesario
+	public int getNumeroMesa() {
+		return numeroMesa;
+	}
+
+	public Pedido getPedido() {
+		if (pedido == null) {
+			pedido = new Pedido();
+		}
+		return pedido;
+	}
 }

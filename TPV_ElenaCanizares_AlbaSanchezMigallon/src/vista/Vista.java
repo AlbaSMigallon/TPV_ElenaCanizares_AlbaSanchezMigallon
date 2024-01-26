@@ -1,4 +1,5 @@
 package vista;
+
 import javax.swing.DefaultListModel;
 import java.awt.Color;
 import java.awt.EventQueue;
@@ -31,9 +32,10 @@ public class Vista extends JFrame {
 	public JLabel lblInicio;
 	public JList listRefrescos, listCerveza, listPedido, listRefrescospanelPedidoNuevo;
 	public JButton btnCaja, btnPedido, btnInventario, btnMusica, btnMesa1, btnMesa2, btnMesa3, btnMesa4, btnMesa5,
-			btnMesa6, btnMesa7, btnBarra, btnAceptarCambios, btnRevertirCambios, btnRefrescos, btnAnadirAlPedido;
+			btnMesa6, btnMesa7, btnBarra, btnAceptarCambios, btnRevertirCambios, btnRefrescos, btnAnadirAlPedido,btnVolverInicio;
 	public JSpinner spinnerCantidadRefrescos, spinnerCantidadCerveza;
 	public JList<String> listPedidoMesa;
+
 	/**
 	 * Launch the application.
 	 */
@@ -62,16 +64,25 @@ public class Vista extends JFrame {
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		panelPedidoNuevo = new JPanel();
-		panelPedidoNuevo.setBounds(0, 0, 1684, 861);
-		contentPane.add(panelPedidoNuevo);
-		panelPedidoNuevo.setLayout(null);
 
 		panelPedido = new JPanel();
 		panelPedido.setBounds(0, 0, 1684, 861);
 		contentPane.add(panelPedido);
 		panelPedido.setLayout(null);
 		panelPedido.setVisible(false);
+
+		listPedido = new JList();
+		listPedido.setBounds(1263, 46, 295, 336);
+
+		JScrollPane scrollPanePedido = new JScrollPane(listPedido);
+		scrollPanePedido.setBounds(1263, 46, 295, 336);
+		panelPedido.add(scrollPanePedido);
+		JScrollBar verticalScrollBarPedido = new JScrollBar(JScrollBar.VERTICAL);
+		scrollPanePedido.setHorizontalScrollBar(verticalScrollBarPedido);
+		panelPedidoNuevo = new JPanel();
+		panelPedidoNuevo.setBounds(0, 0, 1684, 861);
+		contentPane.add(panelPedidoNuevo);
+		panelPedidoNuevo.setLayout(null);
 
 		panelInicio = new JPanel();
 		panelInicio.setBounds(0, 0, 1684, 861);
@@ -249,15 +260,6 @@ public class Vista extends JFrame {
 
 		/*---------------------------------PANEL PEDIDO---------------------------------------------------*/
 
-		listPedido = new JList();
-		listPedido.setBounds(1263, 46, 295, 336);
-
-		JScrollPane scrollPanePedido = new JScrollPane(listPedido);
-		scrollPanePedido.setBounds(1263, 46, 295, 336);
-		panelPedido.add(scrollPanePedido);
-		JScrollBar verticalScrollBarPedido = new JScrollBar(JScrollBar.VERTICAL);
-		scrollPanePedido.setHorizontalScrollBar(verticalScrollBarPedido);
-
 		/*---------------------------------PANEL PEDIDO NUEVO---------------------------------------------------*/
 		btnRefrescos = new JButton("Refrescos");
 		btnRefrescos.setBounds(587, 11, 170, 114);
@@ -275,11 +277,11 @@ public class Vista extends JFrame {
 		scrollPaneRefrescospanelPedidoNuevo.setHorizontalScrollBar(verticalScrollBarRefrescospanelPedidoNuevo);
 
 		listPedidoMesa = new JList();
-		
+
 		// Después del cambio
 		DefaultListModel<String> modelPedido = new DefaultListModel<>();
 		listPedidoMesa = new JList<>(modelPedido);
-		
+
 		listPedidoMesa.setBounds(200, 173, 397, 227);
 
 		JScrollPane scrollPanePedidoMesa = new JScrollPane(listPedidoMesa);
@@ -292,6 +294,10 @@ public class Vista extends JFrame {
 		btnAnadirAlPedido = new JButton("AÑADIR AL PEDIDO");
 		btnAnadirAlPedido.setBounds(871, 40, 145, 90);
 		panelPedidoNuevo.add(btnAnadirAlPedido);
+		
+		btnVolverInicio = new JButton("VOLVER A INICIO");
+		btnVolverInicio.setBounds(0, 0, 89, 23);
+		panelPedidoNuevo.add(btnVolverInicio);
 
 		/*---------------------------------PANEL MUSICA---------------------------------------------------*/
 
