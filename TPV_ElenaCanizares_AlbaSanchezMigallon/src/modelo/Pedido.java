@@ -5,6 +5,7 @@ import java.util.HashMap;
 public class Pedido {
     private boolean esOcupada;
     private HashMap<String, Integer> bebidasPedido;
+    
 
     public Pedido() {
         this.bebidasPedido = new HashMap<>();

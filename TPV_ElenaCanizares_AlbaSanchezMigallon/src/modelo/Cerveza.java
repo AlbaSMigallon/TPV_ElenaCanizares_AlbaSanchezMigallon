@@ -11,9 +11,9 @@ public class Cerveza {
 	public Cerveza() {
 		this.cervezas = new HashMap<>();
 		cervezas.put("Cerveza 1", new InfoCerveza("Cerveza 1", 15, 2));
-		cervezas.put("Cerveza 2", new InfoCerveza("Cerveza 2", 16, 2.5));
+		cervezas.put("Cerveza 2", new InfoCerveza("Cerveza 2", 16, 2));
 		cervezas.put("Cerveza 3", new InfoCerveza("Cerveza 3", 15, 2));
-		cervezas.put("Cerveza 4", new InfoCerveza("Cerveza 4", 16, 2.5));
+		cervezas.put("Cerveza 4", new InfoCerveza("Cerveza 4", 16, 2));
 		guardarCantidadesOriginales();
 	}
 
@@ -47,9 +47,9 @@ public class Cerveza {
 	public static class InfoCerveza {
 		private String nombre;
 		private int cantidad;
-		private double precio;
+		private int precio;
 
-		public InfoCerveza(String nombre, int cantidad, double precio) {
+		public InfoCerveza(String nombre, int cantidad, int precio) {
 			this.nombre = nombre;
 			this.cantidad = cantidad;
 			this.precio = precio;
@@ -67,7 +67,7 @@ public class Cerveza {
 			this.cantidad = cantidad;
 		}
 
-		public double getPrecio() {
+		public int getPrecio() {
 			return precio;
 		}
 	}
