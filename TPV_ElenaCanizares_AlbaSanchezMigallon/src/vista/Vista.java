@@ -1,5 +1,5 @@
 package vista;
-
+import javax.swing.DefaultListModel;
 import java.awt.Color;
 import java.awt.EventQueue;
 
@@ -29,11 +29,11 @@ public class Vista extends JFrame {
 	public JPanel contentPane, panelInicio, panelCocteleria, panelCaja, panelPedido, panelInventario, panelMusica,
 			panelPedidoNuevo;
 	public JLabel lblInicio;
-	public JList listRefrescos, listCerveza, listPedido, listRefrescospanelPedidoNuevo, listPedidoMesa;
+	public JList listRefrescos, listCerveza, listPedido, listRefrescospanelPedidoNuevo;
 	public JButton btnCaja, btnPedido, btnInventario, btnMusica, btnMesa1, btnMesa2, btnMesa3, btnMesa4, btnMesa5,
 			btnMesa6, btnMesa7, btnBarra, btnAceptarCambios, btnRevertirCambios, btnRefrescos, btnAnadirAlPedido;
 	public JSpinner spinnerCantidadRefrescos, spinnerCantidadCerveza;
-
+	public JList<String> listPedidoMesa;
 	/**
 	 * Launch the application.
 	 */
@@ -275,14 +275,19 @@ public class Vista extends JFrame {
 		scrollPaneRefrescospanelPedidoNuevo.setHorizontalScrollBar(verticalScrollBarRefrescospanelPedidoNuevo);
 
 		listPedidoMesa = new JList();
-		listPedidoMesa.setBounds(200, 200, 200, 200);
+		
+		// Después del cambio
+		DefaultListModel<String> modelPedido = new DefaultListModel<>();
+		listPedidoMesa = new JList<>(modelPedido);
+		
+		listPedidoMesa.setBounds(200, 173, 397, 227);
 
 		JScrollPane scrollPanePedidoMesa = new JScrollPane(listPedidoMesa);
-		scrollPanePedidoMesa.setBounds(200, 200, 200, 200);
+		scrollPanePedidoMesa.setBounds(200, 173, 397, 227);
 		panelPedidoNuevo.add(scrollPanePedidoMesa);
 
 		JScrollBar verticalScrollBarPedidoMesa = new JScrollBar(JScrollBar.VERTICAL);
-		scrollPanePedidoMesa.setHorizontalScrollBar(verticalScrollBarPedidoMesa);
+		scrollPanePedidoMesa.setVerticalScrollBar(verticalScrollBarPedidoMesa);
 
 		btnAnadirAlPedido = new JButton("AÑADIR AL PEDIDO");
 		btnAnadirAlPedido.setBounds(871, 40, 145, 90);
