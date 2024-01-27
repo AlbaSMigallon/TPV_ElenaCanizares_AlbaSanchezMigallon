@@ -578,60 +578,54 @@ public class Controlador implements ActionListener, ListSelectionListener {
 
 	@Override
 	public void valueChanged(ListSelectionEvent e) {
-		System.out.println(e);
 		if (!e.getValueIsAdjusting()) {
-			// Check if the source of the event is the listRefrescos
-			if (e.getSource() == vista.listRefrescos) {
+			Object source = e.getSource();
+
+			int listIdentifier = 0;
+
+			if (source == vista.listRefrescos) {
+				listIdentifier = 1;
+			} else if (source == vista.listCerveza) {
+				listIdentifier = 2;
+			} else if (source == vista.listRefrescospanelPedidoNuevo) {
+				listIdentifier = 3;
+				updateUltimaSeleccionLista(vista.listRefrescospanelPedidoNuevo);
+			} else if (source == vista.listCervezaspanelPedidoNuevo) {
+				listIdentifier = 4;
+				updateUltimaSeleccionLista(vista.listCervezaspanelPedidoNuevo);
+			} else if (source == vista.listPedidoMesa) {
+				listIdentifier = 5;
+			}
+
+			switch (listIdentifier) {
+			case 1:
 				handleListSelection(vista.listRefrescos, vista.spinnerCantidadRefrescos);
-			}
-			// Check if the source of the event is the listCerveza
-			else if (e.getSource() == vista.listCerveza) {
-				// Remove the handleListSelection call for listCerveza
-				// handleListSelection(vista.listCerveza, vista.spinnerCantidadCerveza);
-			}
-			// Check if the source of the event is the listRefrescospanelPedidoNuevo
-			else if (e.getSource() == vista.listRefrescospanelPedidoNuevo) {
-				if (ultimaSeleccionLista != vista.listRefrescospanelPedidoNuevo) {
-					if (ultimaSeleccionLista != null) {
-						ultimaSeleccionLista.clearSelection();
-					}
-					ultimaSeleccionLista = vista.listRefrescospanelPedidoNuevo;
-				}
-			}
-			// Verify if there is a mesa selected before allowing changes
-			if (!mesaSeleccionada.isEmpty()) {
+				break;
+			case 2:
+				handleListSelection(vista.listCerveza, vista.spinnerCantidadCerveza);
+				break;
+			case 3:
 				handleListSelection(vista.listRefrescospanelPedidoNuevo, vista.spinnerCantidadRefrescos);
-			} else {
-				// Show an error message indicating that a mesa must be selected
-				JOptionPane.showMessageDialog(vista, "Seleccione una mesa antes de añadir bebidas al pedido.", "Error",
-						JOptionPane.ERROR_MESSAGE);
-			}
-
-		} else if (e.getSource() == vista.listCervezaspanelPedidoNuevo) {
-			if (ultimaSeleccionLista != vista.listCervezaspanelPedidoNuevo) {
-				if (ultimaSeleccionLista != null) {
-					ultimaSeleccionLista.clearSelection();
-				}
-
-				ultimaSeleccionLista = vista.listCervezaspanelPedidoNuevo;
-			}
-			// Verify if there is a mesa selected before allowing changes
-			if (!mesaSeleccionada.isEmpty()) {
+				break;
+			case 4:
 				handleListSelection(vista.listCervezaspanelPedidoNuevo, vista.spinnerCantidadCerveza);
-			} else {
-				// Show an error message indicating that a mesa must be selected
-				JOptionPane.showMessageDialog(vista, "Seleccione una mesa antes de añadir bebidas al pedido.", "Error",
-						JOptionPane.ERROR_MESSAGE);
+				break;
+			case 5:
+				int numeroMesa = vista.listPedidoMesa.getSelectedIndex() + 1;
+				actualizarListaPedidosMesa(numeroMesa);
+				break;
+			default:
+				// Manejo de excepcion si hace falta
 			}
-
 		}
-		// Check if the source of the event is the listPedidoMesa
-		if (e.getSource() == vista.listPedidoMesa && !e.getValueIsAdjusting()) {
-			// Obtén la mesa seleccionada
-			int numeroMesa = vista.listPedidoMesa.getSelectedIndex() + 1;
+	}
 
-			// Actualiza la lista de pedidos para la mesa seleccionada
-			actualizarListaPedidosMesa(numeroMesa);
+	private void updateUltimaSeleccionLista(JList<?> currentList) {
+		if (ultimaSeleccionLista != currentList) {
+			if (ultimaSeleccionLista != null) {
+				ultimaSeleccionLista.clearSelection();
+			}
+			ultimaSeleccionLista = currentList;
 		}
 	}
 
