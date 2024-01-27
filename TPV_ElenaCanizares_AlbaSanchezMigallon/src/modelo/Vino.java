@@ -47,9 +47,9 @@ public class Vino {
 	public static class InfoVino {
 		private String nombre;
 		private int cantidad;
-		private double precio;
+		private int precio;
 
-		public InfoVino(String nombre, int cantidad, double precio) {
+		public InfoVino(String nombre, int cantidad, int precio) {
 			this.nombre = nombre;
 			this.cantidad = cantidad;
 			this.precio = precio;
@@ -67,7 +67,7 @@ public class Vino {
 			this.cantidad = cantidad;
 		}
 
-		public double getPrecio() {
+		public int getPrecio() {
 			return precio;
 		}
 	}// FIN INFOVINO

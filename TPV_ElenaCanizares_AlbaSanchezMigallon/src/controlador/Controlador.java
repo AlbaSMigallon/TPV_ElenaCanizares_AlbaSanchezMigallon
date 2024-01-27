@@ -20,10 +20,13 @@ import modelo.Aperitivo;
 import modelo.Aperitivo.InfoAperitivo;
 import modelo.Barra;
 import modelo.Botella;
+import modelo.Botella.InfoBotella;
 import modelo.Cerveza;
 import modelo.Cerveza.InfoCerveza;
 import modelo.Coctel;
+import modelo.Coctel.InfoCoctel;
 import modelo.Ingrediente;
+import modelo.Ingrediente.InfoIngrediente;
 import modelo.Inventario;
 import modelo.Mesa;
 import modelo.Musica;
@@ -31,6 +34,7 @@ import modelo.Pedido;
 import modelo.Refresco;
 import modelo.Refresco.InfoRefresco;
 import modelo.Vino;
+import modelo.Vino.InfoVino;
 import modelo.GestorDePedidos;
 import persistencias.Resta;
 import persistencias.Suma;
@@ -131,6 +135,10 @@ public class Controlador implements ActionListener, ListSelectionListener {
 			listarRefrescos();
 			listarCervezas();
 			listarAperitivos();
+			listarBotellas();
+			listarCocktels();
+			listarIngredientes();
+			listarVinos();
 
 		} // PANEL INVENTARIO
 		if (e.getSource() == vista.btnMusica) {
@@ -142,6 +150,10 @@ public class Controlador implements ActionListener, ListSelectionListener {
 			actualizarCantidadSeleccionada("Refresco");
 			actualizarCantidadSeleccionada("Cerveza");
 			actualizarCantidadSeleccionada("Aperitivo");
+			actualizarCantidadSeleccionada("Botella");
+			actualizarCantidadSeleccionada("Cocktel");
+			actualizarCantidadSeleccionada("Ingrediente");
+			actualizarCantidadSeleccionada("Vino");
 		} // ACTUALIZAR CAMBIOS
 
 		if (e.getSource() == vista.btnRevertirCambios) {
@@ -513,7 +525,91 @@ public class Controlador implements ActionListener, ListSelectionListener {
 		// cantidad, no el precio
 		JSpinner.NumberEditor editor = new JSpinner.NumberEditor(vista.spinnerCantidadAperitivos, "#");
 		vista.spinnerCantidadAperitivos.setEditor(editor);
-	}// FIN LISTAR REFRESCOS
+	}// FIN LISTAR APERITIVOS
+
+	private void listarBotellas() {
+		// Obtenemos el HashMap de refrescos y cantidades desde la instancia de la clase
+		HashMap<String, InfoBotella> listaBotellas = botella.getBotellas();
+
+		// Limpiamos el modelo del JList antes de agregar nuevos elementos
+		DefaultListModel<String> model = new DefaultListModel<>();
+		vista.listBotellas.setModel(model);
+
+		// Llenamos el modelo del JList con los elementos del HashMap
+		for (HashMap.Entry<String, InfoBotella> entry : listaBotellas.entrySet()) {
+			InfoBotella info = entry.getValue();
+			model.addElement(
+					info.getNombre() + " - Cantidad: " + info.getCantidad() + " - Precio: " + info.getPrecio());
+		}
+
+		// Configuramos el spinnerCantidad para que solo nos permita modificar la
+		// cantidad, no el precio
+		JSpinner.NumberEditor editor = new JSpinner.NumberEditor(vista.spinnerCantidadBotellas, "#");
+		vista.spinnerCantidadBotellas.setEditor(editor);
+	}// FIN LISTAR BOTELLAS
+
+	private void listarCocktels() {
+		// Obtenemos el HashMap de refrescos y cantidades desde la instancia de la clase
+		HashMap<String, InfoCoctel> listaCocktels = coctel.getCocteles();
+
+		// Limpiamos el modelo del JList antes de agregar nuevos elementos
+		DefaultListModel<String> model = new DefaultListModel<>();
+		vista.listCocktels.setModel(model);
+
+		// Llenamos el modelo del JList con los elementos del HashMap
+		for (HashMap.Entry<String, InfoCoctel> entry : listaCocktels.entrySet()) {
+			InfoCoctel info = entry.getValue();
+			model.addElement(
+					info.getNombre() + " - Cantidad: " + info.getCantidad() + " - Precio: " + info.getPrecio());
+		}
+
+		// Configuramos el spinnerCantidad para que solo nos permita modificar la
+		// cantidad, no el precio
+		JSpinner.NumberEditor editor = new JSpinner.NumberEditor(vista.spinnerCantidadCocktels, "#");
+		vista.spinnerCantidadCocktels.setEditor(editor);
+	}// FIN LISTAR COCKTELS
+
+	private void listarIngredientes() {
+		// Obtenemos el HashMap de refrescos y cantidades desde la instancia de la clase
+		HashMap<String, InfoIngrediente> listaIngredientes = ingrediente.getIngredientes();
+
+		// Limpiamos el modelo del JList antes de agregar nuevos elementos
+		DefaultListModel<String> model = new DefaultListModel<>();
+		vista.listIngredientes.setModel(model);
+
+		// Llenamos el modelo del JList con los elementos del HashMap
+		for (HashMap.Entry<String, InfoIngrediente> entry : listaIngredientes.entrySet()) {
+			InfoIngrediente info = entry.getValue();
+			model.addElement(
+					info.getNombre() + " - Cantidad: " + info.getCantidad() + " - Precio: " + info.getPrecio());
+		}
+
+		// Configuramos el spinnerCantidad para que solo nos permita modificar la
+		// cantidad, no el precio
+		JSpinner.NumberEditor editor = new JSpinner.NumberEditor(vista.spinnerCantidadIngredientes, "#");
+		vista.spinnerCantidadIngredientes.setEditor(editor);
+	}// FIN LISTAR INGREDIENTES
+
+	private void listarVinos() {
+		// Obtenemos el HashMap de refrescos y cantidades desde la instancia de la clase
+		HashMap<String, InfoVino> listaVinos = vino.getVinos();
+
+		// Limpiamos el modelo del JList antes de agregar nuevos elementos
+		DefaultListModel<String> model = new DefaultListModel<>();
+		vista.listVinos.setModel(model);
+
+		// Llenamos el modelo del JList con los elementos del HashMap
+		for (HashMap.Entry<String, InfoVino> entry : listaVinos.entrySet()) {
+			InfoVino info = entry.getValue();
+			model.addElement(
+					info.getNombre() + " - Cantidad: " + info.getCantidad() + " - Precio: " + info.getPrecio());
+		}
+
+		// Configuramos el spinnerCantidad para que solo nos permita modificar la
+		// cantidad, no el precio
+		JSpinner.NumberEditor editor = new JSpinner.NumberEditor(vista.spinnerCantidadVinos, "#");
+		vista.spinnerCantidadVinos.setEditor(editor);
+	}// FIN LISTAR VINOS
 
 	private void listarCervezas() {
 // Obtenemos el HashMap de cervezas y las cantidades desde la instancia de la clase
@@ -549,6 +645,18 @@ public class Controlador implements ActionListener, ListSelectionListener {
 		} else if ("Aperitivo".equals(tipoProducto)) {
 			model = (DefaultListModel<String>) vista.listAperitivos.getModel();
 			spinnerCantidad = vista.spinnerCantidadAperitivos;
+		} else if ("Botella".equals(tipoProducto)) {
+			model = (DefaultListModel<String>) vista.listBotellas.getModel();
+			spinnerCantidad = vista.spinnerCantidadBotellas;
+		} else if ("Cocktel".equals(tipoProducto)) {
+			model = (DefaultListModel<String>) vista.listCocktels.getModel();
+			spinnerCantidad = vista.spinnerCantidadCocktels;
+		} else if ("Ingrediente".equals(tipoProducto)) {
+			model = (DefaultListModel<String>) vista.listIngredientes.getModel();
+			spinnerCantidad = vista.spinnerCantidadIngredientes;
+		} else if ("Vino".equals(tipoProducto)) {
+			model = (DefaultListModel<String>) vista.listVinos.getModel();
+			spinnerCantidad = vista.spinnerCantidadVinos;
 		} else {
 			return;
 		}
@@ -561,6 +669,14 @@ public class Controlador implements ActionListener, ListSelectionListener {
 			selectedIndex = vista.listCerveza.getSelectedIndex();
 		} else if ("Aperitivo".equals(tipoProducto)) {
 			selectedIndex = vista.listAperitivos.getSelectedIndex();
+		} else if ("Botella".equals(tipoProducto)) {
+			selectedIndex = vista.listBotellas.getSelectedIndex();
+		} else if ("Cocktel".equals(tipoProducto)) {
+			selectedIndex = vista.listCocktels.getSelectedIndex();
+		} else if ("Ingrediente".equals(tipoProducto)) {
+			selectedIndex = vista.listIngredientes.getSelectedIndex();
+		} else if ("Vino".equals(tipoProducto)) {
+			selectedIndex = vista.listVinos.getSelectedIndex();
 		}
 
 		// Verificamos si hay un elemento seleccionado
@@ -591,6 +707,14 @@ public class Controlador implements ActionListener, ListSelectionListener {
 				cerveza.actualizarCantidad(nombreProducto, nuevaCantidad);
 			} else if ("Aperitivo".equals(tipoProducto)) {
 				aperitivo.actualizarCantidad(nombreProducto, nuevaCantidad);
+			} else if ("Botella".equals(tipoProducto)) {
+				botella.actualizarCantidad(nombreProducto, nuevaCantidad);
+			} else if ("Cocktel".equals(tipoProducto)) {
+				coctel.actualizarCantidad(nombreProducto, nuevaCantidad);
+			} else if ("Ingrediente".equals(tipoProducto)) {
+				ingrediente.actualizarCantidad(nombreProducto, nuevaCantidad);
+			} else if ("Vino".equals(tipoProducto)) {
+				vino.actualizarCantidad(nombreProducto, nuevaCantidad);
 			}
 			// Actualizamos el modelo del JList
 			if ("Refresco".equals(tipoProducto)) {
@@ -599,6 +723,14 @@ public class Controlador implements ActionListener, ListSelectionListener {
 				listarCervezas();
 			} else if ("Aperitivo".equals(tipoProducto)) {
 				listarAperitivos();
+			} else if ("Botella".equals(tipoProducto)) {
+				listarBotellas();
+			} else if ("Cocktel".equals(tipoProducto)) {
+				listarCocktels();
+			} else if ("Ingrediente".equals(tipoProducto)) {
+				listarIngredientes();
+			} else if ("Vino".equals(tipoProducto)) {
+				listarVinos();
 			}
 		}
 	}
@@ -615,11 +747,22 @@ public class Controlador implements ActionListener, ListSelectionListener {
 		// Restauramos las cantidades originales de los aperitivos
 		aperitivo.restaurarCantidadesOriginales();
 
+		// Restauramos las cantidades originales de las botellas
+		botella.restaurarCantidadesOriginales();
+		// Restauramos las cantidades originales de los cocktels
+		coctel.restaurarCantidadesOriginales();
+		// Restauramos las cantidades originales de los ingredientes
+		ingrediente.restaurarCantidadesOriginales();
+		// Restauramos las cantidades originales de los vinos
+		vino.restaurarCantidadesOriginales();
 		// Actualizamos el modelo de JList para refrescos y cervezas
 		listarRefrescos();
 		listarCervezas();
 		listarAperitivos();
-
+		listarBotellas();
+		listarCocktels();
+		listarIngredientes();
+		listarVinos();
 	}// FIN eliminarCambios
 
 	@Override
@@ -635,14 +778,22 @@ public class Controlador implements ActionListener, ListSelectionListener {
 				listIdentifier = 2;
 			} else if (source == vista.listAperitivos) {
 				listIdentifier = 3;
-			} else if (source == vista.listRefrescospanelPedidoNuevo) {
+			} else if (source == vista.listBotellas) {
 				listIdentifier = 4;
+			} else if (source == vista.listCocktels) {
+				listIdentifier = 5;
+			} else if (source == vista.listIngredientes) {
+				listIdentifier = 6;
+			} else if (source == vista.listVinos) {
+				listIdentifier = 7;
+			} else if (source == vista.listRefrescospanelPedidoNuevo) {
+				listIdentifier = 8;
 				updateUltimaSeleccionLista(vista.listRefrescospanelPedidoNuevo);
 			} else if (source == vista.listCervezaspanelPedidoNuevo) {
-				listIdentifier = 5;
+				listIdentifier = 9;
 				updateUltimaSeleccionLista(vista.listCervezaspanelPedidoNuevo);
 			} else if (source == vista.listPedidoMesa) {
-				listIdentifier = 6;
+				listIdentifier = 10;
 			}
 
 			switch (listIdentifier) {
@@ -656,12 +807,24 @@ public class Controlador implements ActionListener, ListSelectionListener {
 				handleListSelection(vista.listAperitivos, vista.spinnerCantidadAperitivos);
 				break;
 			case 4:
-				handleListSelection(vista.listRefrescospanelPedidoNuevo, vista.spinnerCantidadRefrescos);
+				handleListSelection(vista.listBotellas, vista.spinnerCantidadBotellas);
 				break;
 			case 5:
-				handleListSelection(vista.listCervezaspanelPedidoNuevo, vista.spinnerCantidadCerveza);
+				handleListSelection(vista.listCocktels, vista.spinnerCantidadCocktels);
 				break;
 			case 6:
+				handleListSelection(vista.listIngredientes, vista.spinnerCantidadIngredientes);
+				break;
+			case 7:
+				handleListSelection(vista.listVinos, vista.spinnerCantidadVinos);
+				break;
+			case 8:
+				handleListSelection(vista.listRefrescospanelPedidoNuevo, vista.spinnerCantidadRefrescos);
+				break;
+			case 9:
+				handleListSelection(vista.listCervezaspanelPedidoNuevo, vista.spinnerCantidadCerveza);
+				break;
+			case 10:
 				int numeroMesa = vista.listPedidoMesa.getSelectedIndex() + 1;
 				actualizarListaPedidosMesa(numeroMesa);
 				break;
@@ -689,10 +852,6 @@ public class Controlador implements ActionListener, ListSelectionListener {
 			// Hide the spinnerCantidad if no item is selected
 			spinner.setVisible(false);
 		}
-	}
-
-	private void inicializarListas() {
-		// Configura las listas iniciales, si es necesario
 	}
 
 	private void actualizarListaPedidosMesa(int numeroMesa) {
