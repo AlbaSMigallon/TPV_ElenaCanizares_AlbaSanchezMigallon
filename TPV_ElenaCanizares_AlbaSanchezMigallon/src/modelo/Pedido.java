@@ -12,8 +12,8 @@ public class Pedido {
     }
 
     public void agregarBebida(String nombreBebida, int cantidad) {
-        //bebidasPedido.put(nombreBebida, cantidad);
-    	bebidasPedido.merge(nombreBebida, cantidad, Integer::sum);
+        bebidasPedido.put(nombreBebida, cantidad);
+    	//bebidasPedido.merge(nombreBebida, cantidad, Integer::sum);
     }
 
     public void eliminarBebida(String nombreBebida, int cantidad) {
