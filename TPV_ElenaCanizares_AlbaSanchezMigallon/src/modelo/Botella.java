@@ -2,8 +2,12 @@ package modelo;
 
 import java.util.HashMap;
 
+import modelo.Aperitivo.InfoAperitivo;
+
 public class Botella {
     private HashMap<String, InfoBotella> botellas;
+	private HashMap<String, Integer> cantidadesOriginales;
+
 
     public Botella() {
         this.botellas = new HashMap<>();
@@ -13,12 +17,33 @@ public class Botella {
         botellas.put("Ginebra", new InfoBotella("Ginebra", 30, 30));
         botellas.put("Tequila", new InfoBotella("Tequila", 30, 35));
         botellas.put("Vermu", new InfoBotella("Vermu", 30, 15));
+        guardarCantidadesOriginales();
     }
 
     public HashMap<String, InfoBotella> getBotellas() {
 		return botellas;
 	}
+    public void actualizarCantidad(String nombreBotella, int nuevaCantidad) {
+		if (botellas.containsKey(nombreBotella)) {
+			InfoBotella detalle = botellas.get(nombreBotella);
+			detalle.setCantidad(nuevaCantidad);
+		}
+	}
 
+	private void guardarCantidadesOriginales() {
+		cantidadesOriginales = new HashMap<>();
+		for (InfoBotella infoBotella : botellas.values()) {
+			cantidadesOriginales.put(infoBotella.getNombre(), infoBotella.getCantidad());
+		}
+	}
+
+	public void restaurarCantidadesOriginales() {
+		for (InfoBotella infoBotella : botellas.values()) {
+			String nombreBotella = infoBotella.getNombre();
+			int cantidadOriginal = cantidadesOriginales.get(nombreBotella);
+			infoBotella.setCantidad(cantidadOriginal);
+		}
+	}
     // Clase interna para representar la información completa de una botella
     public static class InfoBotella {
         private String nombre;

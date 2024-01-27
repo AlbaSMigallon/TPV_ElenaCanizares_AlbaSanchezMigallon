@@ -269,7 +269,7 @@ public class Vista extends JFrame {
 		panelInventario.add(scrollPaneRefrescos);
 
 		JScrollBar verticalScrollBarRefrescos = new JScrollBar(JScrollBar.VERTICAL);
-		scrollPaneRefrescos.setHorizontalScrollBar(verticalScrollBarRefrescos);
+		scrollPaneRefrescos.setVerticalScrollBar(verticalScrollBarRefrescos);
 
 		spinnerCantidadRefrescos = new JSpinner();
 		spinnerCantidadRefrescos.setBounds(340, 49, 39, 33);
@@ -289,7 +289,7 @@ public class Vista extends JFrame {
 		panelInventario.add(scrollPaneInventario);
 
 		JScrollBar verticalScrollBarInventario = new JScrollBar(JScrollBar.VERTICAL);
-		scrollPaneInventario.setHorizontalScrollBar(verticalScrollBarInventario);
+		scrollPaneInventario.setVerticalScrollBar(verticalScrollBarInventario);
 
 		spinnerCantidadCerveza = new JSpinner();
 		spinnerCantidadCerveza.setBounds(340, 179, 39, 33);
@@ -310,7 +310,7 @@ public class Vista extends JFrame {
 		panelInventario.add(scrollPaneBotellas);
 
 		JScrollBar verticalScrollBarBotellas = new JScrollBar(JScrollBar.VERTICAL);
-		scrollPaneBotellas.setHorizontalScrollBar(verticalScrollBarBotellas);
+		scrollPaneBotellas.setVerticalScrollBar(verticalScrollBarBotellas);
 
 		spinnerCantidadBotellas = new JSpinner();
 		spinnerCantidadBotellas.setBounds(340, 309, 39, 33);
@@ -332,7 +332,7 @@ public class Vista extends JFrame {
 		panelInventario.add(scrollPaneCocktels);
 
 		JScrollBar verticalScrollBarCocktels = new JScrollBar(JScrollBar.VERTICAL);
-		scrollPaneCocktels.setHorizontalScrollBar(verticalScrollBarCocktels);
+		scrollPaneCocktels.setVerticalScrollBar(verticalScrollBarCocktels);
 
 		spinnerCantidadCocktels = new JSpinner();
 		spinnerCantidadCocktels.setBounds(340, 439, 39, 33);
@@ -354,7 +354,7 @@ public class Vista extends JFrame {
 		panelInventario.add(scrollPaneVinos);
 
 		JScrollBar verticalScrollBarVinos = new JScrollBar(JScrollBar.VERTICAL);
-		scrollPaneVinos.setHorizontalScrollBar(verticalScrollBarVinos);
+		scrollPaneVinos.setVerticalScrollBar(verticalScrollBarVinos);
 
 		spinnerCantidadVinos = new JSpinner();
 		spinnerCantidadVinos.setBounds(909, 309, 39, 33);
@@ -396,7 +396,7 @@ public class Vista extends JFrame {
 		panelInventario.add(scrollPaneIngredientes);
 
 		JScrollBar verticalScrollBarIngredientes = new JScrollBar(JScrollBar.VERTICAL);
-		scrollPaneIngredientes.setHorizontalScrollBar(verticalScrollBarIngredientes);
+		scrollPaneIngredientes.setVerticalScrollBar(verticalScrollBarIngredientes);
 
 		spinnerCantidadIngredientes = new JSpinner();
 		spinnerCantidadIngredientes.setBounds(909, 49, 39, 33);

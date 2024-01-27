@@ -2,8 +2,11 @@ package modelo;
 
 import java.util.HashMap;
 
+import modelo.Coctel.InfoCoctel;
+
 public class Ingrediente {
 	private HashMap<String, InfoIngrediente> ingredientes;
+	private HashMap<String, Integer> cantidadesOriginales;
 
 	public Ingrediente() {
 		this.ingredientes = new HashMap<>();
@@ -18,10 +21,34 @@ public class Ingrediente {
 		ingredientes.put("Tomate", new InfoIngrediente("Tomate", 30, 2));
 		ingredientes.put("Coco", new InfoIngrediente("Coco", 30, 3.5));
 		ingredientes.put("Eucalipto", new InfoIngrediente("Eucalipto", 30, 2));
+		guardarCantidadesOriginales();
+
 	}
 
 	public HashMap<String, InfoIngrediente> getIngredientes() {
 		return ingredientes;
+	}
+
+	public void actualizarCantidad(String nombreIngrediente, int nuevaCantidad) {
+		if (ingredientes.containsKey(nombreIngrediente)) {
+			InfoIngrediente detalle = ingredientes.get(nombreIngrediente);
+			detalle.setCantidad(nuevaCantidad);
+		}
+	}
+
+	private void guardarCantidadesOriginales() {
+		cantidadesOriginales = new HashMap<>();
+		for (InfoIngrediente infoIngrediente : ingredientes.values()) {
+			cantidadesOriginales.put(infoIngrediente.getNombre(), infoIngrediente.getCantidad());
+		}
+	}
+
+	public void restaurarCantidadesOriginales() {
+		for (InfoIngrediente infoIngrediente : ingredientes.values()) {
+			String nombreIngrediente = infoIngrediente.getNombre();
+			int cantidadOriginal = cantidadesOriginales.get(nombreIngrediente);
+			infoIngrediente.setCantidad(cantidadOriginal);
+		}
 	}
 
 	// Clase interna para representar la información completa de un ingrediente
@@ -51,5 +78,5 @@ public class Ingrediente {
 		public double getPrecio() {
 			return precio;
 		}
-	}//FIN INFOINGREDIENTE
+	}// FIN INFOINGREDIENTE
 }// FIN CLASS

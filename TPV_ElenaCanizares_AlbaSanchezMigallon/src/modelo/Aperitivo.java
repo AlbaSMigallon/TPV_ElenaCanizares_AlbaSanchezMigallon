@@ -22,9 +22,9 @@ public class Aperitivo {
 		return aperitivos;
 	}
 
-	public void actualizarCantidad(String nombreRefresco, int nuevaCantidad) {
-		if (aperitivos.containsKey(nombreRefresco)) {
-			InfoAperitivo detalle = aperitivos.get(nombreRefresco);
+	public void actualizarCantidad(String nombreAperitivo, int nuevaCantidad) {
+		if (aperitivos.containsKey(nombreAperitivo)) {
+			InfoAperitivo detalle = aperitivos.get(nombreAperitivo);
 			detalle.setCantidad(nuevaCantidad);
 		}
 	}
@@ -38,8 +38,8 @@ public class Aperitivo {
 
 	public void restaurarCantidadesOriginales() {
 		for (InfoAperitivo infoAperitivo : aperitivos.values()) {
-			String nombreRefresco = infoAperitivo.getNombre();
-			int cantidadOriginal = cantidadesOriginales.get(nombreRefresco);
+			String nombreAperitivo = infoAperitivo.getNombre();
+			int cantidadOriginal = cantidadesOriginales.get(nombreAperitivo);
 			infoAperitivo.setCantidad(cantidadOriginal);
 		}
 	}
