@@ -65,7 +65,7 @@ public class Controlador implements ActionListener, ListSelectionListener {
 		this.cerveza = cerveza;
 		this.coctel = coctel;
 		this.ingrediente = ingrediente;
-		this.inventario = new Inventario(this.refresco);
+		this.inventario = new Inventario(this.refresco, cerveza, aperitivo, botella, coctel, ingrediente, vino, null);
 		this.mesa = mesa;
 		this.musica = musica;
 		this.pedido = pedido;
@@ -106,7 +106,7 @@ public class Controlador implements ActionListener, ListSelectionListener {
 
 		this.vista.listRefrescospanelPedidoNuevo.addListSelectionListener(this);
 		this.vista.listCervezaspanelPedidoNuevo.addListSelectionListener(this);
-
+		
 		this.vista.listPedidoMesa.addListSelectionListener(this);
 
 	}// FIN CONSTRUCTOR
@@ -189,22 +189,20 @@ public class Controlador implements ActionListener, ListSelectionListener {
 		// Agregamos el listener al botón de refrescos
 		// Agregamos el listener al botón de refrescos
 		if (e.getSource() == vista.btnRefrescos) {
+			vista.listRefrescospanelPedidoNuevo.setVisible(true);
+			vista.scrollPaneRefrescospanelPedidoNuevo.setVisible(true);
 			// Verificar si hay una mesa seleccionada antes de listar los refrescos
-			if (!mesaSeleccionada.isEmpty()) {
+			
 				listarRefrescosPanelPedidoNuevo();
-			} else {
-				JOptionPane.showMessageDialog(vista, "Seleccione una mesa antes de añadir bebidas al pedido.", "Error",
-						JOptionPane.ERROR_MESSAGE);
-			}
+			
 		} // FIN BTNREFRESCOS
 		if (e.getSource() == vista.btnCervezas) {
+			vista.listCervezaspanelPedidoNuevo.setVisible(true);
+			vista.scrollPanelCervezaspanelPedidoNuevo.setVisible(true);
 			// Verificar si hay una mesa seleccionada antes de listar los refrescos
-			if (!mesaSeleccionada.isEmpty()) {
+			
 				listarCervezasPanelPedidoNuevo();
-			} else {
-				JOptionPane.showMessageDialog(vista, "Seleccione una mesa antes de añadir bebidas al pedido.", "Error",
-						JOptionPane.ERROR_MESSAGE);
-			}
+			
 		} // FIN BTNCERVEZAS
 
 		if (e.getSource() == vista.btnAnadirAlPedido) {
@@ -705,16 +703,22 @@ public class Controlador implements ActionListener, ListSelectionListener {
 				inventario.actualizarCantidad(nombreProducto, nuevaCantidad);
 			} else if ("Cerveza".equals(tipoProducto)) {
 				cerveza.actualizarCantidad(nombreProducto, nuevaCantidad);
+				inventario.actualizarCantidad(nombreProducto, nuevaCantidad);
 			} else if ("Aperitivo".equals(tipoProducto)) {
 				aperitivo.actualizarCantidad(nombreProducto, nuevaCantidad);
+				inventario.actualizarCantidad(nombreProducto, nuevaCantidad);
 			} else if ("Botella".equals(tipoProducto)) {
 				botella.actualizarCantidad(nombreProducto, nuevaCantidad);
+				inventario.actualizarCantidad(nombreProducto, nuevaCantidad);
 			} else if ("Cocktel".equals(tipoProducto)) {
 				coctel.actualizarCantidad(nombreProducto, nuevaCantidad);
+				inventario.actualizarCantidad(nombreProducto, nuevaCantidad);
 			} else if ("Ingrediente".equals(tipoProducto)) {
 				ingrediente.actualizarCantidad(nombreProducto, nuevaCantidad);
+				inventario.actualizarCantidad(nombreProducto, nuevaCantidad);
 			} else if ("Vino".equals(tipoProducto)) {
 				vino.actualizarCantidad(nombreProducto, nuevaCantidad);
+				inventario.actualizarCantidad(nombreProducto, nuevaCantidad);
 			}
 			// Actualizamos el modelo del JList
 			if ("Refresco".equals(tipoProducto)) {

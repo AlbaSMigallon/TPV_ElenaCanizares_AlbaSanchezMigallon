@@ -29,7 +29,8 @@ public class Vista extends JFrame {
 	public static final long serialVersionUID = 1L;
 	public JPanel contentPane, panelInicio, panelCocteleria, panelCaja, panelPedido, panelInventario, panelMusica,
 			panelPedidoNuevo;
-	public JLabel lblInicio, lblRefrescosInventario,lblCervezasInventario,lblBotellasInventario,lblCocktelsInventario,lblVinosInventario,lblAperitivosInventario,lblIngredientesInventario;
+	public JLabel lblInicio, lblRefrescosInventario, lblCervezasInventario, lblBotellasInventario,
+			lblCocktelsInventario, lblVinosInventario, lblAperitivosInventario, lblIngredientesInventario;
 	public JList listRefrescos, listCerveza, listBotellas, listCocktels, listVinos, listAperitivos, listIngredientes,
 			listPedido, listRefrescospanelPedidoNuevo, listCervezaspanelPedidoNuevo;
 	public JButton btnCaja, btnPedido, btnInventario, btnMusica, btnMesa1, btnMesa2, btnMesa3, btnMesa4, btnMesa5,
@@ -38,6 +39,10 @@ public class Vista extends JFrame {
 	public JSpinner spinnerCantidadRefrescos, spinnerCantidadCerveza, spinnerCantidadBotellas, spinnerCantidadCocktels,
 			spinnerCantidadVinos, spinnerCantidadAperitivos, spinnerCantidadIngredientes;
 	public JList<String> listPedidoMesa;
+	public JScrollBar verticalScrollBarRefrescospanelPedidoNuevo, verticalScrollBarPedidoMesa,
+			verticalScrollBarCervezaspanelPedidoNuevo, verticalScrollBarPedido;
+	public JScrollPane scrollPaneRefrescospanelPedidoNuevo, scrollPanePedidoMesa, scrollPanelCervezaspanelPedidoNuevo,
+			scrollPanePedido;
 
 	/**
 	 * Launch the application.
@@ -78,23 +83,24 @@ public class Vista extends JFrame {
 
 		DefaultListModel<String> modelPedido = new DefaultListModel<>();
 
-		JScrollPane scrollPaneRefrescospanelPedidoNuevo = new JScrollPane();
+		scrollPaneRefrescospanelPedidoNuevo = new JScrollPane();
 		scrollPaneRefrescospanelPedidoNuevo.setBounds(611, 455, 448, 186);
 		panelPedidoNuevo.add(scrollPaneRefrescospanelPedidoNuevo);
 
-		JScrollBar verticalScrollBarRefrescospanelPedidoNuevo = new JScrollBar(JScrollBar.VERTICAL);
+		verticalScrollBarRefrescospanelPedidoNuevo = new JScrollBar(JScrollBar.VERTICAL);
 		scrollPaneRefrescospanelPedidoNuevo.setHorizontalScrollBar(verticalScrollBarRefrescospanelPedidoNuevo);
 
 		listRefrescospanelPedidoNuevo = new JList();
 		scrollPaneRefrescospanelPedidoNuevo.setViewportView(listRefrescospanelPedidoNuevo);
-
+		listRefrescospanelPedidoNuevo.setVisible(false);
+		scrollPaneRefrescospanelPedidoNuevo.setVisible(false);
 		listPedidoMesa = new JList();
 		listPedidoMesa = new JList<>(modelPedido);
 		listPedidoMesa.setBounds(1243, 175, 397, 279);
-		JScrollPane scrollPanePedidoMesa = new JScrollPane(listPedidoMesa);
+		scrollPanePedidoMesa = new JScrollPane(listPedidoMesa);
 		scrollPanePedidoMesa.setBounds(1243, 175, 397, 279);
 		panelPedidoNuevo.add(scrollPanePedidoMesa);
-		JScrollBar verticalScrollBarPedidoMesa = new JScrollBar(JScrollBar.VERTICAL);
+		verticalScrollBarPedidoMesa = new JScrollBar(JScrollBar.VERTICAL);
 		scrollPanePedidoMesa.setVerticalScrollBar(verticalScrollBarPedidoMesa);
 
 		btnAnadirAlPedido = new JButton("AÑADIR AL PEDIDO");
@@ -105,15 +111,17 @@ public class Vista extends JFrame {
 		btnVolverInicio.setBounds(78, 39, 137, 58);
 		panelPedidoNuevo.add(btnVolverInicio);
 
-		JScrollPane scrollPanelCervezaspanelPedidoNuevo = new JScrollPane();
+		scrollPanelCervezaspanelPedidoNuevo = new JScrollPane();
 		scrollPanelCervezaspanelPedidoNuevo.setBounds(611, 144, 448, 186);
 		panelPedidoNuevo.add(scrollPanelCervezaspanelPedidoNuevo);
 
-		JScrollBar verticalScrollBarCervezaspanelPedidoNuevo = new JScrollBar(JScrollBar.VERTICAL);
+		verticalScrollBarCervezaspanelPedidoNuevo = new JScrollBar(JScrollBar.VERTICAL);
 		scrollPanelCervezaspanelPedidoNuevo.setHorizontalScrollBar(verticalScrollBarCervezaspanelPedidoNuevo);
 
 		listCervezaspanelPedidoNuevo = new JList();
 		scrollPanelCervezaspanelPedidoNuevo.setViewportView(listCervezaspanelPedidoNuevo);
+		listCervezaspanelPedidoNuevo.setVisible(false);
+		scrollPanelCervezaspanelPedidoNuevo.setVisible(false);
 
 		btnCervezas = new JButton("CERVEZAS");
 		btnCervezas.setBounds(297, 144, 205, 158);
@@ -144,10 +152,10 @@ public class Vista extends JFrame {
 		listPedido = new JList();
 		listPedido.setBounds(1263, 46, 295, 336);
 
-		JScrollPane scrollPanePedido = new JScrollPane(listPedido);
+		scrollPanePedido = new JScrollPane(listPedido);
 		scrollPanePedido.setBounds(1263, 46, 295, 336);
 		panelPedido.add(scrollPanePedido);
-		JScrollBar verticalScrollBarPedido = new JScrollBar(JScrollBar.VERTICAL);
+		verticalScrollBarPedido = new JScrollBar(JScrollBar.VERTICAL);
 		scrollPanePedido.setHorizontalScrollBar(verticalScrollBarPedido);
 
 		panelInicio = new JPanel();
@@ -280,7 +288,7 @@ public class Vista extends JFrame {
 		lblCervezasInventario.setFont(new Font("Garamond", Font.ITALIC, 20));
 		lblCervezasInventario.setBounds(150, 138, 120, 30);
 		panelInventario.add(lblCervezasInventario);
-		
+
 		listCerveza = new JList();
 		listCerveza.setBounds(71, 179, 261, 72);
 
@@ -301,7 +309,7 @@ public class Vista extends JFrame {
 		lblBotellasInventario.setFont(new Font("Garamond", Font.ITALIC, 20));
 		lblBotellasInventario.setBounds(150, 268, 120, 30);
 		panelInventario.add(lblBotellasInventario);
-		
+
 		listBotellas = new JList();
 		listBotellas.setBounds(71, 309, 261, 72);
 
@@ -318,12 +326,12 @@ public class Vista extends JFrame {
 		spinnerCantidadBotellas.setVisible(false);
 
 		/*------------------------------------------------------------------------------------*/
-		
+
 		lblCocktelsInventario = new JLabel("COCKTELS");
 		lblCocktelsInventario.setFont(new Font("Garamond", Font.ITALIC, 20));
 		lblCocktelsInventario.setBounds(150, 398, 120, 30);
 		panelInventario.add(lblCocktelsInventario);
-		
+
 		listCocktels = new JList();
 		listCocktels.setBounds(71, 439, 261, 72);
 
@@ -344,8 +352,7 @@ public class Vista extends JFrame {
 		lblVinosInventario.setFont(new Font("Garamond", Font.ITALIC, 20));
 		lblVinosInventario.setBounds(745, 268, 120, 30);
 		panelInventario.add(lblVinosInventario);
-		
-		
+
 		listVinos = new JList();
 		listVinos.setBounds(638, 309, 261, 72);
 
@@ -366,7 +373,7 @@ public class Vista extends JFrame {
 		lblAperitivosInventario.setFont(new Font("Garamond", Font.ITALIC, 20));
 		lblAperitivosInventario.setBounds(712, 134, 120, 30);
 		panelInventario.add(lblAperitivosInventario);
-		
+
 		listAperitivos = new JList();
 		listAperitivos.setBounds(638, 179, 261, 72);
 
@@ -387,7 +394,7 @@ public class Vista extends JFrame {
 		lblIngredientesInventario.setFont(new Font("Garamond", Font.ITALIC, 20));
 		lblIngredientesInventario.setBounds(712, 11, 120, 30);
 		panelInventario.add(lblIngredientesInventario);
-		
+
 		listIngredientes = new JList();
 		listIngredientes.setBounds(71, 829, 261, 72);
 
