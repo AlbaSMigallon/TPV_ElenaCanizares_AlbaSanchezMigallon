@@ -16,6 +16,8 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import vista.Vista;
+import modelo.Aperitivo;
+import modelo.Aperitivo.InfoAperitivo;
 import modelo.Barra;
 import modelo.Botella;
 import modelo.Cerveza;
@@ -40,7 +42,7 @@ public class Controlador implements ActionListener, ListSelectionListener {
 	Cerveza cerveza = new Cerveza();
 	Coctel coctel = new Coctel();
 	Ingrediente ingrediente = new Ingrediente();
-
+	Aperitivo aperitivo = new Aperitivo();
 	Mesa mesa = new Mesa();
 	Musica musica = new Musica();
 	Pedido pedido = new Pedido();
@@ -54,6 +56,7 @@ public class Controlador implements ActionListener, ListSelectionListener {
 	public Controlador(Vista vista) {
 		this.vista = vista;
 		this.barra = barra;
+		this.aperitivo = aperitivo;
 		this.botella = botella;
 		this.cerveza = cerveza;
 		this.coctel = coctel;
@@ -83,7 +86,6 @@ public class Controlador implements ActionListener, ListSelectionListener {
 		this.vista.btnRefrescos.addActionListener(this);
 		this.vista.btnAnadirAlPedido.addActionListener(this);
 		this.vista.btnVolverInicio.addActionListener(this);
-
 		this.vista.btnCervezas.addActionListener(this);
 		this.vista.btnVino.addActionListener(this);
 		this.vista.btnAperitivos.addActionListener(this);
@@ -92,6 +94,11 @@ public class Controlador implements ActionListener, ListSelectionListener {
 
 		this.vista.listRefrescos.addListSelectionListener(this);
 		this.vista.listCerveza.addListSelectionListener(this);
+		this.vista.listAperitivos.addListSelectionListener(this);
+		this.vista.listBotellas.addListSelectionListener(this);
+		this.vista.listCocktels.addListSelectionListener(this);
+		this.vista.listIngredientes.addListSelectionListener(this);
+		this.vista.listVinos.addListSelectionListener(this);
 
 		this.vista.listRefrescospanelPedidoNuevo.addListSelectionListener(this);
 		this.vista.listCervezaspanelPedidoNuevo.addListSelectionListener(this);
@@ -123,6 +130,7 @@ public class Controlador implements ActionListener, ListSelectionListener {
 			// Llenar el JList del panelRefrescos al mostrarlo
 			listarRefrescos();
 			listarCervezas();
+			listarAperitivos();
 
 		} // PANEL INVENTARIO
 		if (e.getSource() == vista.btnMusica) {
@@ -133,6 +141,7 @@ public class Controlador implements ActionListener, ListSelectionListener {
 		if (e.getSource() == vista.btnAceptarCambios) {
 			actualizarCantidadSeleccionada("Refresco");
 			actualizarCantidadSeleccionada("Cerveza");
+			actualizarCantidadSeleccionada("Aperitivo");
 		} // ACTUALIZAR CAMBIOS
 
 		if (e.getSource() == vista.btnRevertirCambios) {
@@ -485,6 +494,27 @@ public class Controlador implements ActionListener, ListSelectionListener {
 		vista.spinnerCantidadRefrescos.setEditor(editor);
 	}// FIN LISTAR REFRESCOS
 
+	private void listarAperitivos() {
+		// Obtenemos el HashMap de refrescos y cantidades desde la instancia de la clase
+		HashMap<String, InfoAperitivo> listaAperitivos = aperitivo.getAperitivos();
+
+		// Limpiamos el modelo del JList antes de agregar nuevos elementos
+		DefaultListModel<String> model = new DefaultListModel<>();
+		vista.listAperitivos.setModel(model);
+
+		// Llenamos el modelo del JList con los elementos del HashMap
+		for (HashMap.Entry<String, InfoAperitivo> entry : listaAperitivos.entrySet()) {
+			InfoAperitivo info = entry.getValue();
+			model.addElement(
+					info.getNombre() + " - Cantidad: " + info.getCantidad() + " - Precio: " + info.getPrecio());
+		}
+
+		// Configuramos el spinnerCantidad para que solo nos permita modificar la
+		// cantidad, no el precio
+		JSpinner.NumberEditor editor = new JSpinner.NumberEditor(vista.spinnerCantidadAperitivos, "#");
+		vista.spinnerCantidadAperitivos.setEditor(editor);
+	}// FIN LISTAR REFRESCOS
+
 	private void listarCervezas() {
 // Obtenemos el HashMap de cervezas y las cantidades desde la instancia de la clase
 		HashMap<String, InfoCerveza> listaCervezas = cerveza.getCervezas();
@@ -516,8 +546,10 @@ public class Controlador implements ActionListener, ListSelectionListener {
 		} else if ("Cerveza".equals(tipoProducto)) {
 			model = (DefaultListModel<String>) vista.listCerveza.getModel();
 			spinnerCantidad = vista.spinnerCantidadCerveza;
+		} else if ("Aperitivo".equals(tipoProducto)) {
+			model = (DefaultListModel<String>) vista.listAperitivos.getModel();
+			spinnerCantidad = vista.spinnerCantidadAperitivos;
 		} else {
-			// Aqui anadire el resto
 			return;
 		}
 
@@ -525,6 +557,10 @@ public class Controlador implements ActionListener, ListSelectionListener {
 		int selectedIndex = vista.listCerveza.getSelectedIndex();
 		if ("Refresco".equals(tipoProducto)) {
 			selectedIndex = vista.listRefrescos.getSelectedIndex();
+		} else if ("Cerveza".equals(tipoProducto)) {
+			selectedIndex = vista.listCerveza.getSelectedIndex();
+		} else if ("Aperitivo".equals(tipoProducto)) {
+			selectedIndex = vista.listAperitivos.getSelectedIndex();
 		}
 
 		// Verificamos si hay un elemento seleccionado
@@ -545,18 +581,24 @@ public class Controlador implements ActionListener, ListSelectionListener {
 
 			// Actualizamos la cantidad en la instancia correspondiente de cada
 			// clase,Refresco,Cerveza....
+
+			// Actualizamos la cantidad en la instancia correspondiente de cada clase
+			// (Refresco, Cerveza, Aperitivo)
 			if ("Refresco".equals(tipoProducto)) {
 				refresco.actualizarCantidad(nombreProducto, nuevaCantidad);
 				inventario.actualizarCantidad(nombreProducto, nuevaCantidad);
 			} else if ("Cerveza".equals(tipoProducto)) {
 				cerveza.actualizarCantidad(nombreProducto, nuevaCantidad);
+			} else if ("Aperitivo".equals(tipoProducto)) {
+				aperitivo.actualizarCantidad(nombreProducto, nuevaCantidad);
 			}
-
 			// Actualizamos el modelo del JList
 			if ("Refresco".equals(tipoProducto)) {
 				listarRefrescos();
 			} else if ("Cerveza".equals(tipoProducto)) {
 				listarCervezas();
+			} else if ("Aperitivo".equals(tipoProducto)) {
+				listarAperitivos();
 			}
 		}
 	}
@@ -570,9 +612,13 @@ public class Controlador implements ActionListener, ListSelectionListener {
 		// Restauramos las cantidades originales de las cervezas
 		cerveza.restaurarCantidadesOriginales();
 
+		// Restauramos las cantidades originales de los aperitivos
+		aperitivo.restaurarCantidadesOriginales();
+
 		// Actualizamos el modelo de JList para refrescos y cervezas
 		listarRefrescos();
 		listarCervezas();
+		listarAperitivos();
 
 	}// FIN eliminarCambios
 
@@ -587,14 +633,16 @@ public class Controlador implements ActionListener, ListSelectionListener {
 				listIdentifier = 1;
 			} else if (source == vista.listCerveza) {
 				listIdentifier = 2;
-			} else if (source == vista.listRefrescospanelPedidoNuevo) {
+			} else if (source == vista.listAperitivos) {
 				listIdentifier = 3;
+			} else if (source == vista.listRefrescospanelPedidoNuevo) {
+				listIdentifier = 4;
 				updateUltimaSeleccionLista(vista.listRefrescospanelPedidoNuevo);
 			} else if (source == vista.listCervezaspanelPedidoNuevo) {
-				listIdentifier = 4;
+				listIdentifier = 5;
 				updateUltimaSeleccionLista(vista.listCervezaspanelPedidoNuevo);
 			} else if (source == vista.listPedidoMesa) {
-				listIdentifier = 5;
+				listIdentifier = 6;
 			}
 
 			switch (listIdentifier) {
@@ -605,12 +653,15 @@ public class Controlador implements ActionListener, ListSelectionListener {
 				handleListSelection(vista.listCerveza, vista.spinnerCantidadCerveza);
 				break;
 			case 3:
-				handleListSelection(vista.listRefrescospanelPedidoNuevo, vista.spinnerCantidadRefrescos);
+				handleListSelection(vista.listAperitivos, vista.spinnerCantidadAperitivos);
 				break;
 			case 4:
-				handleListSelection(vista.listCervezaspanelPedidoNuevo, vista.spinnerCantidadCerveza);
+				handleListSelection(vista.listRefrescospanelPedidoNuevo, vista.spinnerCantidadRefrescos);
 				break;
 			case 5:
+				handleListSelection(vista.listCervezaspanelPedidoNuevo, vista.spinnerCantidadCerveza);
+				break;
+			case 6:
 				int numeroMesa = vista.listPedidoMesa.getSelectedIndex() + 1;
 				actualizarListaPedidosMesa(numeroMesa);
 				break;
