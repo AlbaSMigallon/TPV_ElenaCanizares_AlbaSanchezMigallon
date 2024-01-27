@@ -86,7 +86,7 @@ public class Vista extends JFrame {
 		listRefrescospanelPedidoNuevo = new JList();
 		scrollPaneRefrescospanelPedidoNuevo.setViewportView(listRefrescospanelPedidoNuevo);
 		
-		listPedidoMesa = new JList();
+		listPedidoMesa = new JList(); 
 		listPedidoMesa = new JList<>(modelPedido);
 		listPedidoMesa.setBounds(1243, 175, 397, 279);
 		JScrollPane scrollPanePedidoMesa = new JScrollPane(listPedidoMesa);
