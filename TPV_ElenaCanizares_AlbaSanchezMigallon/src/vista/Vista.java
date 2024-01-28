@@ -47,6 +47,7 @@ public class Vista extends JFrame {
 	public JScrollPane scrollPaneRefrescospanelPedidoNuevo, scrollPanePedidoMesa, scrollPanelCervezaspanelPedidoNuevo,
 			scrollPanePedido, scrollPaneAperitivospanelPedidoNuevo, scrollPaneBotellaspanelPedidoNuevo,
 			scrollPaneCocktelspanelPedidoNuevo, scrollPaneVinopanelPedidoNuevo;
+	public JComboBox comboBoxMesa;
 
 	/**
 	 * Launch the application.
@@ -433,7 +434,9 @@ public class Vista extends JFrame {
 		panelCaja.setVisible(false);
 
 		/*---------------------------------PANEL PEDIDO---------------------------------------------------*/
-
+		comboBoxMesa = new JComboBox();
+		comboBoxMesa.setBounds(243, 153, 295, 215);
+		panelPedido.add(comboBoxMesa);
 		/*---------------------------------PANEL PEDIDO NUEVO---------------------------------------------------*/
 
 		listRefrescospanelPedidoNuevo = new JList();
