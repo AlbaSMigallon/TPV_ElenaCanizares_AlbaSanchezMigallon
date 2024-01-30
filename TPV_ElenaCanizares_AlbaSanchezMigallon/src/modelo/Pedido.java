@@ -13,15 +13,17 @@ public class Pedido {
 	}
 
 	public void agregarBebida(String nombreBebida, int cantidad) {
-        if (!esOcupada) {
-            esOcupada = true;
-        }
-        bebidasPedido.put(nombreBebida, cantidad);
-        tienePedidoExistente = true;
-    }
-	  public boolean tienePedidoExistente() {
-	        return tienePedidoExistente;
-	    }
+		if (!esOcupada) {
+			esOcupada = true;
+		}
+		bebidasPedido.put(nombreBebida, cantidad);
+		tienePedidoExistente = true;
+	}
+
+	public boolean tienePedidoExistente() {
+		return tienePedidoExistente;
+	}
+
 	public void eliminarBebida(String nombreBebida, int cantidad) {
 		bebidasPedido.computeIfPresent(nombreBebida, (bebida, actualCantidad) -> actualCantidad - cantidad);
 		bebidasPedido.remove(nombreBebida, 0); // Elimina si la cantidad es cero o negativa

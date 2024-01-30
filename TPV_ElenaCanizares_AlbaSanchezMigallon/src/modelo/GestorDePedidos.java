@@ -16,10 +16,23 @@ public class GestorDePedidos {
     public List<Mesa> getMesas() {
         return mesas;
     }
-
+    public Mesa getMesaPorNumero(int numeroMesa) {
+        for (Mesa mesa : mesas) {
+            if (mesa.getNumeroMesa() == numeroMesa) {
+                return mesa;
+            }
+        }
+        return null; // Manejar el caso en que no se encuentra la mesa
+    }
     public void agregarBebidaAMesa(int numeroMesa, String nombreBebida, int cantidad) {
         if (numeroMesa >= 1 && numeroMesa <= mesas.size()) {
             Mesa mesa = mesas.get(numeroMesa - 1);
+            
+            // Asegúrate de que se cree un nuevo Pedido si no existe uno
+            if (mesa.getPedido() == null) {
+                mesa.setPedido(new Pedido());
+            }
+            
             mesa.getPedido().agregarBebida(nombreBebida, cantidad);
         } else {
             System.out.println("Número de mesa inválido");

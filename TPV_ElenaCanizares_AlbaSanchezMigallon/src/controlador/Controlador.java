@@ -115,10 +115,10 @@ public class Controlador implements ActionListener, ListSelectionListener {
 		this.vista.listVinopanelPedidoNuevo.addListSelectionListener(this);
 
 		this.vista.listPedidoMesa.addListSelectionListener(this);
-		inicializar();
+		//inicializar();
 	}// FIN CONSTRUCTOR
 
-	public void inicializar() {
+	/*public void inicializar() {
 		// gestorDePedidos
 		List<Mesa> mesas = gestorDePedidos.getMesas();
 		DefaultComboBoxModel<Mesa> comboBoxModel = new DefaultComboBoxModel<>(mesas.toArray(new Mesa[0]));
@@ -127,7 +127,7 @@ public class Controlador implements ActionListener, ListSelectionListener {
 		// Llamamos a mostrarPedidosPorMesaSeleccionada para mostrar los pedidos de la
 		// mesa seleccionada (si hay alguno)
 		mostrarPedidosPorMesaSeleccionada();
-	}
+	}*/
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -146,12 +146,12 @@ public class Controlador implements ActionListener, ListSelectionListener {
 
 		} // PANEL PEDIDO
 
-		if (e.getSource() == this.vista.comboBoxMesa) {
+		/*if (e.getSource() == this.vista.comboBoxMesa) {
 			Object selectedMesa = this.vista.comboBoxMesa.getSelectedItem();
 			if (selectedMesa instanceof Mesa) {
 				mostrarPedidosPorMesaSeleccionada();
 			}
-		}
+		}*/
 
 		if (e.getSource() == vista.btnInventario) {
 			vista.panelInicio.setVisible(false);
@@ -384,346 +384,339 @@ public class Controlador implements ActionListener, ListSelectionListener {
 	 */
 	/*--------------------------------Metodos de agregar en paneles nuevos por clase-------------------------------------------*/
 
-	// Método para agregar el elemento seleccionado de refresco al pedido
 	private void agregarElementoRefrescoAlPedido() {
-		// Obtenemos el elemento seleccionado del JList de refrescos
-		Object elementoSeleccionadoObject = vista.listRefrescospanelPedidoNuevo.getSelectedValue();
+	    Object elementoSeleccionadoObject = vista.listRefrescospanelPedidoNuevo.getSelectedValue();
 
-		// Verificamos si hay un elemento seleccionado y lo castreamos a String
-		if (elementoSeleccionadoObject != null && elementoSeleccionadoObject instanceof String) {
-			String elementoSeleccionado = (String) elementoSeleccionadoObject;
+	    if (elementoSeleccionadoObject instanceof String) {
+	        String elementoSeleccionado = (String) elementoSeleccionadoObject;
+	        String[] partes = elementoSeleccionado.split(" - Precio: ");
 
-			// Obtener el nombre del refresco y el precio desde la cadena seleccionada
-			String nombreRefresco = elementoSeleccionado.split(" - Precio: ")[0];
-			int precioRefresco = Integer.parseInt(elementoSeleccionado.split(" - Precio: ")[1]);
+	        if (partes.length == 2) {
+	            String nombreRefresco = partes[0];
+	            int precioRefresco = Integer.parseInt(partes[1]);
 
-			// Asumiendo que el pedido es un HashMap<String, InfoRefresco>
-			Pedido pedidoMesa = mesa.getPedido();
+	            Pedido pedidoMesa = mesa.getPedido();
 
-			// Verificar si el refresco ya está en el pedido
-			if (pedidoMesa != null && pedidoMesa.getBebidasPedido().containsKey(nombreRefresco)) {
-				// Si está en el pedido, actualizar la cantidad y el precio
-				int cantidadActual = pedidoMesa.getBebidasPedido().get(nombreRefresco);
-				pedidoMesa.agregarBebida(nombreRefresco, cantidadActual + 1);
+	            if (pedidoMesa != null) {
+	                if (pedidoMesa.getBebidasPedido().containsKey(nombreRefresco)) {
+	                    int cantidadActual = pedidoMesa.getBebidasPedido().get(nombreRefresco);
+	                    pedidoMesa.agregarBebida(nombreRefresco, cantidadActual + 1);
 
-				// Actualizar el modelo del JList de pedidoMesa
-				DefaultListModel<String> modelPedidoMesa = (DefaultListModel<String>) vista.listPedidoMesa.getModel();
-				// Buscar el índice de la línea que contiene el refresco y actualizarla
-				for (int i = 0; i < modelPedidoMesa.getSize(); i++) {
-					String lineaPedido = modelPedidoMesa.getElementAt(i);
-					if (lineaPedido.startsWith(nombreRefresco)) {
-						// Extraer cantidad y precio de la línea actual
-						int cantidadExistente = Integer
-								.parseInt(lineaPedido.split(" - Cantidad: ")[1].split(" - Precio: ")[0]);
-						int precioExistente = Integer.parseInt(lineaPedido.split(" - Precio: ")[1]);
+	                    DefaultListModel<String> modelPedidoMesa = (DefaultListModel<String>) vista.listPedidoMesa.getModel();
 
-						// Calcular la nueva cantidad y precio
-						int nuevaCantidad = cantidadExistente + 1;
-						int nuevoPrecio = precioExistente + precioRefresco;
+	                    for (int i = 0; i < modelPedidoMesa.getSize(); i++) {
+	                        String lineaPedido = modelPedidoMesa.getElementAt(i);
+	                        if (lineaPedido.startsWith(nombreRefresco)) {
+	                            int cantidadExistente = Integer.parseInt(lineaPedido.split(" - Cantidad: ")[1].split(" - Precio: ")[0]);
+	                            
+	                            // Verificar si hay al menos dos partes en la cadena antes de intentar acceder a [1]
+	                            if (lineaPedido.split(" - Precio: ").length >= 2) {
+	                                int precioExistente = Integer.parseInt(lineaPedido.split(" - Precio: ")[1]);
 
-						// Actualizar la línea en el modelo del JList
-						modelPedidoMesa.set(i,
-								nombreRefresco + " - Cantidad: " + nuevaCantidad + " - Precio: " + nuevoPrecio);
-						break;
-					}
-				}
-			} else {
-				// Si no está en el pedido, agregarlo con cantidad 1
-				pedidoMesa.agregarBebida(nombreRefresco, 1);
+	                                int nuevaCantidad = cantidadExistente + 1;
+	                                int nuevoPrecio = precioExistente + precioRefresco;
 
-				// Actualizar el modelo del JList de pedidoMesa con una nueva línea
-				DefaultListModel<String> modelPedidoMesa = (DefaultListModel<String>) vista.listPedidoMesa.getModel();
-				modelPedidoMesa.addElement(nombreRefresco + " - Cantidad: 1 - Precio: " + precioRefresco);
-			}
-
-		}
+	                                modelPedidoMesa.set(i, nombreRefresco + " - Cantidad: " + nuevaCantidad + " - Precio: " + nuevoPrecio);
+	                                break;
+	                            }
+	                        }
+	                    }
+	                } else {
+	                    pedidoMesa.agregarBebida(nombreRefresco, 1);
+	                    DefaultListModel<String> modelPedidoMesa = (DefaultListModel<String>) vista.listPedidoMesa.getModel();
+	                    modelPedidoMesa.addElement(nombreRefresco + " - Cantidad: 1 - Precio: " + precioRefresco);
+	                }
+	            }
+	        }
+	    }
 	}// FIN AGREGAR ELEMENTO REFRESCO AL PEDIDO
 
 	// Método para agregar el elemento seleccionado de cerveza al pedido
 	private void agregarElementoCervezaAlPedido() {
-		// Obtenemos el elemento seleccionado del JList de cervezas
-		Object elementoSeleccionadoObject = vista.listCervezaspanelPedidoNuevo.getSelectedValue();
+	    // Obtenemos el elemento seleccionado del JList de cervezas
+	    Object elementoSeleccionadoObject = vista.listCervezaspanelPedidoNuevo.getSelectedValue();
 
-		// Verificamos si hay un elemento seleccionado y lo castreamos a String
-		if (elementoSeleccionadoObject != null && elementoSeleccionadoObject instanceof String) {
-			String elementoSeleccionado = (String) elementoSeleccionadoObject;
+	    // Verificamos si hay un elemento seleccionado y lo casteamos a String
+	    if (elementoSeleccionadoObject instanceof String) {
+	        String elementoSeleccionado = (String) elementoSeleccionadoObject;
+	        String[] partes = elementoSeleccionado.split(" - Precio: ");
 
-			// Obtener el nombre de la cerveza y la información desde la cadena seleccionada
-			String nombreCerveza = elementoSeleccionado.split(" - Precio: ")[0];
-			// Asumiendo que el precio está en el formato correcto y puede ser parseado
-			// directamente
-			int precioCerveza = Integer.parseInt(elementoSeleccionado.split(" - Precio: ")[1]);
+	        // Asegurarse de que la cadena tenga el formato esperado
+	        if (partes.length == 2) {
+	            String nombreCerveza = partes[0];
+	            int precioCerveza = Integer.parseInt(partes[1]);
 
-			// Utilizamos el HashMap de cervezas para obtener la información
-			Cerveza.InfoCerveza infoCerveza = cerveza.getCervezas().get(nombreCerveza);
+	            Cerveza.InfoCerveza infoCerveza = cerveza.getCervezas().get(nombreCerveza);
 
-			if (infoCerveza != null) {
-				// Obtenemos la cantidad de la cerveza
-				int cantidadCerveza = infoCerveza.getCantidad();
+	            if (infoCerveza != null) {
+	                int cantidadCerveza = infoCerveza.getCantidad();
 
-				// Asumiendo que el pedido es un HashMap<String, Integer>
-				Pedido pedidoMesa = mesa.getPedido();
-				if (pedidoMesa != null) {
-					// Verificar si la cerveza ya está en el pedido
-					if (pedidoMesa.getBebidasPedido().containsKey(nombreCerveza)) {
-						// Si está en el pedido, actualizar la cantidad y el precio
-						int cantidadActual = pedidoMesa.getBebidasPedido().get(nombreCerveza);
-						pedidoMesa.agregarBebida(nombreCerveza, cantidadActual + 1);
+	                Pedido pedidoMesa = mesa.getPedido();
+	                if (pedidoMesa != null) {
+	                    if (pedidoMesa.getBebidasPedido().containsKey(nombreCerveza)) {
+	                        int cantidadActual = pedidoMesa.getBebidasPedido().get(nombreCerveza);
+	                        pedidoMesa.agregarBebida(nombreCerveza, cantidadActual + 1);
 
-						// Actualizar el modelo del JList de pedidoMesa
-						DefaultListModel<String> modelPedidoMesa = (DefaultListModel<String>) vista.listPedidoMesa
-								.getModel();
-						// Buscar el índice de la línea que contiene la cerveza y actualizarla
-						for (int i = 0; i < modelPedidoMesa.getSize(); i++) {
-							String lineaPedido = modelPedidoMesa.getElementAt(i);
-							if (lineaPedido.startsWith(nombreCerveza)) {
-								// Extraer cantidad y precio de la línea actual
-								int cantidadExistente = Integer
-										.parseInt(lineaPedido.split(" - Cantidad: ")[1].split(" - Precio: ")[0]);
-								int precioExistente = Integer.parseInt(lineaPedido.split(" - Precio: ")[1]);
+	                        DefaultListModel<String> modelPedidoMesa = (DefaultListModel<String>) vista.listPedidoMesa.getModel();
 
-								// Calcular la nueva cantidad y precio
-								int nuevaCantidad = cantidadExistente + 1;
-								int nuevoPrecio = precioExistente + precioCerveza;
+	                        for (int i = 0; i < modelPedidoMesa.getSize(); i++) {
+	                            String lineaPedido = modelPedidoMesa.getElementAt(i);
+	                            if (lineaPedido.startsWith(nombreCerveza)) {
+	                                int cantidadExistente = Integer.parseInt(lineaPedido.split(" - Cantidad: ")[1].split(" - Precio: ")[0]);
+	                                
+	                                // Verificar si hay al menos dos partes en la cadena antes de intentar acceder a [1]
+	                                if (lineaPedido.split(" - Precio: ").length >= 2) {
+	                                    int precioExistente = Integer.parseInt(lineaPedido.split(" - Precio: ")[1]);
 
-								// Actualizar la línea en el modelo del JList
-								modelPedidoMesa.set(i,
-										nombreCerveza + " - Cantidad: " + nuevaCantidad + " - Precio: " + nuevoPrecio);
-								break;
-							}
-						}
-					} else {
-						// Si no está en el pedido, agregarlo con cantidad 1
-						pedidoMesa.agregarBebida(nombreCerveza, 1);
+	                                    int nuevaCantidad = cantidadExistente + 1;
+	                                    int nuevoPrecio = precioExistente + precioCerveza;
 
-						// Actualizar el modelo del JList de pedidoMesa con una nueva línea
-						DefaultListModel<String> modelPedidoMesa = (DefaultListModel<String>) vista.listPedidoMesa
-								.getModel();
-						modelPedidoMesa.addElement(nombreCerveza + " - Cantidad: 1 - Precio: " + precioCerveza);
-					}
-				}
-			}
-		}
+	                                    modelPedidoMesa.set(i, nombreCerveza + " - Cantidad: " + nuevaCantidad + " - Precio: " + nuevoPrecio);
+	                                    break;
+	                                }
+	                            }
+	                        }
+	                    } else {
+	                        pedidoMesa.agregarBebida(nombreCerveza, 1);
+	                        DefaultListModel<String> modelPedidoMesa = (DefaultListModel<String>) vista.listPedidoMesa.getModel();
+	                        modelPedidoMesa.addElement(nombreCerveza + " - Cantidad: 1 - Precio: " + precioCerveza);
+	                    }
+	                }
+	            }
+	        }
+	    }
 	}// FIN AGREGAR ELEMENTO CERVEZA AL PEDIDO
 
 	// Método para agregar el elemento seleccionado de aperitivo al pedido
 	private void agregarElementoAperitivoAlPedido() {
-		// Obtenemos el elemento seleccionado del JList de aperitivos
-		Object elementoSeleccionadoObject = vista.listAperitivospanelPedidoNuevo.getSelectedValue();
+	    // Obtenemos el elemento seleccionado del JList de aperitivos
+	    Object elementoSeleccionadoObject = vista.listAperitivospanelPedidoNuevo.getSelectedValue();
 
-		// Verificamos si hay un elemento seleccionado y lo castreamos a String
-		if (elementoSeleccionadoObject != null && elementoSeleccionadoObject instanceof String) {
-			String elementoSeleccionado = (String) elementoSeleccionadoObject;
+	    // Verificamos si hay un elemento seleccionado y lo castreamos a String
+	    if (elementoSeleccionadoObject instanceof String) {
+	        String elementoSeleccionado = (String) elementoSeleccionadoObject;
+	        String[] partes = elementoSeleccionado.split(" - Precio: ");
 
-			// Obtener el nombre del aperitivo y el precio desde la cadena seleccionada
-			String nombreAperitivo = elementoSeleccionado.split(" - Precio: ")[0];
-			int precioAperitivo = Integer.parseInt(elementoSeleccionado.split(" - Precio: ")[1]);
+	        // Asegurarse de que la cadena tenga el formato esperado
+	        if (partes.length == 2) {
+	            String nombreAperitivo = partes[0];
+	            int precioAperitivo = Integer.parseInt(partes[1]);
 
-			// Asumiendo que el pedido es un HashMap<String, InfoAperitivo>
-			Pedido pedidoMesa = mesa.getPedido();
+	            Pedido pedidoMesa = mesa.getPedido();
 
-			// Verificar si el aperitivo ya está en el pedido
-			if (pedidoMesa != null && pedidoMesa.getBebidasPedido().containsKey(nombreAperitivo)) {
-				// Si está en el pedido, actualizar la cantidad y el precio
-				int cantidadActual = pedidoMesa.getBebidasPedido().get(nombreAperitivo);
-				pedidoMesa.agregarBebida(nombreAperitivo, cantidadActual);
+	            if (pedidoMesa != null) {
+	                // Verificar si el aperitivo ya está en el pedido
+	                if (pedidoMesa.getBebidasPedido().containsKey(nombreAperitivo)) {
+	                    // Si está en el pedido, actualizar la cantidad y el precio
+	                    int cantidadActual = pedidoMesa.getBebidasPedido().get(nombreAperitivo);
+	                    pedidoMesa.agregarBebida(nombreAperitivo, cantidadActual + 1);
 
-				// Actualizar el modelo del JList de pedidoMesa
-				DefaultListModel<String> modelPedidoMesa = (DefaultListModel<String>) vista.listPedidoMesa.getModel();
-				// Buscar el índice de la línea que contiene el aperitivo y actualizarla
-				for (int i = 0; i < modelPedidoMesa.getSize(); i++) {
-					String lineaPedido = modelPedidoMesa.getElementAt(i);
-					if (lineaPedido.startsWith(nombreAperitivo)) {
-						// Extraer cantidad y precio de la línea actual
-						int cantidadExistente = Integer
-								.parseInt(lineaPedido.split(" - Cantidad: ")[1].split(" - Precio: ")[0]);
-						int precioExistente = Integer.parseInt(lineaPedido.split(" - Precio: ")[1]);
+	                    // Actualizar el modelo del JList de pedidoMesa
+	                    DefaultListModel<String> modelPedidoMesa = (DefaultListModel<String>) vista.listPedidoMesa.getModel();
+	                    // Buscar el índice de la línea que contiene el aperitivo y actualizarla
+	                    for (int i = 0; i < modelPedidoMesa.getSize(); i++) {
+	                        String lineaPedido = modelPedidoMesa.getElementAt(i);
+	                        if (lineaPedido.startsWith(nombreAperitivo)) {
+	                            int cantidadExistente = Integer.parseInt(lineaPedido.split(" - Cantidad: ")[1].split(" - Precio: ")[0]);
 
-						// Calcular la nueva cantidad y precio
-						int nuevaCantidad = cantidadExistente + 1;
-						int nuevoPrecio = precioExistente + precioAperitivo;
+	                            // Verificar si hay al menos dos partes en la cadena antes de intentar acceder a [1]
+	                            if (lineaPedido.split(" - Precio: ").length >= 2) {
+	                                int precioExistente = Integer.parseInt(lineaPedido.split(" - Precio: ")[1]);
 
-						// Actualizar la línea en el modelo del JList
-						modelPedidoMesa.set(i,
-								nombreAperitivo + " - Cantidad: " + nuevaCantidad + " - Precio: " + nuevoPrecio);
-						break;
-					}
-				}
-			} else {
-				// Si no está en el pedido, agregarlo con cantidad 1
-				pedidoMesa.agregarBebida(nombreAperitivo, 1);
+	                                int nuevaCantidad = cantidadExistente + 1;
+	                                int nuevoPrecio = precioExistente + precioAperitivo;
 
-				// Actualizar el modelo del JList de pedidoMesa con una nueva línea
-				DefaultListModel<String> modelPedidoMesa = (DefaultListModel<String>) vista.listPedidoMesa.getModel();
-				modelPedidoMesa.addElement(nombreAperitivo + " - Cantidad: 1 - Precio: " + precioAperitivo);
-			}
+	                                // Actualizar la línea en el modelo del JList
+	                                modelPedidoMesa.set(i, nombreAperitivo + " - Cantidad: " + nuevaCantidad + " - Precio: " + nuevoPrecio);
+	                                break;
+	                            }
+	                        }
+	                    }
+	                } else {
+	                    // Si no está en el pedido, agregarlo con cantidad 1
+	                    pedidoMesa.agregarBebida(nombreAperitivo, 1);
 
-		}
+	                    // Actualizar el modelo del JList de pedidoMesa con una nueva línea
+	                    DefaultListModel<String> modelPedidoMesa = (DefaultListModel<String>) vista.listPedidoMesa.getModel();
+	                    modelPedidoMesa.addElement(nombreAperitivo + " - Cantidad: 1 - Precio: " + precioAperitivo);
+	                }
+	            }
+	        }
+	    }
 	}// FIN AGREGAR ELEMENTO APERITIVO AL PEDIDO
 
 	// Método para agregar el elemento seleccionado de botella al pedido
 	private void agregarElementoBotellaAlPedido() {
-		// Obtenemos el elemento seleccionado del JList de refrescos
-		Object elementoSeleccionadoObject = vista.listBotellaspanelPedidoNuevo.getSelectedValue();
+	    // Obtenemos el elemento seleccionado del JList de botellas
+	    Object elementoSeleccionadoObject = vista.listBotellaspanelPedidoNuevo.getSelectedValue();
 
-		// Verificamos si hay un elemento seleccionado y lo castreamos a String
-		if (elementoSeleccionadoObject != null && elementoSeleccionadoObject instanceof String) {
-			String elementoSeleccionado = (String) elementoSeleccionadoObject;
+	    // Verificamos si hay un elemento seleccionado y lo castreamos a String
+	    if (elementoSeleccionadoObject != null && elementoSeleccionadoObject instanceof String) {
+	        String elementoSeleccionado = (String) elementoSeleccionadoObject;
+	        String[] partes = elementoSeleccionado.split(" - Precio: ");
 
-			// Obtener el nombre del refresco y el precio desde la cadena seleccionada
-			String nombreBotella = elementoSeleccionado.split(" - Precio: ")[0];
-			int precioBotella = Integer.parseInt(elementoSeleccionado.split(" - Precio: ")[1]);
+	        // Asegurarse de que la cadena tenga el formato esperado
+	        if (partes.length == 2) {
+	            String nombreBotella = partes[0];
+	            int precioBotella = Integer.parseInt(partes[1]);
 
-			// Asumiendo que el pedido es un HashMap<String, InfoRefresco>
-			Pedido pedidoMesa = mesa.getPedido();
+	            Pedido pedidoMesa = mesa.getPedido();
 
-			// Verificar si el refresco ya está en el pedido
-			if (pedidoMesa != null && pedidoMesa.getBebidasPedido().containsKey(nombreBotella)) {
-				// Si está en el pedido, actualizar la cantidad y el precio
-				int cantidadActual = pedidoMesa.getBebidasPedido().get(nombreBotella);
-				pedidoMesa.agregarBebida(nombreBotella, cantidadActual + 1);
+	            if (pedidoMesa != null) {
+	                // Verificar si la botella ya está en el pedido
+	                if (pedidoMesa.getBebidasPedido().containsKey(nombreBotella)) {
+	                    // Si está en el pedido, actualizar la cantidad y el precio
+	                    int cantidadActual = pedidoMesa.getBebidasPedido().get(nombreBotella);
+	                    pedidoMesa.agregarBebida(nombreBotella, cantidadActual + 1);
 
-				// Actualizar el modelo del JList de pedidoMesa
-				DefaultListModel<String> modelPedidoMesa = (DefaultListModel<String>) vista.listPedidoMesa.getModel();
-				// Buscar el índice de la línea que contiene el refresco y actualizarla
-				for (int i = 0; i < modelPedidoMesa.getSize(); i++) {
-					String lineaPedido = modelPedidoMesa.getElementAt(i);
-					if (lineaPedido.startsWith(nombreBotella)) {
-						// Extraer cantidad y precio de la línea actual
-						int cantidadExistente = Integer
-								.parseInt(lineaPedido.split(" - Cantidad: ")[1].split(" - Precio: ")[0]);
-						int precioExistente = Integer.parseInt(lineaPedido.split(" - Precio: ")[1]);
+	                    // Actualizar el modelo del JList de pedidoMesa
+	                    DefaultListModel<String> modelPedidoMesa = (DefaultListModel<String>) vista.listPedidoMesa.getModel();
+	                    // Buscar el índice de la línea que contiene la botella y actualizarla
+	                    for (int i = 0; i < modelPedidoMesa.getSize(); i++) {
+	                        String lineaPedido = modelPedidoMesa.getElementAt(i);
+	                        if (lineaPedido.startsWith(nombreBotella)) {
+	                            int cantidadExistente = Integer.parseInt(lineaPedido.split(" - Cantidad: ")[1].split(" - Precio: ")[0]);
 
-						// Calcular la nueva cantidad y precio
-						int nuevaCantidad = cantidadExistente + 1;
-						int nuevoPrecio = precioExistente + precioBotella;
+	                            // Verificar si hay al menos dos partes en la cadena antes de intentar acceder a [1]
+	                            if (lineaPedido.split(" - Precio: ").length >= 2) {
+	                                int precioExistente = Integer.parseInt(lineaPedido.split(" - Precio: ")[1]);
 
-						// Actualizar la línea en el modelo del JList
-						modelPedidoMesa.set(i,
-								nombreBotella + " - Cantidad: " + nuevaCantidad + " - Precio: " + nuevoPrecio);
-						break;
-					}
-				}
-			} else {
-				// Si no está en el pedido, agregarlo con cantidad 1
-				pedidoMesa.agregarBebida(nombreBotella, 1);
+	                                int nuevaCantidad = cantidadExistente + 1;
+	                                int nuevoPrecio = precioExistente + precioBotella;
 
-				// Actualizar el modelo del JList de pedidoMesa con una nueva línea
-				DefaultListModel<String> modelPedidoMesa = (DefaultListModel<String>) vista.listPedidoMesa.getModel();
-				modelPedidoMesa.addElement(nombreBotella + " - Cantidad: 1 - Precio: " + precioBotella);
-			}
+	                                // Actualizar la línea en el modelo del JList
+	                                modelPedidoMesa.set(i, nombreBotella + " - Cantidad: " + nuevaCantidad + " - Precio: " + nuevoPrecio);
+	                                break;
+	                            }
+	                        }
+	                    }
+	                } else {
+	                    // Si no está en el pedido, agregarlo con cantidad 1
+	                    pedidoMesa.agregarBebida(nombreBotella, 1);
 
-		}
+	                    // Actualizar el modelo del JList de pedidoMesa con una nueva línea
+	                    DefaultListModel<String> modelPedidoMesa = (DefaultListModel<String>) vista.listPedidoMesa.getModel();
+	                    modelPedidoMesa.addElement(nombreBotella + " - Cantidad: 1 - Precio: " + precioBotella);
+	                }
+	            }
+	        }
+	    }
 	}// FIN AGREGAR ELEMENTO BOTELLA AL PEDIDO
 
 	// Método para agregar el elemento seleccionado de cocktels al pedido
 	private void agregarElementoCocktelAlPedido() {
-		// Obtenemos el elemento seleccionado del JList de refrescos
-		Object elementoSeleccionadoObject = vista.listCocktelspanelPedidoNuevo.getSelectedValue();
+	    // Obtenemos el elemento seleccionado del JList de cócteles
+	    Object elementoSeleccionadoObject = vista.listCocktelspanelPedidoNuevo.getSelectedValue();
 
-		// Verificamos si hay un elemento seleccionado y lo castreamos a String
-		if (elementoSeleccionadoObject != null && elementoSeleccionadoObject instanceof String) {
-			String elementoSeleccionado = (String) elementoSeleccionadoObject;
+	    // Verificamos si hay un elemento seleccionado y lo castreamos a String
+	    if (elementoSeleccionadoObject != null && elementoSeleccionadoObject instanceof String) {
+	        String elementoSeleccionado = (String) elementoSeleccionadoObject;
+	        String[] partes = elementoSeleccionado.split(" - Precio: ");
 
-			// Obtener el nombre del refresco y el precio desde la cadena seleccionada
-			String nombreCocktel = elementoSeleccionado.split(" - Precio: ")[0];
-			int precioCocktel = Integer.parseInt(elementoSeleccionado.split(" - Precio: ")[1]);
+	        // Asegurarse de que la cadena tenga el formato esperado
+	        if (partes.length == 2) {
+	            String nombreCocktel = partes[0];
+	            int precioCocktel = Integer.parseInt(partes[1]);
 
-			// Asumiendo que el pedido es un HashMap<String, InfoRefresco>
-			Pedido pedidoMesa = mesa.getPedido();
+	            Pedido pedidoMesa = mesa.getPedido();
 
-			// Verificar si el refresco ya está en el pedido
-			if (pedidoMesa != null && pedidoMesa.getBebidasPedido().containsKey(nombreCocktel)) {
-				// Si está en el pedido, actualizar la cantidad y el precio
-				int cantidadActual = pedidoMesa.getBebidasPedido().get(nombreCocktel);
-				pedidoMesa.agregarBebida(nombreCocktel, cantidadActual + 1);
+	            if (pedidoMesa != null) {
+	                // Verificar si el cóctel ya está en el pedido
+	                if (pedidoMesa.getBebidasPedido().containsKey(nombreCocktel)) {
+	                    // Si está en el pedido, actualizar la cantidad y el precio
+	                    int cantidadActual = pedidoMesa.getBebidasPedido().get(nombreCocktel);
+	                    pedidoMesa.agregarBebida(nombreCocktel, cantidadActual + 1);
 
-				// Actualizar el modelo del JList de pedidoMesa
-				DefaultListModel<String> modelPedidoMesa = (DefaultListModel<String>) vista.listPedidoMesa.getModel();
-				// Buscar el índice de la línea que contiene el refresco y actualizarla
-				for (int i = 0; i < modelPedidoMesa.getSize(); i++) {
-					String lineaPedido = modelPedidoMesa.getElementAt(i);
-					if (lineaPedido.startsWith(nombreCocktel)) {
-						// Extraer cantidad y precio de la línea actual
-						int cantidadExistente = Integer
-								.parseInt(lineaPedido.split(" - Cantidad: ")[1].split(" - Precio: ")[0]);
-						int precioExistente = Integer.parseInt(lineaPedido.split(" - Precio: ")[1]);
+	                    // Actualizar el modelo del JList de pedidoMesa
+	                    DefaultListModel<String> modelPedidoMesa = (DefaultListModel<String>) vista.listPedidoMesa.getModel();
+	                    // Buscar el índice de la línea que contiene el cóctel y actualizarla
+	                    for (int i = 0; modelPedidoMesa != null && i < modelPedidoMesa.getSize(); i++) {
+	                        String lineaPedido = modelPedidoMesa.getElementAt(i);
+	                        if (lineaPedido.startsWith(nombreCocktel)) {
+	                            int cantidadExistente = Integer.parseInt(lineaPedido.split(" - Cantidad: ")[1].split(" - Precio: ")[0]);
 
-						// Calcular la nueva cantidad y precio
-						int nuevaCantidad = cantidadExistente + 1;
-						int nuevoPrecio = precioExistente + precioCocktel;
+	                            // Verificar si hay al menos dos partes en la cadena antes de intentar acceder a [1]
+	                            if (lineaPedido.split(" - Precio: ").length >= 2) {
+	                                int precioExistente = Integer.parseInt(lineaPedido.split(" - Precio: ")[1]);
 
-						// Actualizar la línea en el modelo del JList
-						modelPedidoMesa.set(i,
-								nombreCocktel + " - Cantidad: " + nuevaCantidad + " - Precio: " + nuevoPrecio);
-						break;
-					}
-				}
-			} else {
-				// Si no está en el pedido, agregarlo con cantidad 1
-				pedidoMesa.agregarBebida(nombreCocktel, 1);
+	                                int nuevaCantidad = cantidadExistente + 1;
+	                                int nuevoPrecio = precioExistente + precioCocktel;
 
-				// Actualizar el modelo del JList de pedidoMesa con una nueva línea
-				DefaultListModel<String> modelPedidoMesa = (DefaultListModel<String>) vista.listPedidoMesa.getModel();
-				modelPedidoMesa.addElement(nombreCocktel + " - Cantidad: 1 - Precio: " + precioCocktel);
-			}
+	                                // Actualizar la línea en el modelo del JList
+	                                modelPedidoMesa.set(i, nombreCocktel + " - Cantidad: " + nuevaCantidad + " - Precio: " + nuevoPrecio);
+	                                break;
+	                            }
+	                        }
+	                    }
+	                } else {
+	                    // Si no está en el pedido, agregarlo con cantidad 1
+	                    pedidoMesa.agregarBebida(nombreCocktel, 1);
 
-		}
+	                    // Actualizar el modelo del JList de pedidoMesa con una nueva línea
+	                    DefaultListModel<String> modelPedidoMesa = (DefaultListModel<String>) vista.listPedidoMesa.getModel();
+	                    modelPedidoMesa.addElement(nombreCocktel + " - Cantidad: 1 - Precio: " + precioCocktel);
+	                }
+	            }
+	        }
+	    }
 	}// FIN AGREGAR ELEMENTO COCKTEL AL PEDIDO
 
 	// Método para agregar el elemento seleccionado de vino al pedido
 	private void agregarElementoVinoAlPedido() {
-		// Obtenemos el elemento seleccionado del JList de refrescos
-		Object elementoSeleccionadoObject = vista.listVinopanelPedidoNuevo.getSelectedValue();
+	    // Obtenemos el elemento seleccionado del JList de vinos
+	    Object elementoSeleccionadoObject = vista.listVinopanelPedidoNuevo.getSelectedValue();
 
-		// Verificamos si hay un elemento seleccionado y lo castreamos a String
-		if (elementoSeleccionadoObject != null && elementoSeleccionadoObject instanceof String) {
-			String elementoSeleccionado = (String) elementoSeleccionadoObject;
+	    // Verificamos si hay un elemento seleccionado y lo castreamos a String
+	    if (elementoSeleccionadoObject != null && elementoSeleccionadoObject instanceof String) {
+	        String elementoSeleccionado = (String) elementoSeleccionadoObject;
+	        String[] partes = elementoSeleccionado.split(" - Precio: ");
 
-			// Obtener el nombre del refresco y el precio desde la cadena seleccionada
-			String nombreVino = elementoSeleccionado.split(" - Precio: ")[0];
-			int precioVino = Integer.parseInt(elementoSeleccionado.split(" - Precio: ")[1]);
+	        // Asegurarse de que la cadena tenga el formato esperado
+	        if (partes.length == 2) {
+	            String nombreVino = partes[0];
+	            int precioVino = Integer.parseInt(partes[1]);
 
-			// Asumiendo que el pedido es un HashMap<String, InfoRefresco>
-			Pedido pedidoMesa = mesa.getPedido();
+	            Pedido pedidoMesa = mesa.getPedido();
 
-			// Verificar si el refresco ya está en el pedido
-			if (pedidoMesa != null && pedidoMesa.getBebidasPedido().containsKey(nombreVino)) {
-				// Si está en el pedido, actualizar la cantidad y el precio
-				int cantidadActual = pedidoMesa.getBebidasPedido().get(nombreVino);
-				pedidoMesa.agregarBebida(nombreVino, cantidadActual + 1);
+	            if (pedidoMesa != null) {
+	                // Verificar si el vino ya está en el pedido
+	                if (pedidoMesa.getBebidasPedido().containsKey(nombreVino)) {
+	                    // Si está en el pedido, actualizar la cantidad y el precio
+	                    int cantidadActual = pedidoMesa.getBebidasPedido().get(nombreVino);
+	                    pedidoMesa.agregarBebida(nombreVino, cantidadActual + 1);
 
-				// Actualizar el modelo del JList de pedidoMesa
-				DefaultListModel<String> modelPedidoMesa = (DefaultListModel<String>) vista.listPedidoMesa.getModel();
-				// Buscar el índice de la línea que contiene el refresco y actualizarla
-				for (int i = 0; i < modelPedidoMesa.getSize(); i++) {
-					String lineaPedido = modelPedidoMesa.getElementAt(i);
-					if (lineaPedido.startsWith(nombreVino)) {
-						// Extraer cantidad y precio de la línea actual
-						int cantidadExistente = Integer
-								.parseInt(lineaPedido.split(" - Cantidad: ")[1].split(" - Precio: ")[0]);
-						int precioExistente = Integer.parseInt(lineaPedido.split(" - Precio: ")[1]);
+	                    // Actualizar el modelo del JList de pedidoMesa
+	                    DefaultListModel<String> modelPedidoMesa = (DefaultListModel<String>) vista.listPedidoMesa.getModel();
+	                    // Buscar el índice de la línea que contiene el vino y actualizarla
+	                    for (int i = 0; modelPedidoMesa != null && i < modelPedidoMesa.getSize(); i++) {
+	                        String lineaPedido = modelPedidoMesa.getElementAt(i);
+	                        if (lineaPedido.startsWith(nombreVino)) {
+	                            int cantidadExistente = Integer.parseInt(lineaPedido.split(" - Cantidad: ")[1].split(" - Precio: ")[0]);
 
-						// Calcular la nueva cantidad y precio
-						int nuevaCantidad = cantidadExistente + 1;
-						int nuevoPrecio = precioExistente + precioVino;
+	                            // Verificar si hay al menos dos partes en la cadena antes de intentar acceder a [1]
+	                            if (lineaPedido.split(" - Precio: ").length >= 2) {
+	                                int precioExistente = Integer.parseInt(lineaPedido.split(" - Precio: ")[1]);
 
-						// Actualizar la línea en el modelo del JList
-						modelPedidoMesa.set(i,
-								nombreVino + " - Cantidad: " + nuevaCantidad + " - Precio: " + nuevoPrecio);
-						break;
-					}
-				}
-			} else {
-				// Si no está en el pedido, agregarlo con cantidad 1
-				pedidoMesa.agregarBebida(nombreVino, 1);
+	                                int nuevaCantidad = cantidadExistente + 1;
+	                                int nuevoPrecio = precioExistente + precioVino;
 
-				// Actualizar el modelo del JList de pedidoMesa con una nueva línea
-				DefaultListModel<String> modelPedidoMesa = (DefaultListModel<String>) vista.listPedidoMesa.getModel();
-				modelPedidoMesa.addElement(nombreVino + " - Cantidad: 1 - Precio: " + precioVino);
-			}
+	                                // Actualizar la línea en el modelo del JList
+	                                modelPedidoMesa.set(i, nombreVino + " - Cantidad: " + nuevaCantidad + " - Precio: " + nuevoPrecio);
+	                                break;
+	                            }
+	                        }
+	                    }
+	                } else {
+	                    // Si no está en el pedido, agregarlo con cantidad 1
+	                    pedidoMesa.agregarBebida(nombreVino, 1);
 
-		}
+	                    // Actualizar el modelo del JList de pedidoMesa con una nueva línea
+	                    DefaultListModel<String> modelPedidoMesa = (DefaultListModel<String>) vista.listPedidoMesa.getModel();
+	                    modelPedidoMesa.addElement(nombreVino + " - Cantidad: 1 - Precio: " + precioVino);
+	                }
+	            }
+	        }
+	    }
 	}// FIN AGREGAR ELEMENTO VINO AL PEDIDO
 	/*--------------------------------Fin metodos de agregar en paneles nuevos por clase-------------------------------------------*/
 

@@ -16,15 +16,23 @@ public class Mesa {
 		return numeroMesa;
 	}
 
+	// En la clase Mesa, modifica el método getPedido
 	public Pedido getPedido() {
-		if (pedido == null) {
-			pedido = new Pedido();
-		}
-		return pedido;
+	    if (pedido == null) {
+	        pedido = new Pedido();
+	    }
+	    return pedido;
 	}
 	 @Override
 	    public String toString() {
 	        return "Mesa " + numeroMesa;
+	    }
+	 public void setPedido(Pedido pedido) {
+		this.pedido = pedido;
+	}
+
+	public void agregarBebida(String nombreBebida, int cantidad) {
+	        getPedido().agregarBebida(nombreBebida, cantidad);
 	    }
 	 @Override
 	 public boolean equals(Object obj) {
