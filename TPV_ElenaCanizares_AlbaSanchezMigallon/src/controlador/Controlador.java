@@ -93,6 +93,7 @@ public class Controlador implements ActionListener, ListSelectionListener {
 		this.vista.btnRefrescos.addActionListener(this);
 		this.vista.btnAnadirAlPedido.addActionListener(this);
 		this.vista.btnVolverInicio.addActionListener(this);
+		this.vista.btnVolverInicio2.addActionListener(this);
 		this.vista.btnCervezas.addActionListener(this);
 		this.vista.btnVino.addActionListener(this);
 		this.vista.btnAperitivos.addActionListener(this);
@@ -129,7 +130,30 @@ public class Controlador implements ActionListener, ListSelectionListener {
 	 * la // mesa seleccionada (si hay alguno) mostrarPedidosPorMesaSeleccionada();
 	 * }
 	 */
+	private void configurarMusicaComboBox() {
+	    // Configuración del modelo del JComboBox
+	    DefaultComboBoxModel<String> comboBoxModel = new DefaultComboBoxModel<>(
+	            musica.getOpcionesMusica().toArray(new String[0]));
+	    vista.comboBoxMusica.setModel(comboBoxModel);
 
+	    // Asignar un ActionListener al JComboBox
+	    vista.comboBoxMusica.addActionListener(new ActionListener() {
+	        @Override
+	        public void actionPerformed(ActionEvent e) {
+	            // Obtén el índice seleccionado del JComboBox
+	            int indiceSeleccionado = vista.comboBoxMusica.getSelectedIndex();
+
+	            // Lanza la reproducción de música en un hilo separado
+	            new Thread(new Runnable() {
+	                @Override
+	                public void run() {
+	                    // Llama al método lanzar del objeto Musica
+	                    musica.lanzar(indiceSeleccionado);
+	                }
+	            }).start();
+	        }
+	    });
+	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == vista.btnCaja) {
@@ -170,14 +194,22 @@ public class Controlador implements ActionListener, ListSelectionListener {
 		if (e.getSource() == vista.btnMusica) {
 			vista.panelInicio.setVisible(false);
 			vista.panelMusica.setVisible(true);
-		} // PANEL MUSICA
-		if (e.getSource() == vista.comboBoxMusica) {
-			 // Obtén el índice seleccionado del JComboBox
-            int indiceSeleccionado = vista.comboBoxMusica.getSelectedIndex();
 
-            // Llama al método lanzar del objeto Musica
-            musica.lanzar(indiceSeleccionado);
-		}//FIN COMBOBOXMUSICA
+			configurarMusicaComboBox();
+		}
+		if (e.getSource() == vista.comboBoxMusica) {
+		    // Obtén el índice seleccionado del JComboBox
+		    int indiceSeleccionado = vista.comboBoxMusica.getSelectedIndex();
+
+		    // Llama al método lanzar del objeto Musica en un hilo separado
+		    new Thread(new Runnable() {
+		        @Override
+		        public void run() {
+		            musica.lanzar(indiceSeleccionado);
+		        }
+		    }).start();
+		}
+
 		if (e.getSource() == vista.btnAceptarCambios) {
 			actualizarCantidadSeleccionada("Refresco");
 			actualizarCantidadSeleccionada("Cerveza");
@@ -270,6 +302,10 @@ public class Controlador implements ActionListener, ListSelectionListener {
 
 		} // FIN BTN ANADIR AL PEDIDO
 		if (e.getSource() == vista.btnVolverInicio) {
+			ocultarPaneles();
+			vista.panelInicio.setVisible(true);
+		}
+		if (e.getSource() == vista.btnVolverInicio2) {
 			ocultarPaneles();
 			vista.panelInicio.setVisible(true);
 		}

@@ -36,7 +36,7 @@ public class Vista extends JFrame {
 			listBotellaspanelPedidoNuevo, listCocktelspanelPedidoNuevo, listVinopanelPedidoNuevo;
 	public JButton btnCaja, btnPedido, btnInventario, btnMusica, btnMesa1, btnMesa2, btnMesa3, btnMesa4, btnMesa5,
 			btnMesa6, btnMesa7, btnBarra, btnAceptarCambios, btnRevertirCambios, btnRefrescos, btnAnadirAlPedido,
-			btnCervezas, btnAperitivos, btnVino, btnBotellas, btnCocktels, btnVolverInicio;
+			btnCervezas, btnAperitivos, btnVino, btnBotellas, btnCocktels, btnVolverInicio,btnVolverInicio2;
 	public JSpinner spinnerCantidadRefrescos, spinnerCantidadCerveza, spinnerCantidadBotellas, spinnerCantidadCocktels,
 			spinnerCantidadVinos, spinnerCantidadAperitivos, spinnerCantidadIngredientes;
 	public JList<String> listPedidoMesa;
@@ -519,7 +519,12 @@ public class Vista extends JFrame {
 		comboBoxMusica = new JComboBox();
 		comboBoxMusica.setBounds(513, 244, 467, 314);
 		panelMusica.add(comboBoxMusica);
-		panelMusica.setVisible(false);
+		
+		btnVolverInicio2 = new JButton("VolverInicio");
+		btnVolverInicio2.setBounds(1286, 112, 317, 129);
+		panelMusica.add(btnVolverInicio2);
+
+		
 
 	}
 }
