@@ -131,7 +131,7 @@ public class Controlador implements ActionListener, ListSelectionListener {
 	 * }
 	 */
 	private void configurarMusicaComboBox() {
-	    // Configuración del modelo del JComboBox
+	    // Configuracion del modelo del JComboBox
 	    DefaultComboBoxModel<String> comboBoxModel = new DefaultComboBoxModel<>(
 	            musica.getOpcionesMusica().toArray(new String[0]));
 	    vista.comboBoxMusica.setModel(comboBoxModel);
@@ -140,14 +140,14 @@ public class Controlador implements ActionListener, ListSelectionListener {
 	    vista.comboBoxMusica.addActionListener(new ActionListener() {
 	        @Override
 	        public void actionPerformed(ActionEvent e) {
-	            // Obtén el índice seleccionado del JComboBox
+	            // Obtemos el indice seleccionado del JComboBox
 	            int indiceSeleccionado = vista.comboBoxMusica.getSelectedIndex();
 
-	            // Lanza la reproducción de música en un hilo separado
+	            // Lanza la reproduccion de musica en un hilo separado
 	            new Thread(new Runnable() {
 	                @Override
 	                public void run() {
-	                    // Llama al método lanzar del objeto Musica
+	                    // Llama al metodo lanzar del objeto Musica
 	                    musica.lanzar(indiceSeleccionado);
 	                }
 	            }).start();
@@ -162,12 +162,12 @@ public class Controlador implements ActionListener, ListSelectionListener {
 		} // PANEL CAJA
 		if (e.getSource() == vista.btnPedido) {
 			mostrarTodosLosPedidosPorMesa();
-			// System.out.println("Modelo del JList después de actualizar: " +
+			// System.out.println("Modelo del JList despues de actualizar: " +
 			// vista.listPedido.getModel());
 			vista.panelInicio.setVisible(false);
 			vista.panelPedido.setVisible(true);
 
-			// Llama al nuevo método para mostrar todos los pedidos por mesa
+			// Llama al nuevo metodo para mostrar todos los pedidos por mesa
 
 		} // PANEL PEDIDO
 
@@ -198,10 +198,10 @@ public class Controlador implements ActionListener, ListSelectionListener {
 			configurarMusicaComboBox();
 		}//FIN BTNMUSICA
 		if (e.getSource() == vista.comboBoxMusica) {
-		    // Obtén el índice seleccionado del JComboBox
+		    // Obtenemos el indice seleccionado del JComboBox
 		    int indiceSeleccionado = vista.comboBoxMusica.getSelectedIndex();
 
-		    // Llama al método lanzar del objeto Musica en un hilo separado
+		    // Llama al metodo lanzar del objeto Musica en un hilo separado
 		    new Thread(new Runnable() {
 		        @Override
 		        public void run() {
@@ -240,7 +240,7 @@ public class Controlador implements ActionListener, ListSelectionListener {
 			ClicMesa(7);
 		} // FIN BOTONES MESA
 
-		// Agregamos el listener al botón de refrescos
+		// Agregamos el listener al boton de refrescos
 		if (e.getSource() == vista.btnRefrescos) {
 			ocultarOtrasListas();
 			vista.listRefrescospanelPedidoNuevo.setVisible(true);
@@ -357,12 +357,12 @@ public class Controlador implements ActionListener, ListSelectionListener {
 	 * bebida + " - Cantidad: " + cantidad); } } }
 	 */
 
-	// Metodo para indicar el clic en un botón/mesa
+	// Metodo para indicar el clic en un boton/mesa
 	private void ClicMesa(int numeroMesa) {
 		// Obtenemos el pedido asociado a la mesa seleccionada
 		Pedido pedidoMesa = mesa.getPedido();
 
-		// Verificamos si la mesa está ocupada
+		// Verificamos si la mesa esta ocupada
 		if (pedidoMesa != null && pedidoMesa.esOcupada()) {
 			System.out.println("Mesa ocupada. Mostrando pedido...");
 			vista.panelInicio.setVisible(false);
@@ -478,7 +478,7 @@ public class Controlador implements ActionListener, ListSelectionListener {
 		}
 	}// FIN AGREGAR ELEMENTO REFRESCO AL PEDIDO
 
-	// Método para agregar el elemento seleccionado de cerveza al pedido
+	// Metodo para agregar el elemento seleccionado de cerveza al pedido
 	private void agregarElementoCervezaAlPedido() {
 		// Obtenemos el elemento seleccionado del JList de cervezas
 		Object elementoSeleccionadoObject = vista.listCervezaspanelPedidoNuevo.getSelectedValue();
@@ -539,7 +539,7 @@ public class Controlador implements ActionListener, ListSelectionListener {
 		}
 	}// FIN AGREGAR ELEMENTO CERVEZA AL PEDIDO
 
-	// Método para agregar el elemento seleccionado de aperitivo al pedido
+	// Metodo para agregar el elemento seleccionado de aperitivo al pedido
 	private void agregarElementoAperitivoAlPedido() {
 		// Obtenemos el elemento seleccionado del JList de aperitivos
 		Object elementoSeleccionadoObject = vista.listAperitivospanelPedidoNuevo.getSelectedValue();
@@ -602,7 +602,7 @@ public class Controlador implements ActionListener, ListSelectionListener {
 		}
 	}// FIN AGREGAR ELEMENTO APERITIVO AL PEDIDO
 
-	// Método para agregar el elemento seleccionado de botella al pedido
+	// Metodo para agregar el elemento seleccionado de botella al pedido
 	private void agregarElementoBotellaAlPedido() {
 		// Obtenemos el elemento seleccionado del JList de botellas
 		Object elementoSeleccionadoObject = vista.listBotellaspanelPedidoNuevo.getSelectedValue();
@@ -620,7 +620,7 @@ public class Controlador implements ActionListener, ListSelectionListener {
 				Pedido pedidoMesa = mesa.getPedido();
 
 				if (pedidoMesa != null) {
-					// Verificar si la botella ya está en el pedido
+					// Verificar si la botella ya esta en el pedido
 					if (pedidoMesa.getBebidasPedido().containsKey(nombreBotella)) {
 						// Si está en el pedido, actualizar la cantidad y el precio
 						int cantidadActual = pedidoMesa.getBebidasPedido().get(nombreBotella);
@@ -652,7 +652,7 @@ public class Controlador implements ActionListener, ListSelectionListener {
 							}
 						}
 					} else {
-						// Si no está en el pedido, agregarlo con cantidad 1
+						// Si no esta en el pedido, agregarlo con cantidad 1
 						pedidoMesa.agregarBebida(nombreBotella, 1);
 
 						// Actualizar el modelo del JList de pedidoMesa con una nueva línea
@@ -665,9 +665,9 @@ public class Controlador implements ActionListener, ListSelectionListener {
 		}
 	}// FIN AGREGAR ELEMENTO BOTELLA AL PEDIDO
 
-	// Método para agregar el elemento seleccionado de cocktels al pedido
+	// Metodo para agregar el elemento seleccionado de cocktels al pedido
 	private void agregarElementoCocktelAlPedido() {
-		// Obtenemos el elemento seleccionado del JList de cócteles
+		// Obtenemos el elemento seleccionado del JList de cocteles
 		Object elementoSeleccionadoObject = vista.listCocktelspanelPedidoNuevo.getSelectedValue();
 
 		// Verificamos si hay un elemento seleccionado y lo castreamos a String
@@ -683,16 +683,16 @@ public class Controlador implements ActionListener, ListSelectionListener {
 				Pedido pedidoMesa = mesa.getPedido();
 
 				if (pedidoMesa != null) {
-					// Verificar si el cóctel ya está en el pedido
+					// Verificar si el coctel ya esta en el pedido
 					if (pedidoMesa.getBebidasPedido().containsKey(nombreCocktel)) {
-						// Si está en el pedido, actualizar la cantidad y el precio
+						// Si esta en el pedido, actualizar la cantidad y el precio
 						int cantidadActual = pedidoMesa.getBebidasPedido().get(nombreCocktel);
 						pedidoMesa.agregarBebida(nombreCocktel, cantidadActual + 1);
 
 						// Actualizar el modelo del JList de pedidoMesa
 						DefaultListModel<String> modelPedidoMesa = (DefaultListModel<String>) vista.listPedidoMesa
 								.getModel();
-						// Buscar el índice de la línea que contiene el cóctel y actualizarla
+						// Buscar el indice de la linea que contiene el coctel y actualizarla
 						for (int i = 0; modelPedidoMesa != null && i < modelPedidoMesa.getSize(); i++) {
 							String lineaPedido = modelPedidoMesa.getElementAt(i);
 							if (lineaPedido.startsWith(nombreCocktel)) {
@@ -715,7 +715,7 @@ public class Controlador implements ActionListener, ListSelectionListener {
 							}
 						}
 					} else {
-						// Si no está en el pedido, agregarlo con cantidad 1
+						// Si no esta en el pedido, agregarlo con cantidad 1
 						pedidoMesa.agregarBebida(nombreCocktel, 1);
 
 						// Actualizar el modelo del JList de pedidoMesa con una nueva línea
@@ -728,7 +728,7 @@ public class Controlador implements ActionListener, ListSelectionListener {
 		}
 	}// FIN AGREGAR ELEMENTO COCKTEL AL PEDIDO
 
-	// Método para agregar el elemento seleccionado de vino al pedido
+	// Metodo para agregar el elemento seleccionado de vino al pedido
 	private void agregarElementoVinoAlPedido() {
 		// Obtenemos el elemento seleccionado del JList de vinos
 		Object elementoSeleccionadoObject = vista.listVinopanelPedidoNuevo.getSelectedValue();
@@ -746,7 +746,7 @@ public class Controlador implements ActionListener, ListSelectionListener {
 				Pedido pedidoMesa = mesa.getPedido();
 
 				if (pedidoMesa != null) {
-					// Verificar si el vino ya está en el pedido
+					// Verificar si el vino ya esta en el pedido
 					if (pedidoMesa.getBebidasPedido().containsKey(nombreVino)) {
 						// Si está en el pedido, actualizar la cantidad y el precio
 						int cantidadActual = pedidoMesa.getBebidasPedido().get(nombreVino);
@@ -755,7 +755,7 @@ public class Controlador implements ActionListener, ListSelectionListener {
 						// Actualizar el modelo del JList de pedidoMesa
 						DefaultListModel<String> modelPedidoMesa = (DefaultListModel<String>) vista.listPedidoMesa
 								.getModel();
-						// Buscar el índice de la línea que contiene el vino y actualizarla
+						// Buscar el indice de la línea que contiene el vino y actualizarla
 						for (int i = 0; modelPedidoMesa != null && i < modelPedidoMesa.getSize(); i++) {
 							String lineaPedido = modelPedidoMesa.getElementAt(i);
 							if (lineaPedido.startsWith(nombreVino)) {
@@ -778,7 +778,7 @@ public class Controlador implements ActionListener, ListSelectionListener {
 							}
 						}
 					} else {
-						// Si no está en el pedido, agregarlo con cantidad 1
+						// Si no esta en el pedido, agregarlo con cantidad 1
 						pedidoMesa.agregarBebida(nombreVino, 1);
 
 						// Actualizar el modelo del JList de pedidoMesa con una nueva línea
@@ -893,14 +893,14 @@ public class Controlador implements ActionListener, ListSelectionListener {
 
 	// Metodo que muestra el pedido de la mesa en panelPedidoNuevo
 	private void mostrarPedido() {
-		// Obtenemos la información del pedido asociado a la mesa seleccionada
+		// Obtenemos la informacion del pedido asociado a la mesa seleccionada
 		Pedido pedidoMesa = mesa.getPedido();
 
-		// Verificamos si la mesa está ocupada
+		// Verificamos si la mesa esta ocupada
 		boolean mesaOcupada = pedidoMesa != null && pedidoMesa.esOcupada();
 
 		if (mesaOcupada) {
-			// La mesa está ocupada, mostramos el panel de pedido con la información
+			// La mesa esta ocupada, mostramos el panel de pedido con la informacion
 			vista.panelInicio.setVisible(false);
 			vista.panelPedido.setVisible(true);
 
@@ -928,7 +928,7 @@ public class Controlador implements ActionListener, ListSelectionListener {
 				modelPedidoMesa.addElement(bebida + " - Cantidad: " + cantidad);
 			}
 		} else {
-			// La mesa no está ocupada, mostramos el panelNuevoPedido
+			// La mesa no esta ocupada, mostramos el panelNuevoPedido
 			vista.panelInicio.setVisible(false);
 			vista.panelPedidoNuevo.setVisible(true);
 		}
@@ -1147,9 +1147,6 @@ public class Controlador implements ActionListener, ListSelectionListener {
 			// Obtenemos el nombre del producto
 			String nombreProducto = elementoSeleccionado.split(" - Cantidad: ")[0];
 
-			// Actualizamos la cantidad en la instancia correspondiente de cada
-			// clase,Refresco,Cerveza....
-
 			// Actualizamos la cantidad en la instancia correspondiente de cada clase
 			// (Refresco, Cerveza, Aperitivo)
 			if ("Refresco".equals(tipoProducto)) {
@@ -1347,14 +1344,14 @@ public class Controlador implements ActionListener, ListSelectionListener {
 	// Metodo para actualizar la lista de pedidos de cada mesa
 
 	private void actualizarListaPedidosMesa(int numeroMesa) {
-		// Obtén la mesa correspondiente desde el gestor de pedidos
+		// Obtenemos la mesa correspondiente desde el gestor de pedidos
 		Mesa mesa = gestorDePedidos.getMesas().get(numeroMesa - 1);
 
-		// Obtén el modelo de lista del JList y limpia los elementos actuales
+		// Obtemos el modelo de lista del JList y limpia los elementos actuales
 		DefaultListModel<String> modelPedidosMesa = new DefaultListModel<>();
 		vista.listPedido.setModel(modelPedidosMesa);
 
-		// Obtén el pedido de la mesa y agrégalo al modelo
+		// Obtenemos el pedido de la mesa y agrégalo al modelo
 		HashMap<String, Integer> pedidoMesa = mesa.getPedido().getBebidasPedido();
 		for (Map.Entry<String, Integer> entry : pedidoMesa.entrySet()) {
 			String bebida = entry.getKey();
