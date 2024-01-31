@@ -153,7 +153,7 @@ public class Controlador implements ActionListener, ListSelectionListener {
 	            }).start();
 	        }
 	    });
-	}
+	}//FIN CONFIGURARMUSICACOMBOBOX
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == vista.btnCaja) {
@@ -196,7 +196,7 @@ public class Controlador implements ActionListener, ListSelectionListener {
 			vista.panelMusica.setVisible(true);
 
 			configurarMusicaComboBox();
-		}
+		}//FIN BTNMUSICA
 		if (e.getSource() == vista.comboBoxMusica) {
 		    // Obtén el índice seleccionado del JComboBox
 		    int indiceSeleccionado = vista.comboBoxMusica.getSelectedIndex();
@@ -208,7 +208,7 @@ public class Controlador implements ActionListener, ListSelectionListener {
 		            musica.lanzar(indiceSeleccionado);
 		        }
 		    }).start();
-		}
+		}//FIN COMBOBOXMUSICA
 
 		if (e.getSource() == vista.btnAceptarCambios) {
 			actualizarCantidadSeleccionada("Refresco");
