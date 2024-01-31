@@ -16,7 +16,7 @@ public class Mesa {
 		return numeroMesa;
 	}
 
-	// En la clase Mesa, modifica el método getPedido
+	
 	public Pedido getPedido() {
 	    if (pedido == null) {
 	        pedido = new Pedido();

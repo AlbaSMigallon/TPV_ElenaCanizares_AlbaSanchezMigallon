@@ -30,7 +30,7 @@ public class Pedido {
 	}
 
 	public void actualizarCantidadBebida(String nombreBebida, int nuevaCantidad) {
-		// Actualiza la cantidad de la bebida si ya existe en el pedido
+		// Actualizamos la cantidad de la bebida si ya existe en el pedido
 		bebidasPedido.put(nombreBebida, nuevaCantidad);
 	}
 

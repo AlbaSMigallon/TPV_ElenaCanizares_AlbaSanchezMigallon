@@ -28,7 +28,7 @@ public class GestorDePedidos {
         if (numeroMesa >= 1 && numeroMesa <= mesas.size()) {
             Mesa mesa = mesas.get(numeroMesa - 1);
             
-            // Asegúrate de que se cree un nuevo Pedido si no existe uno
+            // crear un nuevo Pedido si no existe uno
             if (mesa.getPedido() == null) {
                 mesa.setPedido(new Pedido());
             }
