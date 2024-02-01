@@ -292,7 +292,7 @@ public class Controlador implements ActionListener, ListSelectionListener {
 
 		} // FIN BTNVINOS
 		if (e.getSource() == vista.btnAnadirAlPedido) {
-			agregarElementoRefrescoAlPedido();
+			agregarElementoRefrescoAlPedido(idMesa);
 			agregarElementoCervezaAlPedido();
 			agregarElementoAperitivoAlPedido();
 			agregarElementoBotellaAlPedido();
@@ -358,9 +358,9 @@ public class Controlador implements ActionListener, ListSelectionListener {
 	 */
 
 	// Metodo para indicar el clic en un boton/mesa
-	private void ClicMesa(Mesa numeroMesa) {
+	private void ClicMesa(Mesa idMesa) {
 		// Obtenemos el pedido asociado a la mesa seleccionada
-		Pedido pedidoMesa = mesa.getPedido();
+		Pedido pedidoMesa = idMesa.getPedido();
 		
 
 		// Verificamos si la mesa esta ocupada
@@ -371,10 +371,10 @@ public class Controlador implements ActionListener, ListSelectionListener {
 
 			// Actualizamos la variable mesaSeleccionada para que coincida con la mesa
 			// actual
-			mesaSeleccionada = "Mesa " + numeroMesa;
+			mesaSeleccionada = "Mesa " + idMesa;
 
 			// Mostramos el pedido de la mesa actual
-			mostrarPedido();
+			mostrarPedido(idMesa);
 		} else {
 			System.out.println("Mesa no ocupada. Redirigiendo a nuevo pedido...");
 			vista.panelInicio.setVisible(false);
@@ -382,7 +382,7 @@ public class Controlador implements ActionListener, ListSelectionListener {
 
 			// Actualizamos la variable mesaSeleccionada para que coincida con la mesa
 			// actual
-			mesaSeleccionada = "Mesa " + numeroMesa;
+			mesaSeleccionada = "Mesa " + idMesa;
 			
 			
 		}
@@ -429,7 +429,7 @@ public class Controlador implements ActionListener, ListSelectionListener {
 	 */
 	/*--------------------------------Metodos de agregar en paneles nuevos por clase-------------------------------------------*/
 
-	private void agregarElementoRefrescoAlPedido() {
+	private void agregarElementoRefrescoAlPedido(Mesa idMesa) {
 		Object elementoSeleccionadoObject = vista.listRefrescospanelPedidoNuevo.getSelectedValue();
 
 		if (elementoSeleccionadoObject instanceof String) {
@@ -440,7 +440,7 @@ public class Controlador implements ActionListener, ListSelectionListener {
 				String nombreRefresco = partes[0];
 				int precioRefresco = Integer.parseInt(partes[1]);
 
-				Pedido pedidoMesa = mesa.getPedido();
+				Pedido pedidoMesa = idMesa.getPedido();
 				
 
 				if (pedidoMesa != null) {
@@ -896,10 +896,10 @@ public class Controlador implements ActionListener, ListSelectionListener {
 	/*--------------------------------Fin metodos de listar en paneles nuevos por clase-------------------------------------------*/
 
 	// Metodo que muestra el pedido de la mesa en panelPedidoNuevo
-	private void mostrarPedido() {
+	private void mostrarPedido(Mesa idMesa) {
 		// Obtenemos la informacion del pedido asociado a la mesa seleccionada
 		//Pedido pedidoMesa = mesa.getPedido();
-		Pedido pedidoMesa = mesa.getPedido();
+		Pedido pedidoMesa = idMesa.getPedido();
 
 		// Verificamos si la mesa esta ocupada
 		boolean mesaOcupada = pedidoMesa != null && pedidoMesa.esOcupada();
@@ -936,6 +936,7 @@ public class Controlador implements ActionListener, ListSelectionListener {
 			// La mesa no esta ocupada, mostramos el panelNuevoPedido
 			vista.panelInicio.setVisible(false);
 			vista.panelPedidoNuevo.setVisible(true);
+			
 		}
 	}// FIN MOSTRAR PEDIDO
 	/*--------------------------------Metodos de listar en inventario por clase-------------------------------------------*/
