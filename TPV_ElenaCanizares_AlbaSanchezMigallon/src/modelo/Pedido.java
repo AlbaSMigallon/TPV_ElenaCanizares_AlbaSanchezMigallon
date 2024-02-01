@@ -6,10 +6,13 @@ public class Pedido {
 	private boolean esOcupada;
 	private boolean tienePedidoExistente;
 	private HashMap<String, Integer> bebidasPedido;
+	private Local local;
+	private int idPedido;
 
 	public Pedido() {
 		this.bebidasPedido = new HashMap<>();
 		this.tienePedidoExistente = false;
+		this.local = Local.getInstance();
 	}
 
 	public void agregarBebida(String nombreBebida, int cantidad) {

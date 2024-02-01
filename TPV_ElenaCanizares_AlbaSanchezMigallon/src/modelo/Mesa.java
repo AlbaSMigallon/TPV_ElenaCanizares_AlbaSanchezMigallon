@@ -3,13 +3,14 @@ package modelo;
 public class Mesa {
 	private int numeroMesa;
 	private Pedido pedido;
-
+	private Local local;
 	public Mesa() {
 
 	}
 
 	public Mesa(int numeroMesa) {
 	    this.numeroMesa = numeroMesa;
+	    this.local = Local.getInstance();
 	    this.pedido = new Pedido(); 
 	}
 	public int getNumeroMesa() {
