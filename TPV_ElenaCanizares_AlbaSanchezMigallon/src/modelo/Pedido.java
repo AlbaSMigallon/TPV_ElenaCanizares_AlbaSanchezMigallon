@@ -3,28 +3,25 @@ package modelo;
 import java.util.HashMap;
 
 public class Pedido {
-	private boolean esOcupada;
-	private boolean tienePedidoExistente;
+	private boolean esPagado;
 	private HashMap<String, Integer> bebidasPedido;
-	private Local local;
+	// private Local local;
 	private int idPedido;
 
 	public Pedido() {
+
+	}
+
+	public Pedido(int idPedido) {
 		this.bebidasPedido = new HashMap<>();
-		this.tienePedidoExistente = false;
-		this.local = Local.getInstance();
+		this.idPedido = idPedido;
+		// this.local = Local.getInstance();
 	}
 
 	public void agregarBebida(String nombreBebida, int cantidad) {
-		if (!esOcupada) {
-			esOcupada = true;
-		}
-		bebidasPedido.put(nombreBebida, cantidad);
-		tienePedidoExistente = true;
-	}
 
-	public boolean tienePedidoExistente() {
-		return tienePedidoExistente;
+		bebidasPedido.put(nombreBebida, cantidad);
+
 	}
 
 	public void eliminarBebida(String nombreBebida, int cantidad) {
@@ -41,11 +38,32 @@ public class Pedido {
 		return bebidasPedido;
 	}
 
-	public boolean esOcupada() {
-		return esOcupada;
+	public boolean esPagado() {
+		return esPagado;
 	}
 
-	public void setEsOcupada(boolean esOcupada) {
-		this.esOcupada = esOcupada;
+	public void setEsPagado(boolean esPagado) {
+		this.esPagado = esPagado;
 	}
+
+	public void marcarComoPagado() {
+		this.esPagado = true;
+	}
+
+	public int getIdPedido() {
+		return idPedido;
+	}
+
+	public void setIdPedido(int idPedido) {
+		this.idPedido = idPedido;
+	}
+
+	public boolean isEsPagado() {
+		return esPagado;
+	}
+
+	public void setBebidasPedido(HashMap<String, Integer> bebidasPedido) {
+		this.bebidasPedido = bebidasPedido;
+	}
+
 }
