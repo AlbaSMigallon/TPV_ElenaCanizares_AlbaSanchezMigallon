@@ -225,19 +225,19 @@ public class Controlador implements ActionListener, ListSelectionListener {
 		} // ELIMINAR CAMBIOS
 
 		if (e.getSource() == vista.btnMesa1) {
-			ClicMesa(1);
+			ClicMesa(gestorDePedidos.getMesas().get(0));
 		} else if (e.getSource() == vista.btnMesa2) {
-			ClicMesa(2);
+			ClicMesa(gestorDePedidos.getMesas().get(1));
 		} else if (e.getSource() == vista.btnMesa3) {
-			ClicMesa(3);
+			ClicMesa(gestorDePedidos.getMesas().get(2));
 		} else if (e.getSource() == vista.btnMesa4) {
-			ClicMesa(4);
+			ClicMesa(gestorDePedidos.getMesas().get(3));
 		} else if (e.getSource() == vista.btnMesa5) {
-			ClicMesa(5);
+			ClicMesa(gestorDePedidos.getMesas().get(4));
 		} else if (e.getSource() == vista.btnMesa6) {
-			ClicMesa(6);
+			ClicMesa(gestorDePedidos.getMesas().get(5));
 		} else if (e.getSource() == vista.btnMesa7) {
-			ClicMesa(7);
+			ClicMesa(gestorDePedidos.getMesas().get(6));
 		} // FIN BOTONES MESA
 
 		// Agregamos el listener al boton de refrescos
@@ -298,7 +298,7 @@ public class Controlador implements ActionListener, ListSelectionListener {
 			agregarElementoBotellaAlPedido();
 			agregarElementoCocktelAlPedido();
 			agregarElementoVinoAlPedido();
-			mostrarPedido();
+			//mostrarPedido();
 
 		} // FIN BTN ANADIR AL PEDIDO
 		if (e.getSource() == vista.btnVolverInicio) {
@@ -358,9 +358,10 @@ public class Controlador implements ActionListener, ListSelectionListener {
 	 */
 
 	// Metodo para indicar el clic en un boton/mesa
-	private void ClicMesa(int numeroMesa) {
+	private void ClicMesa(Mesa numeroMesa) {
 		// Obtenemos el pedido asociado a la mesa seleccionada
 		Pedido pedidoMesa = mesa.getPedido();
+		
 
 		// Verificamos si la mesa esta ocupada
 		if (pedidoMesa != null && pedidoMesa.esOcupada()) {
@@ -382,6 +383,8 @@ public class Controlador implements ActionListener, ListSelectionListener {
 			// Actualizamos la variable mesaSeleccionada para que coincida con la mesa
 			// actual
 			mesaSeleccionada = "Mesa " + numeroMesa;
+			
+			
 		}
 	}// FIN METODO CLICK MESA
 
@@ -438,6 +441,7 @@ public class Controlador implements ActionListener, ListSelectionListener {
 				int precioRefresco = Integer.parseInt(partes[1]);
 
 				Pedido pedidoMesa = mesa.getPedido();
+				
 
 				if (pedidoMesa != null) {
 					if (pedidoMesa.getBebidasPedido().containsKey(nombreRefresco)) {
@@ -894,6 +898,7 @@ public class Controlador implements ActionListener, ListSelectionListener {
 	// Metodo que muestra el pedido de la mesa en panelPedidoNuevo
 	private void mostrarPedido() {
 		// Obtenemos la informacion del pedido asociado a la mesa seleccionada
+		//Pedido pedidoMesa = mesa.getPedido();
 		Pedido pedidoMesa = mesa.getPedido();
 
 		// Verificamos si la mesa esta ocupada

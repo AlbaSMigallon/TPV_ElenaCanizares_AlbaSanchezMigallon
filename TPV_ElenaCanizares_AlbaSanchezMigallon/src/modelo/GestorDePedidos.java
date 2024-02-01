@@ -12,8 +12,16 @@ public class GestorDePedidos {
             mesas.add(new Mesa(i));
         }
     }
+    
+    
 
-    public List<Mesa> getMesas() {
+    public void setMesas(List<Mesa> mesas) {
+		this.mesas = mesas;
+	}
+
+
+
+	public List<Mesa> getMesas() {
         return mesas;
     }
     public Mesa getMesaPorNumero(int numeroMesa) {
