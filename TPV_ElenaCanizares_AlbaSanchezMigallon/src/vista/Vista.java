@@ -30,13 +30,13 @@ public class Vista extends JFrame {
 	public JPanel contentPane, panelInicio, panelCocteleria, panelCaja, panelPedido, panelInventario, panelMusica,
 			panelPedidoNuevo;
 	public JLabel lblInicio, lblRefrescosInventario, lblCervezasInventario, lblBotellasInventario,
-			lblCocktelsInventario, lblVinosInventario, lblAperitivosInventario, lblIngredientesInventario;
+			lblCocktelsInventario, lblVinosInventario, lblAperitivosInventario, lblIngredientesInventario, lblFondoTPV;
 	public JList listRefrescos, listCerveza, listBotellas, listCocktels, listVinos, listAperitivos, listIngredientes,
 			listPedido, listRefrescospanelPedidoNuevo, listCervezaspanelPedidoNuevo, listAperitivospanelPedidoNuevo,
 			listBotellaspanelPedidoNuevo, listCocktelspanelPedidoNuevo, listVinopanelPedidoNuevo;
 	public JButton btnCaja, btnPedido, btnInventario, btnMusica, btnMesa1, btnMesa2, btnMesa3, btnMesa4, btnMesa5,
 			btnMesa6, btnMesa7, btnBarra, btnAceptarCambios, btnRevertirCambios, btnRefrescos, btnAnadirAlPedido,
-			btnCervezas, btnAperitivos, btnVino, btnBotellas, btnCocktels, btnVolverInicio,btnVolverInicio2;
+			btnCervezas, btnAperitivos, btnVino, btnBotellas, btnCocktels, btnVolverInicio, btnVolverInicio2;
 	public JSpinner spinnerCantidadRefrescos, spinnerCantidadCerveza, spinnerCantidadBotellas, spinnerCantidadCocktels,
 			spinnerCantidadVinos, spinnerCantidadAperitivos, spinnerCantidadIngredientes;
 	public JList<String> listPedidoMesa;
@@ -143,10 +143,16 @@ public class Vista extends JFrame {
 		verticalScrollBarPedido = new JScrollBar(JScrollBar.VERTICAL);
 		scrollPanePedido.setHorizontalScrollBar(verticalScrollBarPedido);
 
+		lblFondoTPV = new JLabel("");
+		lblFondoTPV.setBounds(0, 0, 1684, 861);
+		lblFondoTPV.setIcon(new ImageIcon(
+				"C:\\Users\\Alba\\git\\TPV_ElenaCanizares_AlbaSanchezMigallon\\TPV_ElenaCanizares_AlbaSanchezMigallon\\resources\\fondo_efapolitan.jpg"));
+		panelInicio.add(lblFondoTPV);
+
 		panelInicio = new JPanel();
 		panelInicio.setBounds(0, 0, 1684, 861);
 		contentPane.add(panelInicio);
-		panelInicio.setLayout(null);
+		//panelInicio.setLayout(null);
 
 		/*---------------------------------PANEL COCTELERIA---------------------------------------------------*/
 		panelCocteleria = new JPanel();
@@ -515,16 +521,14 @@ public class Vista extends JFrame {
 		contentPane.add(panelMusica);
 		panelMusica.setLayout(null);
 		panelMusica.setVisible(false);
-		
+
 		comboBoxMusica = new JComboBox();
 		comboBoxMusica.setBounds(513, 244, 467, 314);
 		panelMusica.add(comboBoxMusica);
-		
+
 		btnVolverInicio2 = new JButton("VolverInicio");
 		btnVolverInicio2.setBounds(1286, 112, 317, 129);
 		panelMusica.add(btnVolverInicio2);
-
-		
 
 	}
 }
