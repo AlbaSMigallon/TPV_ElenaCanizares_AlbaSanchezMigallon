@@ -16,6 +16,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Image;
+
 import javax.swing.JList;
 import javax.swing.JSpinner;
 import javax.swing.JTextArea;
@@ -77,57 +80,12 @@ public class Vista extends JFrame {
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		panelPedidoNuevo = new JPanel();
-		panelPedidoNuevo.setBounds(0, 0, 1684, 861);
-		contentPane.add(panelPedidoNuevo);
-		panelPedidoNuevo.setLayout(null);
-		btnRefrescos = new JButton("REFRESCOS");
-		btnRefrescos.setBounds(57, 144, 205, 158);
-		panelPedidoNuevo.add(btnRefrescos);
-		panelPedidoNuevo.setVisible(false);
 
-		DefaultListModel<String> modelPedido = new DefaultListModel<>();
-
-		btnAnadirAlPedido = new JButton("AÑADIR AL PEDIDO");
-		btnAnadirAlPedido.setBounds(1318, 39, 145, 90);
-		panelPedidoNuevo.add(btnAnadirAlPedido);
-
-		btnVolverInicio = new JButton("VOLVER A INICIO");
-		btnVolverInicio.setBounds(78, 39, 137, 58);
-		panelPedidoNuevo.add(btnVolverInicio);
-
-		scrollPanelCervezaspanelPedidoNuevo = new JScrollPane();
-		scrollPanelCervezaspanelPedidoNuevo.setBounds(611, 300, 448, 300);
-		panelPedidoNuevo.add(scrollPanelCervezaspanelPedidoNuevo);
-
-		verticalScrollBarCervezaspanelPedidoNuevo = new JScrollBar(JScrollBar.VERTICAL);
-		scrollPanelCervezaspanelPedidoNuevo.setHorizontalScrollBar(verticalScrollBarCervezaspanelPedidoNuevo);
-
-		listCervezaspanelPedidoNuevo = new JList();
-		scrollPanelCervezaspanelPedidoNuevo.setViewportView(listCervezaspanelPedidoNuevo);
-		listCervezaspanelPedidoNuevo.setVisible(false);
-		scrollPanelCervezaspanelPedidoNuevo.setVisible(false);
-
-		btnCervezas = new JButton("CERVEZAS");
-		btnCervezas.setBounds(297, 144, 205, 158);
-		panelPedidoNuevo.add(btnCervezas);
-
-		btnBotellas = new JButton("BOTELLAS");
-		btnBotellas.setBounds(57, 356, 205, 158);
-		panelPedidoNuevo.add(btnBotellas);
-
-		btnCocktels = new JButton("COCKTELS");
-		btnCocktels.setBounds(297, 356, 205, 158);
-		panelPedidoNuevo.add(btnCocktels);
-
-		btnVino = new JButton("VINOS");
-		btnVino.setBounds(57, 551, 205, 158);
-		panelPedidoNuevo.add(btnVino);
-
-		btnAperitivos = new JButton("APERITIVOS");
-		btnAperitivos.setBounds(297, 551, 205, 158);
-		panelPedidoNuevo.add(btnAperitivos);
-
+		/*---------------------------------PANEL PEDIDO---------------------------------------------------*/
+		/*
+		 * DEFINICION DE PANEL PEDIDO, PERO DESPUES DEL ARREGLAR EL FALLO DE CONTROLADOR
+		 * SE ELIMINARA
+		 */
 		panelPedido = new JPanel();
 		panelPedido.setBounds(0, 0, 1684, 861);
 		contentPane.add(panelPedido);
@@ -142,23 +100,82 @@ public class Vista extends JFrame {
 		panelPedido.add(scrollPanePedido);
 		verticalScrollBarPedido = new JScrollBar(JScrollBar.VERTICAL);
 		scrollPanePedido.setHorizontalScrollBar(verticalScrollBarPedido);
-
-		lblFondoTPV = new JLabel("");
-		lblFondoTPV.setBounds(0, 0, 1684, 861);
-		lblFondoTPV.setIcon(new ImageIcon(
-				"C:\\Users\\Alba\\git\\TPV_ElenaCanizares_AlbaSanchezMigallon\\TPV_ElenaCanizares_AlbaSanchezMigallon\\resources\\fondo_efapolitan.jpg"));
-		panelInicio.add(lblFondoTPV);
-
-		panelInicio = new JPanel();
+		/*---------------------------------PANEL INICIO---------------------------------------------------*/
+		panelInicio = new JPanel() {
+			@Override
+			protected void paintComponent(Graphics g) {
+				super.paintComponent(g);
+				// Dibuja la imagen de fondo
+				Image image = new ImageIcon(
+						"C:\\\\Users\\\\ELENA\\\\git\\\\TPV_ElenaCanizares_AlbaSanchezMigallon\\\\TPV_ElenaCanizares_AlbaSanchezMigallon\\\\TPV_ElenaCanizares_AlbaSanchezMigallon\\\\resources\\\\fondo_efapolitan_.jpg")
+						.getImage();
+				g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
+			}
+		};
 		panelInicio.setBounds(0, 0, 1684, 861);
 		contentPane.add(panelInicio);
-		//panelInicio.setLayout(null);
+		panelInicio.setOpaque(false);
+		panelInicio.setLayout(null);
 
+		/*
+		 * lblFondoTPV = new JLabel(""); lblFondoTPV.setBounds(0, 0, 1684, 861);
+		 * lblFondoTPV.setIcon(new ImageIcon(
+		 * "C:\\Users\\ELENA\\git\\TPV_ElenaCanizares_AlbaSanchezMigallon\\TPV_ElenaCanizares_AlbaSanchezMigallon\\TPV_ElenaCanizares_AlbaSanchezMigallon\\resources\\fondo_efapolitan_.jpg"
+		 * )); panelInicio.add(lblFondoTPV);
+		 */
+		/*---------------------------------DEFINICION ELEMENTOS PANEL INICIO---------------------------------------------------*/
+
+		/*
+		 * lblInicio = new JLabel("INICIO"); lblInicio.setFont(new Font("Garamond",
+		 * Font.ITALIC, 54)); lblInicio.setBounds(431, 36, 169, 55);
+		 * panelInicio.add(lblInicio);
+		 */
+
+		btnCaja = new JButton("CAJA");
+		btnCaja.setBounds(1270, 95, 317, 129);
+		btnCaja.setForeground(new Color(193, 154, 71));
+		btnCaja.setFont(new Font("Arial", Font.BOLD, 18));
+		btnCaja.setFocusPainted(false);
+		btnCaja.setOpaque(false);
+		btnCaja.setContentAreaFilled(false);
+		btnCaja.setBorderPainted(true);
+		panelInicio.add(btnCaja);
+
+		btnPedido = new JButton("PEDIDO");
+		btnPedido.setBounds(1270, 286, 317, 129);
+		btnPedido.setForeground(new Color(193, 154, 71));
+		btnPedido.setFont(new Font("Arial", Font.BOLD, 18));
+		btnPedido.setFocusPainted(false);
+		btnPedido.setOpaque(false);
+		btnPedido.setContentAreaFilled(false);
+		btnPedido.setBorderPainted(true);
+		panelInicio.add(btnPedido);
+
+		btnInventario = new JButton("INVENTARIO");
+		btnInventario.setBounds(1270, 470, 317, 129);
+		btnInventario.setForeground(new Color(193, 154, 71));
+		btnInventario.setFont(new Font("Arial", Font.BOLD, 18));
+		btnInventario.setFocusPainted(false);
+		btnInventario.setOpaque(false);
+		btnInventario.setContentAreaFilled(false);
+		btnInventario.setBorderPainted(true);
+		panelInicio.add(btnInventario);
+
+		btnMusica = new JButton("MUSICA");
+		btnMusica.setBounds(1270, 650, 317, 129);
+		btnMusica.setForeground(new Color(193, 154, 71));
+		btnMusica.setFont(new Font("Arial", Font.BOLD, 18));
+		btnMusica.setFocusPainted(false);
+		btnMusica.setOpaque(false);
+		btnMusica.setContentAreaFilled(false);
+		btnMusica.setBorderPainted(true);
+		panelInicio.add(btnMusica);
 		/*---------------------------------PANEL COCTELERIA---------------------------------------------------*/
 		panelCocteleria = new JPanel();
-		panelCocteleria.setBounds(42, 133, 1031, 597);
+		panelCocteleria.setBounds(135, 135, 1031, 597);
 		panelInicio.add(panelCocteleria);
 		panelCocteleria.setLayout(null);
+		panelCocteleria.setOpaque(false);
 		panelInicio.add(panelCocteleria);
 
 		btnMesa4 = new JButton();
@@ -238,7 +255,7 @@ public class Vista extends JFrame {
 		btnMesa7.setBorderPainted(true);
 		panelCocteleria.add(btnMesa7);
 
-		btnBarra = new JButton("Barra");
+		btnBarra = new JButton("");
 		btnBarra.setBounds(73, 459, 862, 127);
 		btnBarra.setIcon(new ImageIcon(
 				"C:\\Users\\ELENA\\git\\TPV_ElenaCanizares_AlbaSanchezMigallon\\TPV_ElenaCanizares_AlbaSanchezMigallon\\TPV_ElenaCanizares_AlbaSanchezMigallon\\src\\resources\\Barra.png"));
@@ -252,9 +269,8 @@ public class Vista extends JFrame {
 		contentPane.add(panelInventario);
 		panelInventario.setVisible(false);
 		panelInventario.setLayout(null);
-		/*------------------------------------------------------------------------------------*/
-
-		/*------------------------------------------------------------------------------------*/
+		/*--------------------------------------------------------------------------------------------------------------------------------*/
+		/*----------------------------------DEFINICION DE ELEMENTOS DE PANEL INVENTARIO--------------------------------------------------*/
 		lblRefrescosInventario = new JLabel("REFRESCOS");
 		lblRefrescosInventario.setFont(new Font("Garamond", Font.ITALIC, 20));
 		lblRefrescosInventario.setBounds(150, 4, 120, 30);
@@ -409,28 +425,8 @@ public class Vista extends JFrame {
 		btnRevertirCambios = new JButton("REVERTIR CAMBIOS");
 		btnRevertirCambios.setBounds(1133, 213, 151, 85);
 		panelInventario.add(btnRevertirCambios);
-		/*---------------------------------PANEL INICIO---------------------------------------------------*/
+		/*----------------------------------FIN DEFINICION DE ELEMENTOS DE PANEL INVENTARIO--------------------------------------------------*/
 
-		lblInicio = new JLabel("INICIO");
-		lblInicio.setFont(new Font("Garamond", Font.ITALIC, 54));
-		lblInicio.setBounds(431, 36, 169, 55);
-		panelInicio.add(lblInicio);
-
-		btnCaja = new JButton("Caja");
-		btnCaja.setBounds(1286, 112, 317, 129);
-		panelInicio.add(btnCaja);
-
-		btnPedido = new JButton("Pedido");
-		btnPedido.setBounds(1286, 303, 317, 129);
-		panelInicio.add(btnPedido);
-
-		btnInventario = new JButton("Inventario");
-		btnInventario.setBounds(1286, 487, 317, 129);
-		panelInicio.add(btnInventario);
-
-		btnMusica = new JButton("Musica");
-		btnMusica.setBounds(1286, 667, 317, 129);
-		panelInicio.add(btnMusica);
 		/*---------------------------------PANEL CAJA---------------------------------------------------*/
 
 		panelCaja = new JPanel();
@@ -440,10 +436,67 @@ public class Vista extends JFrame {
 		panelCaja.setVisible(false);
 
 		/*---------------------------------PANEL PEDIDO---------------------------------------------------*/
+		// Recordar que esto no se usara, pero por el tema del fallo en el controlador
+		// lo mantenemos hasta solucionarlo, y despues lo borramos porque
+		// quedamos en eliminar este panel despues de arreglar el fallo para que todo se
+		// utilizara en panelPedidoNuevo
+
 		comboBoxMesa = new JComboBox();
 		comboBoxMesa.setBounds(243, 153, 295, 215);
 		panelPedido.add(comboBoxMesa);
+
 		/*---------------------------------PANEL PEDIDO NUEVO---------------------------------------------------*/
+		panelPedidoNuevo = new JPanel();
+		panelPedidoNuevo.setBounds(0, 0, 1684, 861);
+		contentPane.add(panelPedidoNuevo);
+		panelPedidoNuevo.setLayout(null);
+		btnRefrescos = new JButton("REFRESCOS");
+		btnRefrescos.setBounds(57, 144, 205, 158);
+		panelPedidoNuevo.add(btnRefrescos);
+		panelPedidoNuevo.setVisible(false);
+
+		DefaultListModel<String> modelPedido = new DefaultListModel<>();
+
+		btnAnadirAlPedido = new JButton("AÑADIR AL PEDIDO");
+		btnAnadirAlPedido.setBounds(1318, 39, 145, 90);
+		panelPedidoNuevo.add(btnAnadirAlPedido);
+
+		btnVolverInicio = new JButton("VOLVER A INICIO");
+		btnVolverInicio.setBounds(78, 39, 137, 58);
+		panelPedidoNuevo.add(btnVolverInicio);
+
+		scrollPanelCervezaspanelPedidoNuevo = new JScrollPane();
+		scrollPanelCervezaspanelPedidoNuevo.setBounds(611, 300, 448, 300);
+		panelPedidoNuevo.add(scrollPanelCervezaspanelPedidoNuevo);
+
+		verticalScrollBarCervezaspanelPedidoNuevo = new JScrollBar(JScrollBar.VERTICAL);
+		scrollPanelCervezaspanelPedidoNuevo.setHorizontalScrollBar(verticalScrollBarCervezaspanelPedidoNuevo);
+
+		listCervezaspanelPedidoNuevo = new JList();
+		scrollPanelCervezaspanelPedidoNuevo.setViewportView(listCervezaspanelPedidoNuevo);
+		listCervezaspanelPedidoNuevo.setVisible(false);
+		scrollPanelCervezaspanelPedidoNuevo.setVisible(false);
+
+		btnCervezas = new JButton("CERVEZAS");
+		btnCervezas.setBounds(297, 144, 205, 158);
+		panelPedidoNuevo.add(btnCervezas);
+
+		btnBotellas = new JButton("BOTELLAS");
+		btnBotellas.setBounds(57, 356, 205, 158);
+		panelPedidoNuevo.add(btnBotellas);
+
+		btnCocktels = new JButton("COCKTELS");
+		btnCocktels.setBounds(297, 356, 205, 158);
+		panelPedidoNuevo.add(btnCocktels);
+
+		btnVino = new JButton("VINOS");
+		btnVino.setBounds(57, 551, 205, 158);
+		panelPedidoNuevo.add(btnVino);
+
+		btnAperitivos = new JButton("APERITIVOS");
+		btnAperitivos.setBounds(297, 551, 205, 158);
+		panelPedidoNuevo.add(btnAperitivos);
+		/*--------------------------------- DEFINICION PANEL PEDIDO NUEVO---------------------------------------------------*/
 
 		listRefrescospanelPedidoNuevo = new JList();
 		scrollPaneRefrescospanelPedidoNuevo = new JScrollPane();
