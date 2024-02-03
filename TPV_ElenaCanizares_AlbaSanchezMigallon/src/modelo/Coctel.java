@@ -1,26 +1,14 @@
 package modelo;
 
-import java.util.HashMap;
 
-import modelo.Botella.InfoBotella;
 
 public class Coctel extends Producto {
-	private HashMap<String, InfoCoctel> cocteles;
-	private HashMap<String, Integer> cantidadesOriginales;
+	public Coctel(double precio, String nombre) {
+		super(precio, nombre);
 
-	public Coctel() {
-		this.cocteles = new HashMap<>();
-		cocteles.put("Cosmopolitan", new InfoCoctel("Cosmopolitan", 15, 8));
-		cocteles.put("Tequila Sunrise", new InfoCoctel("Tequila Sunrise", 16, 9));
-		cocteles.put("Daiquiri", new InfoCoctel("Daiquiri", 15, 7));
-		cocteles.put("Bloody Mary", new InfoCoctel("Bloody Mary", 16, 9));
-		cocteles.put("Mojito", new InfoCoctel("Mojito", 15, 8));
-		cocteles.put("Margarita", new InfoCoctel("Margarita", 16, 9));
-		cocteles.put("Pina Colada", new InfoCoctel("Pina Colada", 15, 8));
-		cocteles.put("Martini", new InfoCoctel("Martini", 16, 9));
-		guardarCantidadesOriginales();
 	}
 
+	/*
 	public HashMap<String, InfoCoctel> getCocteles() {
 		return cocteles;
 	}
@@ -75,4 +63,5 @@ public class Coctel extends Producto {
 			return precio;
 		}
 	}// FIN INFOCOCTEL
+	*/
 }// FIN CLASS

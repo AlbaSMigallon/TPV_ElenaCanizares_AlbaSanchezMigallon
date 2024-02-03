@@ -1,35 +1,22 @@
 package modelo;
 
-import java.util.HashMap;
-
-import modelo.Refresco.InfoRefresco;
 
 public class Aperitivo extends Producto {
-	private HashMap<String, InfoAperitivo> aperitivos;
-	private HashMap<String, Integer> cantidadesOriginales;
-
-	public Aperitivo() {
-		this.aperitivos = new HashMap<>();
-		aperitivos.put("Gominolas", new InfoAperitivo("Gominolas", 30, 1));
-		aperitivos.put("Patatas fritas supreme", new InfoAperitivo("Patatas fritas supreme", 30, 1));
-		aperitivos.put("Cocktel de secos", new InfoAperitivo("Cocktel de secos", 30, 1));
-		aperitivos.put("Aceitunas rellenas", new InfoAperitivo("Aceitunas rellenas", 30, 1));
-		aperitivos.put("Table de quesos", new InfoAperitivo("Table de quesos", 30, 1));
-		guardarCantidadesOriginales();
+	
+	
+	public Aperitivo(double precio, String nombre) {
+		super(precio, nombre);
+		
 	}
+	
+	
+	
 
-	public HashMap<String, InfoAperitivo> getAperitivos() {
-		return aperitivos;
-	}
-
-	public void actualizarCantidad(String nombreAperitivo, int nuevaCantidad) {
-		if (aperitivos.containsKey(nombreAperitivo)) {
-			InfoAperitivo detalle = aperitivos.get(nombreAperitivo);
-			detalle.setCantidad(nuevaCantidad);
-		}
-	}
-
-	private void guardarCantidadesOriginales() {
+	
+/*
+ * 
+ *  
+ *  void guardarCantidadesOriginales() {
 		cantidadesOriginales = new HashMap<>();
 		for (InfoAperitivo infoAperitivo : aperitivos.values()) {
 			cantidadesOriginales.put(infoAperitivo.getNombre(), infoAperitivo.getCantidad());
@@ -81,4 +68,5 @@ public class Aperitivo extends Producto {
 		}
 
 	}// FIN INFOAPERITIVOS
+	*/
 }// FIN CLASS

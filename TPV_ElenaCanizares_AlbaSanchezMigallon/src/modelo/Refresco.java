@@ -1,24 +1,14 @@
 package modelo;
 
-import java.util.HashMap;
+
 
 public class Refresco extends Producto {
-	private HashMap<String, InfoRefresco> refrescos;
-	private HashMap<String, Integer> cantidadesOriginales;
-
-	public Refresco() {
-		this.refrescos = new HashMap<>();
-		refrescos.put("Coca Cola", new InfoRefresco("Coca Cola", 3, 2));
-		refrescos.put("Fanta de Limon", new InfoRefresco("Fanta de Limon", 2, 1));
-		refrescos.put("Fanta de Naranja", new InfoRefresco("Fanta de Naranja", 2, 1));
-		refrescos.put("Nestea", new InfoRefresco("Nestea", 3, 2));
-		refrescos.put("Agua", new InfoRefresco("Agua", 1, 1));
-		refrescos.put("Agua con gas", new InfoRefresco("Agua con gas", 1, 1));
-		refrescos.put("Zumo de limon", new InfoRefresco("Zumo de limon", 3, 2));
-		refrescos.put("Zumo de pina", new InfoRefresco("Zumo de pina", 3, 2));
-		guardarCantidadesOriginales();
+	public Refresco(double precio, String nombre) {
+		super(precio, nombre);
+		
 	}
-
+	
+	/*
 	public HashMap<String, InfoRefresco> getRefrescos() {
 		return refrescos;
 	}
@@ -73,4 +63,5 @@ public class Refresco extends Producto {
 			return precio;
 		}
 	}// FIN INFOREFRESCO
+	*/
 }// FIN CLASS

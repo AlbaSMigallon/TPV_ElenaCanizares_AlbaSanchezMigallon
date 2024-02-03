@@ -1,22 +1,16 @@
 package modelo;
 
-import java.util.HashMap;
 
-import modelo.Ingrediente.InfoIngrediente;
 
 public class Vino extends Producto {
-	private HashMap<String, InfoVino> vinos;
-	private HashMap<String, Integer> cantidadesOriginales;
-
-	public Vino() {
-		this.vinos = new HashMap<>();
-		vinos.put("Vino Tinto", new InfoVino("Vino Tinto", 15, 25));
-		vinos.put("Vino Blanco", new InfoVino("Vino Blanco", 16, 30));
-		vinos.put("Vino Rosado", new InfoVino("Vino Rosado", 15, 28));
-		vinos.put("Vino Verdejo", new InfoVino("Vino Verdejo", 16, 32));
-		guardarCantidadesOriginales();
+	public Vino(double precio, String nombre) {
+		super(precio, nombre);
+		
 	}
-
+	
+	
+	
+	/*
 	public HashMap<String, InfoVino> getVinos() {
 		return vinos;
 	}
@@ -71,4 +65,6 @@ public class Vino extends Producto {
 			return precio;
 		}
 	}// FIN INFOVINO
+	
+	*/
 }// FIN CLASS

@@ -1,22 +1,17 @@
 package modelo;
 
-import java.util.HashMap;
 
-import modelo.Refresco.InfoRefresco;
 
 public class Cerveza extends Producto {
-	private HashMap<String, InfoCerveza> cervezas;
-	private HashMap<String, Integer> cantidadesOriginales;
-
-	public Cerveza() {
-		this.cervezas = new HashMap<>();
-		cervezas.put("Cerveza 1", new InfoCerveza("Cerveza 1", 15, 2));
-		cervezas.put("Cerveza 2", new InfoCerveza("Cerveza 2", 16, 2));
-		cervezas.put("Cerveza 3", new InfoCerveza("Cerveza 3", 15, 2));
-		cervezas.put("Cerveza 4", new InfoCerveza("Cerveza 4", 16, 2));
-		guardarCantidadesOriginales();
+	
+	public Cerveza (double precio, String nombre) {
+		super(precio, nombre);
+		
 	}
 
+	
+	
+	/*
 	public HashMap<String, InfoCerveza> getCervezas() {
 		return cervezas;
 	}
@@ -73,4 +68,5 @@ public class Cerveza extends Producto {
 			return precio;
 		}
 	}
+	*/
 }// FIN CLASS

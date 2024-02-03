@@ -1,29 +1,14 @@
 package modelo;
 
-import java.util.HashMap;
 
-import modelo.Coctel.InfoCoctel;
 
 public class Ingrediente extends Producto{
-	private HashMap<String, InfoIngrediente> ingredientes;
-	private HashMap<String, Integer> cantidadesOriginales;
-
-	public Ingrediente() {
-		this.ingredientes = new HashMap<>();
-		ingredientes.put("Hierba buena", new InfoIngrediente("Hierba buena", 30, 2));
-		ingredientes.put("Limon", new InfoIngrediente("Limon", 30, 1.5));
-		ingredientes.put("Naranja", new InfoIngrediente("Naranja", 30, 2));
-		ingredientes.put("Tabasco", new InfoIngrediente("Tabasco", 30, 3));
-		ingredientes.put("Menta", new InfoIngrediente("Menta", 30, 2.5));
-		ingredientes.put("Fresas", new InfoIngrediente("Fresas", 30, 4));
-		ingredientes.put("Lima", new InfoIngrediente("Lima", 30, 1.5));
-		ingredientes.put("Azucar", new InfoIngrediente("Azucar", 30, 1));
-		ingredientes.put("Tomate", new InfoIngrediente("Tomate", 30, 2));
-		ingredientes.put("Coco", new InfoIngrediente("Coco", 30, 3.5));
-		ingredientes.put("Eucalipto", new InfoIngrediente("Eucalipto", 30, 2));
-		guardarCantidadesOriginales();
-
+	
+	public Ingrediente(double precio, String nombre) {
+		super(precio, nombre);
+		
 	}
+	/*
 
 	public HashMap<String, InfoIngrediente> getIngredientes() {
 		return ingredientes;
@@ -79,4 +64,6 @@ public class Ingrediente extends Producto{
 			return precio;
 		}
 	}// FIN INFOINGREDIENTE
+	
+	*/
 }// FIN CLASS
