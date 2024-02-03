@@ -17,7 +17,7 @@ public class Musica {
 	public Musica() {
 		// Inicializa la lista de opciones de música
 		opcionesMusica = new ArrayList<>();
-		opcionesMusica.add("src/resources/musicaPeliculas.mp3");
+		opcionesMusica.add("/resources/musicaPeliculas.mp3");
 		//opcionesMusica.add("resources/musica/otra_musica.mp3");
 		// Agrega más opciones según sea necesario
 		//lanzar();

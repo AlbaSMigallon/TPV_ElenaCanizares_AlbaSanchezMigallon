@@ -107,7 +107,7 @@ public class Vista extends JFrame {
 				super.paintComponent(g);
 				// Dibuja la imagen de fondo
 				Image image = new ImageIcon(
-						"C:\\\\Users\\\\ELENA\\\\git\\\\TPV_ElenaCanizares_AlbaSanchezMigallon\\\\TPV_ElenaCanizares_AlbaSanchezMigallon\\\\TPV_ElenaCanizares_AlbaSanchezMigallon\\\\resources\\\\fondo_efapolitan_.jpg")
+						"/resources/fondo_efapolitan_.jpg")
 						.getImage();
 				g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
 			}
@@ -183,7 +183,7 @@ public class Vista extends JFrame {
 		panelCocteleria.add(btnMesa4);
 		btnMesa4.setBackground(new Color(255, 255, 255));
 		btnMesa4.setIcon(new ImageIcon(
-				"C:\\Users\\ELENA\\git\\TPV_ElenaCanizares_AlbaSanchezMigallon\\TPV_ElenaCanizares_AlbaSanchezMigallon\\TPV_ElenaCanizares_AlbaSanchezMigallon\\src\\resources\\mesaAlba.png"));
+				"/resources/mesaAlba.png"));
 		btnMesa4.setOpaque(false);
 		btnMesa4.setContentAreaFilled(false);
 		btnMesa4.setBorderPainted(true);
@@ -194,7 +194,7 @@ public class Vista extends JFrame {
 		panelCocteleria.add(btnMesa5);
 		btnMesa5.setBackground(new Color(255, 255, 255));
 		btnMesa5.setIcon(new ImageIcon(
-				"C:\\Users\\ELENA\\git\\TPV_ElenaCanizares_AlbaSanchezMigallon\\TPV_ElenaCanizares_AlbaSanchezMigallon\\TPV_ElenaCanizares_AlbaSanchezMigallon\\src\\resources\\mesaAlba.png"));
+				"/resources/mesaAlba.png"));
 		btnMesa5.setOpaque(false);
 		btnMesa5.setContentAreaFilled(false);
 		btnMesa5.setBorderPainted(true);
@@ -205,7 +205,7 @@ public class Vista extends JFrame {
 		panelCocteleria.add(btnMesa6);
 		btnMesa6.setBackground(new Color(255, 255, 255));
 		btnMesa6.setIcon(new ImageIcon(
-				"C:\\Users\\ELENA\\git\\TPV_ElenaCanizares_AlbaSanchezMigallon\\TPV_ElenaCanizares_AlbaSanchezMigallon\\TPV_ElenaCanizares_AlbaSanchezMigallon\\src\\resources\\mesaAlba.png"));
+				"/resources/mesaAlba.png"));
 		btnMesa6.setOpaque(false);
 		btnMesa6.setContentAreaFilled(false);
 		btnMesa6.setBorderPainted(true);
@@ -216,7 +216,7 @@ public class Vista extends JFrame {
 		panelCocteleria.add(btnMesa3);
 		btnMesa3.setBackground(new Color(255, 255, 255));
 		btnMesa3.setIcon(new ImageIcon(
-				"C:\\Users\\ELENA\\git\\TPV_ElenaCanizares_AlbaSanchezMigallon\\TPV_ElenaCanizares_AlbaSanchezMigallon\\TPV_ElenaCanizares_AlbaSanchezMigallon\\src\\resources\\mesaAlba.png"));
+				"/resources/mesaAlba.png"));
 		btnMesa3.setOpaque(false);
 		btnMesa3.setContentAreaFilled(false);
 		btnMesa3.setBorderPainted(true);
@@ -227,7 +227,7 @@ public class Vista extends JFrame {
 		panelCocteleria.add(btnMesa2);
 		btnMesa2.setBackground(new Color(255, 255, 255));
 		btnMesa2.setIcon(new ImageIcon(
-				"C:\\Users\\ELENA\\git\\TPV_ElenaCanizares_AlbaSanchezMigallon\\TPV_ElenaCanizares_AlbaSanchezMigallon\\TPV_ElenaCanizares_AlbaSanchezMigallon\\src\\resources\\mesaAlba.png"));
+				"/resources/mesaAlba.png"));
 		btnMesa2.setOpaque(false);
 		btnMesa2.setContentAreaFilled(false);
 		btnMesa2.setBorderPainted(true);
@@ -238,7 +238,7 @@ public class Vista extends JFrame {
 		panelCocteleria.add(btnMesa1);
 		btnMesa1.setBackground(new Color(255, 255, 255));
 		btnMesa1.setIcon(new ImageIcon(
-				"C:\\Users\\ELENA\\git\\TPV_ElenaCanizares_AlbaSanchezMigallon\\TPV_ElenaCanizares_AlbaSanchezMigallon\\TPV_ElenaCanizares_AlbaSanchezMigallon\\src\\resources\\mesaAlba.png"));
+				"/resources/mesaAlba.png"));
 		btnMesa1.setOpaque(false);
 		btnMesa1.setContentAreaFilled(false);
 		btnMesa1.setBorderPainted(true);
@@ -249,7 +249,7 @@ public class Vista extends JFrame {
 		panelCocteleria.add(btnMesa7);
 		btnMesa7.setBackground(new Color(255, 255, 255));
 		btnMesa7.setIcon(new ImageIcon(
-				"C:\\Users\\ELENA\\git\\TPV_ElenaCanizares_AlbaSanchezMigallon\\TPV_ElenaCanizares_AlbaSanchezMigallon\\TPV_ElenaCanizares_AlbaSanchezMigallon\\src\\resources\\mesaAlba.png"));
+				"/resources/mesaAlba.png"));
 		btnMesa7.setOpaque(false);
 		btnMesa7.setContentAreaFilled(false);
 		btnMesa7.setBorderPainted(true);
@@ -258,7 +258,7 @@ public class Vista extends JFrame {
 		btnBarra = new JButton("");
 		btnBarra.setBounds(73, 459, 862, 127);
 		btnBarra.setIcon(new ImageIcon(
-				"C:\\Users\\ELENA\\git\\TPV_ElenaCanizares_AlbaSanchezMigallon\\TPV_ElenaCanizares_AlbaSanchezMigallon\\TPV_ElenaCanizares_AlbaSanchezMigallon\\src\\resources\\Barra.png"));
+				"/resources/Barra.png"));
 		btnBarra.setOpaque(false);
 		btnBarra.setContentAreaFilled(false);
 		btnBarra.setBorderPainted(true);
