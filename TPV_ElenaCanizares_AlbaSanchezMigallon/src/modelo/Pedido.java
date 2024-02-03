@@ -6,12 +6,10 @@ import java.util.HashMap;
 public class Pedido {
 	private boolean esPagado;
 	private ArrayList<Producto> productos;
-	private int idPedido;
 	
 	
 
-	public Pedido(int idPedido) {
-		this.idPedido= idPedido;
+	public Pedido() {
 		this.productos= new ArrayList<>();
 		this.esPagado= false;
 	}
@@ -55,14 +53,7 @@ public class Pedido {
 		this.esPagado = true;
 	}
 
-	public int getIdPedido() {
-		return idPedido;
-	}
-
-	public void setIdPedido(int idPedido) {
-		this.idPedido = idPedido;
-	}
-
+	
 	public boolean isEsPagado() {
 		return esPagado;
 	}

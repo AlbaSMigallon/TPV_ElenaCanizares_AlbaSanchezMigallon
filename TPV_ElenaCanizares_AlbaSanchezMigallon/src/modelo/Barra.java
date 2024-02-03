@@ -3,22 +3,18 @@ package modelo;
 import java.util.ArrayList;
 
 public class Barra {
-	private ArrayList<String> taburetes;
+	private ArrayList<Pedido> pedidos;
 
 	public Barra() {
-
-		taburetes = new ArrayList<>();
-		taburetes.add("Taburete 1");
-		taburetes.add("Taburete 2");
-		taburetes.add("Taburete 3");
-		taburetes.add("Taburete 4");
-		taburetes.add("Taburete 5");
-		taburetes.add("Taburete 6");
-		taburetes.add("Taburete 7");
+		this.pedidos= new ArrayList<>();
 	}
 
-	public ArrayList<String> getBarra() {
-		return taburetes;
+	public ArrayList<Pedido> getPedidos() {
+		return pedidos;
 	}
 
+	public void setPedidos(ArrayList<Pedido> pedidos) {
+		this.pedidos = pedidos;
+	}
+	
 }// FIN CLASS
