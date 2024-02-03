@@ -107,7 +107,7 @@ public class Vista extends JFrame {
 				super.paintComponent(g);
 				// Dibuja la imagen de fondo
 				Image image = new ImageIcon(
-						"/resources/fondo_efapolitan_.jpg")
+						"C:\\Users\\Alba\\git\\TPV_ElenaCanizares_AlbaSanchezMigallon\\TPV_ElenaCanizares_AlbaSanchezMigallon\\resources\\fondo_efapolitan_.jpg")
 						.getImage();
 				g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
 			}
@@ -250,7 +250,7 @@ public class Vista extends JFrame {
 		btnMesa7.setBackground(new Color(255, 255, 255));
 		btnMesa7.setIcon(new ImageIcon(
 				"/resources/mesaAlba.png"));
-		btnMesa7.setOpaque(false);
+		//btnMesa7.setOpaque(false);
 		btnMesa7.setContentAreaFilled(false);
 		btnMesa7.setBorderPainted(true);
 		panelCocteleria.add(btnMesa7);
@@ -259,18 +259,20 @@ public class Vista extends JFrame {
 		btnBarra.setBounds(73, 459, 862, 127);
 		btnBarra.setIcon(new ImageIcon(
 				"/resources/Barra.png"));
-		btnBarra.setOpaque(false);
+		//btnBarra.setOpaque(false);
 		btnBarra.setContentAreaFilled(false);
 		btnBarra.setBorderPainted(true);
 		panelCocteleria.add(btnBarra);
-		/*---------------------------------PANEL INVENTARIO---------------------------------------------------*/
+		
+		/*
+		// ---------------------------------PANEL INVENTARIO-----------------------------------------------
 		panelInventario = new JPanel();
 		panelInventario.setBounds(0, 0, 1684, 861);
 		contentPane.add(panelInventario);
 		panelInventario.setVisible(false);
 		panelInventario.setLayout(null);
-		/*--------------------------------------------------------------------------------------------------------------------------------*/
-		/*----------------------------------DEFINICION DE ELEMENTOS DE PANEL INVENTARIO--------------------------------------------------*/
+		// ------------------------------------------------------------------------------------------------
+		// ----------------------------------DEFINICION DE ELEMENTOS DE PANEL INVENTARIO-------------------
 		lblRefrescosInventario = new JLabel("REFRESCOS");
 		lblRefrescosInventario.setFont(new Font("Garamond", Font.ITALIC, 20));
 		lblRefrescosInventario.setBounds(150, 4, 120, 30);
@@ -290,7 +292,7 @@ public class Vista extends JFrame {
 		spinnerCantidadRefrescos.setBounds(340, 49, 39, 33);
 		panelInventario.add(spinnerCantidadRefrescos);
 		spinnerCantidadRefrescos.setVisible(false);
-		/*------------------------------------------------------------------------------------*/
+		// ------------------------------------------------------------------------------------
 		lblCervezasInventario = new JLabel("CERVEZAS");
 		lblCervezasInventario.setFont(new Font("Garamond", Font.ITALIC, 20));
 		lblCervezasInventario.setBounds(150, 138, 120, 30);
@@ -310,7 +312,7 @@ public class Vista extends JFrame {
 		spinnerCantidadCerveza.setBounds(340, 179, 39, 33);
 		panelInventario.add(spinnerCantidadCerveza);
 		spinnerCantidadCerveza.setVisible(false);
-		/*------------------------------------------------------------------------------------*/
+		// ------------------------------------------------------------------------------------
 
 		lblBotellasInventario = new JLabel("BOTELLAS");
 		lblBotellasInventario.setFont(new Font("Garamond", Font.ITALIC, 20));
@@ -332,7 +334,7 @@ public class Vista extends JFrame {
 		panelInventario.add(spinnerCantidadBotellas);
 		spinnerCantidadBotellas.setVisible(false);
 
-		/*------------------------------------------------------------------------------------*/
+		// ------------------------------------------------------------------------------------
 
 		lblCocktelsInventario = new JLabel("COCKTELS");
 		lblCocktelsInventario.setFont(new Font("Garamond", Font.ITALIC, 20));
@@ -354,7 +356,7 @@ public class Vista extends JFrame {
 		panelInventario.add(spinnerCantidadCocktels);
 		spinnerCantidadCocktels.setVisible(false);
 
-		/*------------------------------------------------------------------------------------*/
+		// -----------------------------------------------------------------------------------
 		lblVinosInventario = new JLabel("VINOS");
 		lblVinosInventario.setFont(new Font("Garamond", Font.ITALIC, 20));
 		lblVinosInventario.setBounds(745, 268, 120, 30);
@@ -375,7 +377,7 @@ public class Vista extends JFrame {
 		panelInventario.add(spinnerCantidadVinos);
 		spinnerCantidadVinos.setVisible(false);
 
-		/*------------------------------------------------------------------------------------*/
+		// ------------------------------------------------------------------------------------
 		lblAperitivosInventario = new JLabel("APERITIVOS");
 		lblAperitivosInventario.setFont(new Font("Garamond", Font.ITALIC, 20));
 		lblAperitivosInventario.setBounds(712, 134, 120, 30);
@@ -396,7 +398,7 @@ public class Vista extends JFrame {
 		panelInventario.add(spinnerCantidadAperitivos);
 		spinnerCantidadAperitivos.setVisible(false);
 
-		/*------------------------------------------------------------------------------------*/
+		// ------------------------------------------------------------------------------------
 		lblIngredientesInventario = new JLabel("INGREDIENTES");
 		lblIngredientesInventario.setFont(new Font("Garamond", Font.ITALIC, 20));
 		lblIngredientesInventario.setBounds(712, 11, 120, 30);
@@ -416,7 +418,7 @@ public class Vista extends JFrame {
 		spinnerCantidadIngredientes.setBounds(909, 49, 39, 33);
 		panelInventario.add(spinnerCantidadIngredientes);
 		spinnerCantidadIngredientes.setVisible(false);
-		/*------------------------------------------------------------------------------------*/
+		// ------------------------------------------------------------------------------------
 
 		btnAceptarCambios = new JButton("ACEPTAR CAMBIOS");
 		btnAceptarCambios.setBounds(1133, 36, 151, 85);
@@ -425,9 +427,9 @@ public class Vista extends JFrame {
 		btnRevertirCambios = new JButton("REVERTIR CAMBIOS");
 		btnRevertirCambios.setBounds(1133, 213, 151, 85);
 		panelInventario.add(btnRevertirCambios);
-		/*----------------------------------FIN DEFINICION DE ELEMENTOS DE PANEL INVENTARIO--------------------------------------------------*/
+		// ----------------------------------FIN DEFINICION DE ELEMENTOS DE PANEL INVENTARIO------------------
 
-		/*---------------------------------PANEL CAJA---------------------------------------------------*/
+		// ---------------------------------PANEL CAJA---------------------------------------------------
 
 		panelCaja = new JPanel();
 		panelCaja.setBounds(0, 0, 1684, 861);
@@ -435,7 +437,7 @@ public class Vista extends JFrame {
 		panelCaja.setLayout(null);
 		panelCaja.setVisible(false);
 
-		/*---------------------------------PANEL PEDIDO---------------------------------------------------*/
+		// ---------------------------------PANEL PEDIDO--------------------------------------------------- 
 		// Recordar que esto no se usara, pero por el tema del fallo en el controlador
 		// lo mantenemos hasta solucionarlo, y despues lo borramos porque
 		// quedamos en eliminar este panel despues de arreglar el fallo para que todo se
@@ -445,7 +447,7 @@ public class Vista extends JFrame {
 		comboBoxMesa.setBounds(243, 153, 295, 215);
 		panelPedido.add(comboBoxMesa);
 
-		/*---------------------------------PANEL PEDIDO NUEVO---------------------------------------------------*/
+		// ---------------------------------PANEL PEDIDO NUEVO---------------------------------------------------
 		panelPedidoNuevo = new JPanel();
 		panelPedidoNuevo.setBounds(0, 0, 1684, 861);
 		contentPane.add(panelPedidoNuevo);
@@ -496,7 +498,7 @@ public class Vista extends JFrame {
 		btnAperitivos = new JButton("APERITIVOS");
 		btnAperitivos.setBounds(297, 551, 205, 158);
 		panelPedidoNuevo.add(btnAperitivos);
-		/*--------------------------------- DEFINICION PANEL PEDIDO NUEVO---------------------------------------------------*/
+		// --------------------------------- DEFINICION PANEL PEDIDO NUEVO---------------------------------------------------
 
 		listRefrescospanelPedidoNuevo = new JList();
 		scrollPaneRefrescospanelPedidoNuevo = new JScrollPane();
@@ -567,7 +569,7 @@ public class Vista extends JFrame {
 		scrollPaneVinopanelPedidoNuevo.setHorizontalScrollBar(verticalScrollBarVinopanelPedidoNuevo);
 		listVinopanelPedidoNuevo.setVisible(false);
 		scrollPaneVinopanelPedidoNuevo.setVisible(false);
-		/*---------------------------------PANEL MUSICA---------------------------------------------------*/
+		// ---------------------------------PANEL MUSICA---------------------------------------------------
 
 		panelMusica = new JPanel();
 		panelMusica.setBounds(0, 0, 1684, 861);
@@ -582,6 +584,7 @@ public class Vista extends JFrame {
 		btnVolverInicio2 = new JButton("VolverInicio");
 		btnVolverInicio2.setBounds(1286, 112, 317, 129);
 		panelMusica.add(btnVolverInicio2);
+		*/
 
 	}
 }

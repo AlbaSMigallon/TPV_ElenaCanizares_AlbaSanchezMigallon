@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 import modelo.Refresco.InfoRefresco;
 
-public class Cerveza {
+public class Cerveza extends Producto {
 	private HashMap<String, InfoCerveza> cervezas;
 	private HashMap<String, Integer> cantidadesOriginales;
 
@@ -20,6 +20,8 @@ public class Cerveza {
 	public HashMap<String, InfoCerveza> getCervezas() {
 		return cervezas;
 	}
+	
+	
 
 	public void actualizarCantidad(String nombreRefresco, int nuevaCantidad) {
 		if (cervezas.containsKey(nombreRefresco)) {

@@ -2,7 +2,7 @@ package modelo;
 
 import java.util.HashMap;
 
-public class Refresco {
+public class Refresco extends Producto {
 	private HashMap<String, InfoRefresco> refrescos;
 	private HashMap<String, Integer> cantidadesOriginales;
 

@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 import modelo.Refresco.InfoRefresco;
 
-public class Aperitivo {
+public class Aperitivo extends Producto {
 	private HashMap<String, InfoAperitivo> aperitivos;
 	private HashMap<String, Integer> cantidadesOriginales;
 

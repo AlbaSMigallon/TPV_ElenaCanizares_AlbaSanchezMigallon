@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 import modelo.Ingrediente.InfoIngrediente;
 
-public class Vino {
+public class Vino extends Producto {
 	private HashMap<String, InfoVino> vinos;
 	private HashMap<String, Integer> cantidadesOriginales;
 

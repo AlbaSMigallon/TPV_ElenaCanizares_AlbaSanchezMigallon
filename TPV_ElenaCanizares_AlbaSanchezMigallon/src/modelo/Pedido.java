@@ -1,41 +1,46 @@
 package modelo;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Pedido {
 	private boolean esPagado;
-	private HashMap<String, Integer> bebidasPedido;
-	// private Local local;
+	private ArrayList<Producto> productos;
 	private int idPedido;
-
-	public Pedido() {
-
-	}
+	
+	
 
 	public Pedido(int idPedido) {
-		this.bebidasPedido = new HashMap<>();
+		this.idPedido= idPedido;
+		this.productos= new ArrayList<>();
+		this.esPagado= false;
+	}
+
+	/*
+	public Pedido(int idPedido) {
+		this.productos = new HashMap<>();
 		this.idPedido = idPedido;
-		// this.local = Local.getInstance();
+		
 	}
 
 	public void agregarBebida(String nombreBebida, int cantidad) {
 
-		bebidasPedido.put(nombreBebida, cantidad);
+		productos.put(nombreBebida, cantidad);
 
 	}
 
 	public void eliminarBebida(String nombreBebida, int cantidad) {
-		bebidasPedido.computeIfPresent(nombreBebida, (bebida, actualCantidad) -> actualCantidad - cantidad);
-		bebidasPedido.remove(nombreBebida, 0); // Elimina si la cantidad es cero o negativa
+		productos.computeIfPresent(nombreBebida, (bebida, actualCantidad) -> actualCantidad - cantidad);
+		productos.remove(nombreBebida, 0); // Elimina si la cantidad es cero o negativa
 	}
 
 	public void actualizarCantidadBebida(String nombreBebida, int nuevaCantidad) {
 		// Actualizamos la cantidad de la bebida si ya existe en el pedido
-		bebidasPedido.put(nombreBebida, nuevaCantidad);
+		productos.put(nombreBebida, nuevaCantidad);
 	}
-
-	public HashMap<String, Integer> getBebidasPedido() {
-		return bebidasPedido;
+*/
+	public ArrayList<Producto> getproductos() {
+		return productos;
 	}
 
 	public boolean esPagado() {
@@ -62,8 +67,10 @@ public class Pedido {
 		return esPagado;
 	}
 
-	public void setBebidasPedido(HashMap<String, Integer> bebidasPedido) {
-		this.bebidasPedido = bebidasPedido;
+	public void setproductos(ArrayList<Producto> productos) {
+		this.productos = productos;
 	}
+	
+	
 
 }
