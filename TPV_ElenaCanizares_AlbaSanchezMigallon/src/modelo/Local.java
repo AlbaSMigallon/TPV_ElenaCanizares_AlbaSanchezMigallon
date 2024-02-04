@@ -1,9 +1,8 @@
 package modelo;
 
-import java.util.HashMap;
+
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+
 
 public class Local {
 	/*
@@ -16,8 +15,9 @@ public class Local {
 	private static Local instance = null;
 
 	public Local() {
-
 		this.mesas = new ArrayList<>();
+		inicializarMesas();
+		this.barra= new Barra();
 
 	}// FIN LOCAL
 
@@ -53,6 +53,14 @@ public class Local {
 	private void inicializarMesas() {
 		for(int i=0; i<7; i++) {
 			Mesa mesa= new Mesa(i+1);//crear mesas y asignar numero
+		}
+	}
+	
+	private void pagarPedidoMesa(int posicionMesa) {// le pasamos la posicion de la mesa en la lista de la mesa
+		synchronized (object) {
+			Caja caja= Caja.getInstance();
+			caja.pagarPedidoCaja(this.mesas.get(posicionMesa).getPedido());// pasamos el pedido a caja
+			this.mesas.get(posicionMesa).getPedido().pagarPedido(); // completamos el pagado borrando datos de pedido	
 		}
 	}
 

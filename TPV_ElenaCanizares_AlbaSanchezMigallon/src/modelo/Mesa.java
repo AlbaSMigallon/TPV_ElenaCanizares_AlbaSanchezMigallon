@@ -1,6 +1,9 @@
 package modelo;
 
 public class Mesa {
+	/*
+	 * Clase mesa con numero de la mesa, el pedido que contiene productos, y un boolean de si esta ocuapada
+	 */
 	private int numeroMesa;
 	private Pedido pedido;
 	private boolean esOcupada;
@@ -44,8 +47,7 @@ public class Mesa {
 		this.pedido = pedido;
 	}
 
-	@Override
-	public String toString() {
-		return "Mesa " + numeroMesa;
+	public void borrarPedidoMesa() {
+		this.pedido= new Pedido();
 	}
 }

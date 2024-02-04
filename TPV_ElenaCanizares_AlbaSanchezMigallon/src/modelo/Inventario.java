@@ -18,6 +18,7 @@ public class Inventario {
 	private HashMap<Botella, Integer> botellas;
 	private HashMap<Ingrediente, Integer> ingredientes;
 	private HashMap<Refresco, Integer> refrescos;
+	private HashMap<Coctel, Integer> cocteles;
 	// Seccion critica
 	private static Object object = new Object();
 
@@ -32,6 +33,7 @@ public class Inventario {
 		this.botellas = new HashMap<>();
 		this.ingredientes = new HashMap<>();
 		this.refrescos = new HashMap<>();
+		this.cocteles= new HashMap<>();
 		inicializarInventario();
 
 	}
@@ -96,7 +98,15 @@ public class Inventario {
 	public void setRefrescos(HashMap<Refresco, Integer> refrescos) {
 		this.refrescos = refrescos;
 	}
+	
+	public HashMap<Coctel, Integer> getCocteles() {
+		return cocteles;
+	}
 
+	public void setCocteles(HashMap<Coctel, Integer> cocteles) {
+		this.cocteles = cocteles;
+	}
+	
 	// Métodos para manipular el inventario
 
 	public void agregarVino(Vino vino, int cantidad) {
@@ -154,6 +164,7 @@ public class Inventario {
 		inicializarIngredientes();
 		inicializarRefrescos();
 		inicializarVinos();
+		inicializarCocteles();
 
 	}
 
@@ -181,7 +192,7 @@ public class Inventario {
 		this.botellas.put(larios, 50);
 		Botella tequila = new Botella(25, "Tequila");
 		this.botellas.put(tequila, 20);
-		Botella vermu = new Botella(30, "Vermu");
+		Botella vermu = new Botella(30, "Vermut");
 		this.botellas.put(vermu, 10);
 	}
 
@@ -196,6 +207,24 @@ public class Inventario {
 		this.cervezas.put(franziskaner, 40);
 
 	}
+	
+	private void inicializarCocteles() {
+		Coctel cosmopolitan = new Coctel(12, "Cosmopolitan");
+		this.cocteles.put(cosmopolitan, 0);
+		Coctel tequilaSunrise = new Coctel(12, "Tequila Sunrise");
+		this.cocteles.put(tequilaSunrise, 0);
+		Coctel daiquiri = new Coctel(13, "Daiquiri");
+		this.cocteles.put(daiquiri, 0);
+		Coctel bloodymary = new Coctel(12, "Bloody Mary");
+		this.cocteles.put(cosmopolitan, 0);
+		Coctel mojito= new Coctel(10, "Mojito");
+		this.cocteles.put(mojito, 0);
+		Coctel pinaColada = new Coctel(11, "Pinia colada");
+		this.cocteles.put(pinaColada, 0);
+		Coctel martini = new Coctel(15, "Martini");
+		this.cocteles.put(martini, 0);
+	}
+	
 
 	private void inicializarIngredientes() {
 		Ingrediente hierbabuena = new Ingrediente(1, "Hierba buena");

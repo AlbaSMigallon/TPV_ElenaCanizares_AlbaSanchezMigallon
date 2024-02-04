@@ -11,6 +11,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Musica {
+	/*
+	 * Clase para poner musica de fondo en el local
+	 */
 
 	private ArrayList<String> opcionesMusica;
 
