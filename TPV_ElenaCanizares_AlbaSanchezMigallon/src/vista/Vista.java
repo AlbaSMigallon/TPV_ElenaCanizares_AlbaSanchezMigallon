@@ -31,7 +31,7 @@ public class Vista extends JFrame {
 
 	public static final long serialVersionUID = 1L;
 	public JPanel contentPane, panelInicio, panelCocteleria, panelCaja, panelPedido, panelInventario, panelMusica,
-			panelPedidoNuevo;
+			panelPedidoNuevo, panelPagarPedido;
 	public JLabel lblInicio, lblRefrescosInventario, lblCervezasInventario, lblBotellasInventario,
 			lblCocktelsInventario, lblVinosInventario, lblAperitivosInventario, lblIngredientesInventario, lblFondoTPV;
 	public JList listRefrescos, listCerveza, listBotellas, listCocktels, listVinos, listAperitivos, listIngredientes,
@@ -39,7 +39,7 @@ public class Vista extends JFrame {
 			listBotellaspanelPedidoNuevo, listCocktelspanelPedidoNuevo, listVinopanelPedidoNuevo;
 	public JButton btnCaja, btnPedido, btnInventario, btnMusica, btnMesa1, btnMesa2, btnMesa3, btnMesa4, btnMesa5,
 			btnMesa6, btnMesa7, btnBarra, btnAceptarCambios, btnRevertirCambios, btnRefrescos, btnAnadirAlPedido,
-			btnCervezas, btnAperitivos, btnVino, btnBotellas, btnCocktels, btnVolverInicio, btnVolverInicio2;
+			btnCervezas, btnAperitivos, btnVino, btnBotellas, btnCocktels, btnVolverInicio, btnVolverInicio2, btnCierreCaja, btnArqueo, btnPagarPedido;
 	public JSpinner spinnerCantidadRefrescos, spinnerCantidadCerveza, spinnerCantidadBotellas, spinnerCantidadCocktels,
 			spinnerCantidadVinos, spinnerCantidadAperitivos, spinnerCantidadIngredientes;
 	public JList<String> listPedidoMesa;
@@ -51,6 +51,9 @@ public class Vista extends JFrame {
 			scrollPanePedido, scrollPaneAperitivospanelPedidoNuevo, scrollPaneBotellaspanelPedidoNuevo,
 			scrollPaneCocktelspanelPedidoNuevo, scrollPaneVinopanelPedidoNuevo;
 	public JComboBox comboBoxMesa, comboBoxMusica;
+	private JButton btnVolverACaja;
+	private JButton btnVolver;
+	public JButton btnAgregar;
 
 	/**
 	 * Launch the application.
@@ -80,26 +83,6 @@ public class Vista extends JFrame {
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-
-		/*---------------------------------PANEL PEDIDO---------------------------------------------------*/
-		/*
-		 * DEFINICION DE PANEL PEDIDO, PERO DESPUES DEL ARREGLAR EL FALLO DE CONTROLADOR
-		 * SE ELIMINARA
-		 */
-		panelPedido = new JPanel();
-		panelPedido.setBounds(0, 0, 1684, 861);
-		contentPane.add(panelPedido);
-		panelPedido.setLayout(null);
-		panelPedido.setVisible(false);
-
-		listPedido = new JList();
-		listPedido.setBounds(1263, 46, 295, 336);
-
-		scrollPanePedido = new JScrollPane(listPedido);
-		scrollPanePedido.setBounds(1263, 46, 295, 336);
-		panelPedido.add(scrollPanePedido);
-		verticalScrollBarPedido = new JScrollBar(JScrollBar.VERTICAL);
-		scrollPanePedido.setHorizontalScrollBar(verticalScrollBarPedido);
 		/*---------------------------------PANEL INICIO---------------------------------------------------*/
 		panelInicio = new JPanel() {
 			@Override
@@ -140,7 +123,8 @@ public class Vista extends JFrame {
 		btnCaja.setContentAreaFilled(false);
 		btnCaja.setBorderPainted(true);
 		panelInicio.add(btnCaja);
-
+		
+		/* metemos los pedidos en caja, aqui no hacen falta
 		btnPedido = new JButton("PEDIDO");
 		btnPedido.setBounds(1270, 286, 317, 129);
 		btnPedido.setForeground(new Color(193, 154, 71));
@@ -150,6 +134,7 @@ public class Vista extends JFrame {
 		btnPedido.setContentAreaFilled(false);
 		btnPedido.setBorderPainted(true);
 		panelInicio.add(btnPedido);
+		*/
 
 		btnInventario = new JButton("INVENTARIO");
 		btnInventario.setBounds(1270, 470, 317, 129);
@@ -336,7 +321,7 @@ public class Vista extends JFrame {
 
 		// ------------------------------------------------------------------------------------
 
-		lblCocktelsInventario = new JLabel("COCKTELS");
+		lblCocktelsInventario = new JLabel("COCTELS");
 		lblCocktelsInventario.setFont(new Font("Garamond", Font.ITALIC, 20));
 		lblCocktelsInventario.setBounds(150, 398, 120, 30);
 		panelInventario.add(lblCocktelsInventario);
@@ -436,16 +421,31 @@ public class Vista extends JFrame {
 		contentPane.add(panelCaja);
 		panelCaja.setLayout(null);
 		panelCaja.setVisible(false);
-
-		// ---------------------------------PANEL PEDIDO--------------------------------------------------- 
-		// Recordar que esto no se usara, pero por el tema del fallo en el controlador
-		// lo mantenemos hasta solucionarlo, y despues lo borramos porque
-		// quedamos en eliminar este panel despues de arreglar el fallo para que todo se
-		// utilizara en panelPedidoNuevo
-
-		comboBoxMesa = new JComboBox();
-		comboBoxMesa.setBounds(243, 153, 295, 215);
-		panelPedido.add(comboBoxMesa);
+		
+		btnPagarPedido = new JButton("PAGAR PEDIDO");
+		btnPagarPedido.setBounds(225, 311, 306, 132);
+		panelCaja.add(btnPagarPedido);
+		
+		
+		btnArqueo = new JButton("ARQUEO");
+		btnArqueo.setBounds(225, 311, 306, 132);
+		panelCaja.add(btnArqueo);
+		
+		btnCierreCaja = new JButton("CIERRE CAJA");
+		btnCierreCaja.setBounds(225, 311, 306, 132);
+		panelCaja.add(btnCierreCaja);
+		
+		
+		// ------------------------PANEL PAGAR PEDIDO, DENTRO DE CAJA---------------------------------------
+		panelPagarPedido = new JPanel();
+		panelPagarPedido.setBounds(0, 0, 1684, 861);
+		contentPane.add(panelPagarPedido);
+		panelPagarPedido.setLayout(null);
+		panelPagarPedido.setVisible(false);
+		
+		btnVolverACaja = new JButton("VOLVER");
+		btnVolverACaja.setBounds(125, 65, 189, 62);
+		panelPagarPedido.add(btnVolverACaja);
 
 		// ---------------------------------PANEL PEDIDO NUEVO---------------------------------------------------
 		panelPedidoNuevo = new JPanel();
@@ -466,6 +466,10 @@ public class Vista extends JFrame {
 		btnVolverInicio = new JButton("VOLVER A INICIO");
 		btnVolverInicio.setBounds(78, 39, 137, 58);
 		panelPedidoNuevo.add(btnVolverInicio);
+		
+		btnAgregar = new JButton("AGREGAR");
+		btnAgregar.setBounds(1084, 345, 145, 90);
+		panelPedidoNuevo.add(btnAgregar);
 
 		scrollPanelCervezaspanelPedidoNuevo = new JScrollPane();
 		scrollPanelCervezaspanelPedidoNuevo.setBounds(611, 300, 448, 300);

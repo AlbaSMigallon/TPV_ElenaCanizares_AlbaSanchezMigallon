@@ -280,6 +280,7 @@ public class Inventario {
 		for (HashMap.Entry<Refresco, Integer> entry : getRefrescos().entrySet()) {
 			if(entry.getKey().getNombre().equals(producto)) {
 				entry.setValue(cantidad);
+				getRefrescos().put(entry.getKey(), entry.getValue());
 			}
 		}
 		
@@ -290,6 +291,7 @@ public class Inventario {
 		for (HashMap.Entry<Cerveza, Integer> entry : getCervezas().entrySet()) {
 			if(entry.getKey().getNombre().equals(producto)) {
 				entry.setValue(cantidad);
+				getCervezas().put(entry.getKey(), entry.getValue());
 			}
 		}
 		
@@ -300,6 +302,7 @@ public class Inventario {
 		for (HashMap.Entry<Aperitivo, Integer> entry : getAperitivos().entrySet()) {
 			if(entry.getKey().getNombre().equals(producto)) {
 				entry.setValue(cantidad);
+				getAperitivos().put(entry.getKey(), entry.getValue());
 			}
 		}
 		
@@ -310,6 +313,7 @@ public class Inventario {
 		for (HashMap.Entry<Botella, Integer> entry : getBotellas().entrySet()) {
 			if(entry.getKey().getNombre().equals(producto)) {
 				entry.setValue(cantidad);
+				getBotellas().put(entry.getKey(), entry.getValue());
 			}
 		}
 		
@@ -320,6 +324,7 @@ public class Inventario {
 		for (HashMap.Entry<Coctel, Integer> entry : getCocteles().entrySet()) {
 			if(entry.getKey().getNombre().equals(producto)) {
 				entry.setValue(cantidad);
+				getCocteles().put(entry.getKey(), entry.getValue());
 			}
 		}
 		
@@ -330,6 +335,7 @@ public class Inventario {
 		for (HashMap.Entry<Ingrediente, Integer> entry : getIngredientes().entrySet()) {
 			if(entry.getKey().getNombre().equals(producto)) {
 				entry.setValue(cantidad);
+				getIngredientes().put(entry.getKey(), entry.getValue());
 			}
 		}
 		
@@ -340,6 +346,7 @@ public class Inventario {
 		for (HashMap.Entry<Vino, Integer> entry : getVinos().entrySet()) {
 			if(entry.getKey().getNombre().equals(producto)) {
 				entry.setValue(cantidad);
+				getVinos().put(entry.getKey(), entry.getValue());
 			}
 		}
 		
