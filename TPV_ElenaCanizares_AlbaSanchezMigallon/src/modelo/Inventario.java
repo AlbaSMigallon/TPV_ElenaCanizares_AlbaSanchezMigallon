@@ -274,6 +274,76 @@ public class Inventario {
 		this.vinos.put(verdejo, 50);
 
 	}
+	
+	public void actualizarCantidadRefrescos(String producto, int cantidad) {
+		
+		for (HashMap.Entry<Refresco, Integer> entry : getRefrescos().entrySet()) {
+			if(entry.getKey().getNombre().equals(producto)) {
+				entry.setValue(cantidad);
+			}
+		}
+		
+	}
+	
+	public void actualizarCantidadCerveza(String producto, int cantidad) {
+		
+		for (HashMap.Entry<Cerveza, Integer> entry : getCervezas().entrySet()) {
+			if(entry.getKey().getNombre().equals(producto)) {
+				entry.setValue(cantidad);
+			}
+		}
+		
+	}
+	
+	public void actualizarCantidadAperitivos(String producto, int cantidad) {
+		
+		for (HashMap.Entry<Aperitivo, Integer> entry : getAperitivos().entrySet()) {
+			if(entry.getKey().getNombre().equals(producto)) {
+				entry.setValue(cantidad);
+			}
+		}
+		
+	}
+	
+	public void actualizarCantidadBotellas(String producto, int cantidad) {
+		
+		for (HashMap.Entry<Botella, Integer> entry : getBotellas().entrySet()) {
+			if(entry.getKey().getNombre().equals(producto)) {
+				entry.setValue(cantidad);
+			}
+		}
+		
+	}
+	
+	public void actualizarCantidadCocteles(String producto, int cantidad) {
+		
+		for (HashMap.Entry<Coctel, Integer> entry : getCocteles().entrySet()) {
+			if(entry.getKey().getNombre().equals(producto)) {
+				entry.setValue(cantidad);
+			}
+		}
+		
+	}
+	
+	public void actualizarCantidadIngredientes(String producto, int cantidad) {
+		
+		for (HashMap.Entry<Ingrediente, Integer> entry : getIngredientes().entrySet()) {
+			if(entry.getKey().getNombre().equals(producto)) {
+				entry.setValue(cantidad);
+			}
+		}
+		
+	}
+	
+	public void actualizarCantidadVinos(String producto, int cantidad) {
+		
+		for (HashMap.Entry<Vino, Integer> entry : getVinos().entrySet()) {
+			if(entry.getKey().getNombre().equals(producto)) {
+				entry.setValue(cantidad);
+			}
+		}
+		
+	}
 
 	public boolean restarStockAperitivos(int cantidad, String nombre) {
 		boolean esModificado = false;

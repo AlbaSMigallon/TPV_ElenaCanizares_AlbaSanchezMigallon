@@ -264,7 +264,7 @@ public class Vista extends JFrame {
 		btnBarra.setBorderPainted(true);
 		panelCocteleria.add(btnBarra);
 		
-		/*
+	
 		// ---------------------------------PANEL INVENTARIO-----------------------------------------------
 		panelInventario = new JPanel();
 		panelInventario.setBounds(0, 0, 1684, 861);
@@ -584,7 +584,7 @@ public class Vista extends JFrame {
 		btnVolverInicio2 = new JButton("VolverInicio");
 		btnVolverInicio2.setBounds(1286, 112, 317, 129);
 		panelMusica.add(btnVolverInicio2);
-		*/
+	
 
 	}
 }

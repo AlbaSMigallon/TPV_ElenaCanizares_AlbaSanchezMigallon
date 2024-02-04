@@ -1,82 +1,44 @@
 package controlador;
 
-import vista.Vista;
-
-import java.util.*;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
 import java.util.HashMap;
+
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
-import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
-import javax.swing.ListModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import vista.Vista;
 import modelo.Aperitivo;
-import modelo.Aperitivo.InfoAperitivo;
 import modelo.Barra;
 import modelo.Botella;
-import modelo.Botella.InfoBotella;
 import modelo.Cerveza;
-import modelo.Cerveza.InfoCerveza;
 import modelo.Coctel;
-import modelo.Coctel.InfoCoctel;
 import modelo.Ingrediente;
-import modelo.Ingrediente.InfoIngrediente;
 import modelo.Inventario;
 import modelo.Local;
 import modelo.Mesa;
 import modelo.Musica;
 import modelo.Pedido;
 import modelo.Refresco;
-import modelo.Refresco.InfoRefresco;
 import modelo.Vino;
-import modelo.Vino.InfoVino;
-import persistencias.Resta;
-import persistencias.Suma;
-
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.DefaultListModel;
+import vista.Vista;
 
 public class Controlador implements ActionListener, ListSelectionListener {
 	Vista vista = new Vista();
 	Barra barra = new Barra();
-	Botella botella = new Botella();
-	Cerveza cerveza = new Cerveza();
-	Coctel coctel = new Coctel();
-	Ingrediente ingrediente = new Ingrediente();
-	Aperitivo aperitivo = new Aperitivo();
-
 	Local local = Local.getInstance();
-	HashMap<Integer, Mesa> mesas = local.getMesas();
-
 	Musica musica = new Musica();
-
-	Refresco refresco = new Refresco();
-	Vino vino = new Vino();
-	Inventario inventario;
-	private String mesaSeleccionada = "";
+	Inventario inventario= Inventario.getInstance();
 	private JList ultimaSeleccionLista;
 
 	public Controlador(Vista vista) {
 		this.vista = vista;
 		this.barra = barra;
-		this.aperitivo = aperitivo;
-		this.botella = botella;
-		this.cerveza = cerveza;
-		this.coctel = coctel;
-		this.ingrediente = ingrediente;
-		this.inventario = new Inventario(this.refresco, cerveza, aperitivo, botella, coctel, ingrediente, vino, null);
-
 		this.musica = musica;
 
-		this.refresco = refresco;
-		this.vino = vino;
 
 		this.vista.btnCaja.addActionListener(this);
 		this.vista.btnPedido.addActionListener(this);
@@ -224,23 +186,30 @@ public class Controlador implements ActionListener, ListSelectionListener {
 		} // ACTUALIZAR CAMBIOS
 
 		if (e.getSource() == vista.btnRevertirCambios) {
-			eliminarCambios();
+			ocultarPaneles();
+			vista.panelInicio.setVisible(true);
 		} // ELIMINAR CAMBIOS
 
 		if (e.getSource() == vista.btnMesa1) {
-			ClicMesa(local.cogerMesaId(0));
-		} else if (e.getSource() == vista.btnMesa2) {
-			ClicMesa(local.cogerMesaId(1));
-		} else if (e.getSource() == vista.btnMesa3) {
-			ClicMesa(local.cogerMesaId(2));
-		} else if (e.getSource() == vista.btnMesa4) {
-			ClicMesa(local.cogerMesaId(3));
-		} else if (e.getSource() == vista.btnMesa5) {
-			ClicMesa(local.cogerMesaId(4));
-		} else if (e.getSource() == vista.btnMesa6) {
-			ClicMesa(local.cogerMesaId(5));
-		} else if (e.getSource() == vista.btnMesa7) {
-			ClicMesa(local.cogerMesaId(6));
+			clicMesa(local.getMesas().get(0));
+		} 
+		if (e.getSource() == vista.btnMesa2) {
+			clicMesa(local.getMesas().get(1));
+		}
+		if (e.getSource() == vista.btnMesa3) {
+			clicMesa(local.getMesas().get(2));
+		}
+		if (e.getSource() == vista.btnMesa4) {
+			clicMesa(local.getMesas().get(3));
+		}
+		if (e.getSource() == vista.btnMesa5) {
+			clicMesa(local.getMesas().get(4));
+		}
+		if (e.getSource() == vista.btnMesa6) {
+			clicMesa(local.getMesas().get(5));
+		}
+		if (e.getSource() == vista.btnMesa7) {
+			clicMesa(local.getMesas().get(6));
 		} // FIN BOTONES MESA
 
 		// Agregamos el listener al boton de refrescos
@@ -249,7 +218,7 @@ public class Controlador implements ActionListener, ListSelectionListener {
 			vista.listRefrescospanelPedidoNuevo.setVisible(true);
 			vista.scrollPaneRefrescospanelPedidoNuevo.setVisible(true);
 
-			listarRefrescosPanelPedidoNuevo();
+			//listarRefrescosPanelPedidoNuevo();
 
 		} // FIN BTNREFRESCOS
 		if (e.getSource() == vista.btnCervezas) {
@@ -257,7 +226,7 @@ public class Controlador implements ActionListener, ListSelectionListener {
 			vista.listCervezaspanelPedidoNuevo.setVisible(true);
 			vista.scrollPanelCervezaspanelPedidoNuevo.setVisible(true);
 
-			listarCervezasPanelPedidoNuevo();
+			//listarCervezasPanelPedidoNuevo();
 
 		} // FIN BTNCERVEZAS
 
@@ -266,7 +235,7 @@ public class Controlador implements ActionListener, ListSelectionListener {
 			vista.listAperitivospanelPedidoNuevo.setVisible(true);
 			vista.scrollPaneAperitivospanelPedidoNuevo.setVisible(true);
 
-			listarAperitivosPanelPedidoNuevo();
+			//listarAperitivosPanelPedidoNuevo();
 
 		} // FIN BTNAPERITIVOS
 		if (e.getSource() == vista.btnBotellas) {
@@ -274,7 +243,7 @@ public class Controlador implements ActionListener, ListSelectionListener {
 			vista.listBotellaspanelPedidoNuevo.setVisible(true);
 			vista.scrollPaneBotellaspanelPedidoNuevo.setVisible(true);
 
-			listarBotellasPanelPedidoNuevo();
+			//listarBotellasPanelPedidoNuevo();
 
 		} // FIN BTNBOTELLAS
 
@@ -283,7 +252,7 @@ public class Controlador implements ActionListener, ListSelectionListener {
 			vista.listCocktelspanelPedidoNuevo.setVisible(true);
 			vista.scrollPaneCocktelspanelPedidoNuevo.setVisible(true);
 
-			listarCocktelsPanelPedidoNuevo();
+			//listarCocktelsPanelPedidoNuevo();
 
 		} // FIN BTNCOCKTELS
 		if (e.getSource() == vista.btnVino) {
@@ -291,10 +260,10 @@ public class Controlador implements ActionListener, ListSelectionListener {
 			vista.listVinopanelPedidoNuevo.setVisible(true);
 			vista.scrollPaneVinopanelPedidoNuevo.setVisible(true);
 
-			listarVinosPanelPedidoNuevo();
+			//listarVinosPanelPedidoNuevo();
 
 		} // FIN BTNVINOS
-		if (e.getSource() == vista.btnAnadirAlPedido) {
+		/*if (e.getSource() == vista.btnAnadirAlPedido) {
 			agregarElementoRefrescoAlPedido(local.devolverMesa().getNumeroMesa());
 			agregarElementoCervezaAlPedido(local.devolverMesa().getNumeroMesa());
 			agregarElementoAperitivoAlPedido(local.devolverMesa().getNumeroMesa());
@@ -303,7 +272,7 @@ public class Controlador implements ActionListener, ListSelectionListener {
 			agregarElementoVinoAlPedido(local.devolverMesa().getNumeroMesa());
 			// mostrarPedido();
 
-		} // FIN BTN ANADIR AL PEDIDO
+		} // FIN BTN ANADIR AL PEDIDO*/
 		if (e.getSource() == vista.btnVolverInicio) {
 			ocultarPaneles();
 			vista.panelInicio.setVisible(true);
@@ -363,31 +332,17 @@ public class Controlador implements ActionListener, ListSelectionListener {
 	 */
 
 	// Metodo para indicar el clic en un boton/mesa
-	private void ClicMesa(Mesa idMesa) {
-		local.setIdMesaActivo(idMesa.getNumeroMesa());
-		// Obtenemos el pedido asociado a la mesa seleccionada
-		int pedidoMesa = idMesa.getPedidoActivo();
-
+	private void clicMesa(Mesa mesa) {
+		vista.panelInicio.setVisible(false);
+		
 		// Verificamos si la mesa esta ocupada
-		if (pedidoMesa != 0) {
+		if (mesa.getPedido().getproductos().size() > 0) {
 			System.out.println("Mesa ocupada. Mostrando pedido...");
-			vista.panelInicio.setVisible(false);
 			vista.panelPedido.setVisible(true);
-
-			// Actualizamos la variable mesaSeleccionada para que coincida con la mesa
-			// actual
-			mesaSeleccionada = "Mesa " + idMesa;
-
-			// Mostramos el pedido de la mesa actual
-			mostrarPedido(pedidoMesa);
+			mostrarPedido(mesa);
 		} else {
 			System.out.println("Mesa no ocupada. Redirigiendo a nuevo pedido...");
-			vista.panelInicio.setVisible(false);
 			vista.panelPedidoNuevo.setVisible(true);
-
-			// Actualizamos la variable mesaSeleccionada para que coincida con la mesa
-			// actual
-			mesaSeleccionada = "Mesa " + idMesa;
 
 		}
 	}// FIN METODO CLICK MESA
@@ -433,7 +388,7 @@ public class Controlador implements ActionListener, ListSelectionListener {
 	 */
 	/*--------------------------------Metodos de agregar en paneles nuevos por clase-------------------------------------------*/
 
-	private void agregarElementoRefrescoAlPedido(int numeroPedido) {
+/*	private void agregarElementoRefrescoAlPedido(int numeroPedido) {
 		Object elementoSeleccionadoObject = vista.listRefrescospanelPedidoNuevo.getSelectedValue();
 
 		if (elementoSeleccionadoObject instanceof String) {
@@ -795,104 +750,97 @@ public class Controlador implements ActionListener, ListSelectionListener {
 				}
 			}
 		}
-	}// FIN AGREGAR ELEMENTO VINO AL PEDIDO
+	}// FIN AGREGAR ELEMENTO VINO AL PEDIDO*/
 	/*--------------------------------Fin metodos de agregar en paneles nuevos por clase-------------------------------------------*/
 
 	/*--------------------------------Metodos de listar en paneles nuevos por clase-------------------------------------------*/
 
 	private void listarCervezasPanelPedidoNuevo() {
-		// Obtenemos el HashMap de refrescos y cantidades desde la instancia de la clase
-		// Refresco
-		HashMap<String, InfoCerveza> listaCervezas = cerveza.getCervezas();
+		// Obtenemos el inventario
+		HashMap<Cerveza, Integer> listaCervezas = inventario.getCervezas();
 
 		// Limpiamos el modelo del JList antes de agregar nuevos elementos
 		DefaultListModel<String> model = new DefaultListModel<>();
 		vista.listCervezaspanelPedidoNuevo.setModel(model);
 
 		// Llenamos el modelo del JList con los elementos del HashMap
-		for (HashMap.Entry<String, InfoCerveza> entry : listaCervezas.entrySet()) {
-			InfoCerveza info = entry.getValue();
-			model.addElement(info.getNombre() + " - Precio: " + info.getPrecio());
+		for (HashMap.Entry<Cerveza, Integer> entry : listaCervezas.entrySet()) {
+			model.addElement(entry.getKey().getNombre() + " - Precio: " + entry.getKey().getPrecio());
 		}
 	}// FIN LISTAR CERVEZAS PANEL PEDIDO NUEVO
 
 	private void listarRefrescosPanelPedidoNuevo() {
 		// Obtenemos el HashMap de refrescos y cantidades desde la instancia de la clase
 		// Refresco
-		HashMap<String, InfoRefresco> listaRefrescos = refresco.getRefrescos();
+		HashMap<Refresco, Integer> listaRefrescos = inventario.getRefrescos();
 
 		// Limpiamos el modelo del JList antes de agregar nuevos elementos
 		DefaultListModel<String> model = new DefaultListModel<>();
 		vista.listRefrescospanelPedidoNuevo.setModel(model);
 
 		// Llenamos el modelo del JList con los elementos del HashMap
-		for (HashMap.Entry<String, InfoRefresco> entry : listaRefrescos.entrySet()) {
-			InfoRefresco info = entry.getValue();
-			model.addElement(info.getNombre() + " - Precio: " + info.getPrecio());
+		for (HashMap.Entry<Refresco, Integer> entry : listaRefrescos.entrySet()) {
+			model.addElement(entry.getKey().getNombre() + " - Precio: " + entry.getKey().getPrecio());
 		}
 	}// FIN LISTAR REFRESCOS PANEL PEDIDO NUEVO
 
 	private void listarAperitivosPanelPedidoNuevo() {
 		// Obtenemos el HashMap de aperitivos y cantidades desde la instancia de la
 		// clase Aperitivo
-		HashMap<String, InfoAperitivo> listaAperitivos = aperitivo.getAperitivos();
+		HashMap<Aperitivo, Integer> listaAperitivos = inventario.getAperitivos();
 
 		// Limpiamos el modelo del JList antes de agregar nuevos elementos
 		DefaultListModel<String> model = new DefaultListModel<>();
 		vista.listAperitivospanelPedidoNuevo.setModel(model);
 
 		// Llenamos el modelo del JList con los elementos del HashMap
-		for (HashMap.Entry<String, InfoAperitivo> entry : listaAperitivos.entrySet()) {
-			InfoAperitivo info = entry.getValue();
-			model.addElement(info.getNombre() + " - Precio: " + info.getPrecio());
+		for (HashMap.Entry<Aperitivo, Integer> entry : listaAperitivos.entrySet()) {
+			model.addElement(entry.getKey().getNombre() + " - Precio: " + entry.getKey().getPrecio());
 		}
 	}// FIN LISTAR APERITIVOS PEDIDO NUEVO
 
 	private void listarBotellasPanelPedidoNuevo() {
 		// Obtenemos el HashMap de aperitivos y cantidades desde la instancia de la
 		// clase Aperitivo
-		HashMap<String, InfoBotella> listaBotellas = botella.getBotellas();
+		HashMap<Botella, Integer> listaBotellas = inventario.getBotellas();
 
 		// Limpiamos el modelo del JList antes de agregar nuevos elementos
 		DefaultListModel<String> model = new DefaultListModel<>();
 		vista.listBotellaspanelPedidoNuevo.setModel(model);
 
 		// Llenamos el modelo del JList con los elementos del HashMap
-		for (HashMap.Entry<String, InfoBotella> entry : listaBotellas.entrySet()) {
-			InfoBotella info = entry.getValue();
-			model.addElement(info.getNombre() + " - Precio: " + info.getPrecio());
+		for (HashMap.Entry<Botella, Integer> entry : listaBotellas.entrySet()) {
+			model.addElement(entry.getKey().getNombre() + " - Precio: " + entry.getKey().getPrecio());
 		}
 	}// FIN LISTAR BOTELLAS PEDIDO NUEVO
 
 	private void listarCocktelsPanelPedidoNuevo() {
 		// Obtenemos el HashMap de aperitivos y cantidades desde la instancia de la
 		// clase Aperitivo
-		HashMap<String, InfoCoctel> listaCoctels = coctel.getCocteles();
+		HashMap<Coctel, Integer> listaCoctels = inventario.getCocteles();
 
 		// Limpiamos el modelo del JList antes de agregar nuevos elementos
 		DefaultListModel<String> model = new DefaultListModel<>();
 		vista.listCocktelspanelPedidoNuevo.setModel(model);
 
 		// Llenamos el modelo del JList con los elementos del HashMap
-		for (HashMap.Entry<String, InfoCoctel> entry : listaCoctels.entrySet()) {
-			InfoCoctel info = entry.getValue();
-			model.addElement(info.getNombre() + " - Precio: " + info.getPrecio());
+		for (HashMap.Entry<Coctel, Integer> entry : listaCoctels.entrySet()) {
+			model.addElement(entry.getKey().getNombre() + " - Precio: " + entry.getKey().getPrecio());
 		}
 	}// FIN LISTAR COCKTELS PEDIDO NUEVO
 
 	private void listarVinosPanelPedidoNuevo() {
 		// Obtenemos el HashMap de aperitivos y cantidades desde la instancia de la
 		// clase Aperitivo
-		HashMap<String, InfoVino> listaVinos = vino.getVinos();
+		HashMap<Vino, Integer> listaVinos = inventario.getVinos();
 
 		// Limpiamos el modelo del JList antes de agregar nuevos elementos
 		DefaultListModel<String> model = new DefaultListModel<>();
 		vista.listVinopanelPedidoNuevo.setModel(model);
 
 		// Llenamos el modelo del JList con los elementos del HashMap
-		for (HashMap.Entry<String, InfoVino> entry : listaVinos.entrySet()) {
-			InfoVino info = entry.getValue();
-			model.addElement(info.getNombre() + " - Precio: " + info.getPrecio());
+		for (HashMap.Entry<Vino, Integer> entry : listaVinos.entrySet()) {
+			model.addElement(entry.getKey().getNombre() + " - Precio: " + entry.getKey().getPrecio());
 		}
 	}// FIN LISTAR VINOS PEDIDO NUEVO
 	/*--------------------------------Fin metodos de listar en paneles nuevos por clase-------------------------------------------*/
@@ -909,63 +857,42 @@ public class Controlador implements ActionListener, ListSelectionListener {
 	 */
 	// Metodo que muestra el pedido de la mesa en panelPedidoNuevo
 
-	private void mostrarPedido(int numeroPedido) {
+	private void mostrarPedido(Mesa mesa) {
 		// Obtenemos la información del pedido asociado al número de pedido
-		Pedido pedidoMesa = local.cogerMesaId(numeroPedido).getPedido();
+		Pedido pedidoMesa = mesa.getPedido();
 
 		// Verificamos si la mesa está ocupada
-		boolean mesaOcupada = pedidoMesa != null && pedidoMesa.getBebidasPedido() != null
-				&& !pedidoMesa.getBebidasPedido().isEmpty();
+		boolean mesaOcupada = pedidoMesa != null;
 
 		if (mesaOcupada) {
-			// La mesa está ocupada, mostramos el panel de pedido con la información
-			vista.panelInicio.setVisible(false);
-			vista.panelPedido.setVisible(true);
-
 			// Limpiamos el modelo del JList antes de agregar nuevos elementos
 			DefaultListModel<String> modelPedido = new DefaultListModel<>();
-			vista.listPedido.setModel(modelPedido);
-
-			// Asumiendo que el pedido es un HashMap<String, Integer>
-			HashMap<String, Integer> bebidasPedido = pedidoMesa.getBebidasPedido();
+			vista.listPedidoMesa.setModel(modelPedido);
 
 			// Llenamos el modelo del JListPedido con los elementos del pedido
-			for (HashMap.Entry<String, Integer> entry : bebidasPedido.entrySet()) {
-				String bebida = entry.getKey();
-				int cantidad = entry.getValue();
-				modelPedido.addElement(bebida + " - Cantidad: " + cantidad);
+			for (int i=0; i< mesa.getPedido().getproductos().size(); i++) {
+				String producto = mesa.getPedido().getproductos().get(i).getNombre();
+				modelPedido.addElement(producto);
 			}
 
 			// Actualizamos el modelo del JListPedidoMesa
 			DefaultListModel<String> modelPedidoMesa = (DefaultListModel<String>) vista.listPedidoMesa.getModel();
 			modelPedidoMesa.clear();
-
-			for (HashMap.Entry<String, Integer> entry : bebidasPedido.entrySet()) {
-				String bebida = entry.getKey();
-				int cantidad = entry.getValue();
-				modelPedidoMesa.addElement(bebida + " - Cantidad: " + cantidad);
-			}
-		} else {
-			// La mesa no está ocupada, mostramos el panelNuevoPedido
-			vista.panelInicio.setVisible(false);
-			vista.panelPedidoNuevo.setVisible(true);
 		}
 	}// FIN MOSTRAR PEDIDO
 	/*--------------------------------Metodos de listar en inventario por clase-------------------------------------------*/
 
 	private void listarRefrescos() {
 		// Obtenemos el HashMap de refrescos y cantidades desde la instancia de la clase
-		HashMap<String, InfoRefresco> listaRefrescos = refresco.getRefrescos();
+		HashMap<Refresco, Integer> listaRefrescos = inventario.getRefrescos();
 
 		// Limpiamos el modelo del JList antes de agregar nuevos elementos
 		DefaultListModel<String> model = new DefaultListModel<>();
 		vista.listRefrescos.setModel(model);
 
 		// Llenamos el modelo del JList con los elementos del HashMap
-		for (HashMap.Entry<String, InfoRefresco> entry : listaRefrescos.entrySet()) {
-			InfoRefresco info = entry.getValue();
-			model.addElement(
-					info.getNombre() + " - Cantidad: " + info.getCantidad() + " - Precio: " + info.getPrecio());
+		for (HashMap.Entry<Refresco, Integer> entry : listaRefrescos.entrySet()) {
+			model.addElement(entry.getKey().getNombre() + "- Cantidad: " + entry.getValue()+"- Precio: " + entry.getKey().getPrecio()+"€");
 		}
 
 		// Configuramos el spinnerCantidad para que solo nos permita modificar la
@@ -976,17 +903,15 @@ public class Controlador implements ActionListener, ListSelectionListener {
 
 	private void listarAperitivos() {
 		// Obtenemos el HashMap de refrescos y cantidades desde la instancia de la clase
-		HashMap<String, InfoAperitivo> listaAperitivos = aperitivo.getAperitivos();
+		HashMap<Aperitivo, Integer> listaAperitivos = inventario.getAperitivos();
 
 		// Limpiamos el modelo del JList antes de agregar nuevos elementos
 		DefaultListModel<String> model = new DefaultListModel<>();
 		vista.listAperitivos.setModel(model);
 
 		// Llenamos el modelo del JList con los elementos del HashMap
-		for (HashMap.Entry<String, InfoAperitivo> entry : listaAperitivos.entrySet()) {
-			InfoAperitivo info = entry.getValue();
-			model.addElement(
-					info.getNombre() + " - Cantidad: " + info.getCantidad() + " - Precio: " + info.getPrecio());
+		for (HashMap.Entry<Aperitivo, Integer> entry : listaAperitivos.entrySet()) {
+			model.addElement(entry.getKey().getNombre() + "- Cantidad: " + entry.getValue()+"- Precio: " + entry.getKey().getPrecio()+"€");
 		}
 
 		// Configuramos el spinnerCantidad para que solo nos permita modificar la
@@ -997,17 +922,15 @@ public class Controlador implements ActionListener, ListSelectionListener {
 
 	private void listarBotellas() {
 		// Obtenemos el HashMap de refrescos y cantidades desde la instancia de la clase
-		HashMap<String, InfoBotella> listaBotellas = botella.getBotellas();
+		HashMap<Botella, Integer> listaBotellas = inventario.getBotellas();
 
 		// Limpiamos el modelo del JList antes de agregar nuevos elementos
 		DefaultListModel<String> model = new DefaultListModel<>();
 		vista.listBotellas.setModel(model);
 
 		// Llenamos el modelo del JList con los elementos del HashMap
-		for (HashMap.Entry<String, InfoBotella> entry : listaBotellas.entrySet()) {
-			InfoBotella info = entry.getValue();
-			model.addElement(
-					info.getNombre() + " - Cantidad: " + info.getCantidad() + " - Precio: " + info.getPrecio());
+		for (HashMap.Entry<Botella, Integer> entry : listaBotellas.entrySet()) {
+			model.addElement(entry.getKey().getNombre() + "- Cantidad: " + entry.getValue()+"- Precio: " + entry.getKey().getPrecio()+"€");
 		}
 
 		// Configuramos el spinnerCantidad para que solo nos permita modificar la
@@ -1018,17 +941,15 @@ public class Controlador implements ActionListener, ListSelectionListener {
 
 	private void listarCocktels() {
 		// Obtenemos el HashMap de refrescos y cantidades desde la instancia de la clase
-		HashMap<String, InfoCoctel> listaCocktels = coctel.getCocteles();
+		HashMap<Coctel, Integer> listaCocktels = inventario.getCocteles();
 
 		// Limpiamos el modelo del JList antes de agregar nuevos elementos
 		DefaultListModel<String> model = new DefaultListModel<>();
 		vista.listCocktels.setModel(model);
 
 		// Llenamos el modelo del JList con los elementos del HashMap
-		for (HashMap.Entry<String, InfoCoctel> entry : listaCocktels.entrySet()) {
-			InfoCoctel info = entry.getValue();
-			model.addElement(
-					info.getNombre() + " - Cantidad: " + info.getCantidad() + " - Precio: " + info.getPrecio());
+		for (HashMap.Entry<Coctel, Integer> entry : listaCocktels.entrySet()) {
+			model.addElement(entry.getKey().getNombre() + "- Cantidad: " + entry.getValue()+"- Precio: " + entry.getKey().getPrecio()+"€");
 		}
 
 		// Configuramos el spinnerCantidad para que solo nos permita modificar la
@@ -1039,17 +960,15 @@ public class Controlador implements ActionListener, ListSelectionListener {
 
 	private void listarIngredientes() {
 		// Obtenemos el HashMap de refrescos y cantidades desde la instancia de la clase
-		HashMap<String, InfoIngrediente> listaIngredientes = ingrediente.getIngredientes();
+		HashMap<Ingrediente, Integer> listaIngredientes = inventario.getIngredientes();
 
 		// Limpiamos el modelo del JList antes de agregar nuevos elementos
 		DefaultListModel<String> model = new DefaultListModel<>();
 		vista.listIngredientes.setModel(model);
 
 		// Llenamos el modelo del JList con los elementos del HashMap
-		for (HashMap.Entry<String, InfoIngrediente> entry : listaIngredientes.entrySet()) {
-			InfoIngrediente info = entry.getValue();
-			model.addElement(
-					info.getNombre() + " - Cantidad: " + info.getCantidad() + " - Precio: " + info.getPrecio());
+		for (HashMap.Entry<Ingrediente, Integer> entry : listaIngredientes.entrySet()) {
+			model.addElement(entry.getKey().getNombre() + "- Cantidad: " + entry.getValue()+"- Precio: " + entry.getKey().getPrecio()+"€");
 		}
 
 		// Configuramos el spinnerCantidad para que solo nos permita modificar la
@@ -1060,17 +979,15 @@ public class Controlador implements ActionListener, ListSelectionListener {
 
 	private void listarVinos() {
 		// Obtenemos el HashMap de refrescos y cantidades desde la instancia de la clase
-		HashMap<String, InfoVino> listaVinos = vino.getVinos();
+		HashMap<Vino, Integer> listaVinos = inventario.getVinos();
 
 		// Limpiamos el modelo del JList antes de agregar nuevos elementos
 		DefaultListModel<String> model = new DefaultListModel<>();
 		vista.listVinos.setModel(model);
 
 		// Llenamos el modelo del JList con los elementos del HashMap
-		for (HashMap.Entry<String, InfoVino> entry : listaVinos.entrySet()) {
-			InfoVino info = entry.getValue();
-			model.addElement(
-					info.getNombre() + " - Cantidad: " + info.getCantidad() + " - Precio: " + info.getPrecio());
+		for (HashMap.Entry<Vino, Integer> entry : listaVinos.entrySet()) {
+			model.addElement(entry.getKey().getNombre() + "- Cantidad: " + entry.getValue()+"- Precio: " + entry.getKey().getPrecio()+"€");
 		}
 
 		// Configuramos el spinnerCantidad para que solo nos permita modificar la
@@ -1081,17 +998,15 @@ public class Controlador implements ActionListener, ListSelectionListener {
 
 	private void listarCervezas() {
 // Obtenemos el HashMap de cervezas y las cantidades desde la instancia de la clase
-		HashMap<String, InfoCerveza> listaCervezas = cerveza.getCervezas();
+		HashMap<Cerveza, Integer> listaCervezas = inventario.getCervezas();
 
 		// Limpiamos el modelo del JList antes de agregar los nuevos elementos
 		DefaultListModel<String> model = new DefaultListModel<>();
 		vista.listCerveza.setModel(model);
 
 		// Llenamos el modelo del JList con los elementos del HashMap
-		for (HashMap.Entry<String, InfoCerveza> entry : listaCervezas.entrySet()) {
-			InfoCerveza info = entry.getValue();
-			model.addElement(
-					info.getNombre() + " - Cantidad: " + info.getCantidad() + " - Precio: " + info.getPrecio());
+		for (HashMap.Entry<Cerveza, Integer> entry : listaCervezas.entrySet()) {
+			model.addElement(entry.getKey().getNombre() + "- Cantidad: " + entry.getValue()+"- Precio: " + entry.getKey().getPrecio()+"€");
 		}
 
 		// Configuramos el spinnerCantidad para que solo nos permita modificar la
@@ -1153,14 +1068,11 @@ public class Controlador implements ActionListener, ListSelectionListener {
 		if (selectedIndex != -1) {
 			// Obtenemos la cantidad actual del elemento
 			String elementoSeleccionado = model.getElementAt(selectedIndex);
-			int cantidadActual = Integer
-					.parseInt(elementoSeleccionado.split(" - Cantidad: ")[1].split(" - Precio: ")[0]);
+			String parteuno = elementoSeleccionado.split("Cantidad: ")[1];
+			String precio = parteuno.split("-")[1];
 
 			// Obtenemos el valor del spinnerCantidad
-			int valorSpinner = (int) spinnerCantidad.getValue();
-
-			// Calculamos la nueva cantidad sumando el valor del spinner
-			int nuevaCantidad = cantidadActual + valorSpinner;
+			int nuevaCantidad = (int) spinnerCantidad.getValue();
 
 			// Obtenemos el nombre del producto
 			String nombreProducto = elementoSeleccionado.split(" - Cantidad: ")[0];
@@ -1168,26 +1080,40 @@ public class Controlador implements ActionListener, ListSelectionListener {
 			// Actualizamos la cantidad en la instancia correspondiente de cada clase
 			// (Refresco, Cerveza, Aperitivo)
 			if ("Refresco".equals(tipoProducto)) {
-				refresco.actualizarCantidad(nombreProducto, nuevaCantidad);
-				inventario.actualizarCantidad(nombreProducto, nuevaCantidad);
+				inventario.actualizarCantidadRefrescos(nombreProducto, nuevaCantidad);
+				elementoSeleccionado = tipoProducto + "- Cantidad: " + nuevaCantidad+"-"+precio;
+				model.setElementAt(elementoSeleccionado, selectedIndex);
+
 			} else if ("Cerveza".equals(tipoProducto)) {
-				cerveza.actualizarCantidad(nombreProducto, nuevaCantidad);
-				inventario.actualizarCantidad(nombreProducto, nuevaCantidad);
+				inventario.actualizarCantidadCerveza(nombreProducto, nuevaCantidad);
+				elementoSeleccionado = tipoProducto + "- Cantidad: " + nuevaCantidad+"-"+precio;
+				model.setElementAt(elementoSeleccionado, selectedIndex);
+
 			} else if ("Aperitivo".equals(tipoProducto)) {
-				aperitivo.actualizarCantidad(nombreProducto, nuevaCantidad);
-				inventario.actualizarCantidad(nombreProducto, nuevaCantidad);
+				inventario.actualizarCantidadAperitivos(nombreProducto, nuevaCantidad);
+				elementoSeleccionado = tipoProducto + "- Cantidad: " + nuevaCantidad+"-"+precio;
+				model.setElementAt(elementoSeleccionado, selectedIndex);
+
 			} else if ("Botella".equals(tipoProducto)) {
-				botella.actualizarCantidad(nombreProducto, nuevaCantidad);
-				inventario.actualizarCantidad(nombreProducto, nuevaCantidad);
+				inventario.actualizarCantidadBotellas(nombreProducto, nuevaCantidad);
+				elementoSeleccionado = tipoProducto + "- Cantidad: " + nuevaCantidad+"-"+precio;
+				model.setElementAt(elementoSeleccionado, selectedIndex);
+
 			} else if ("Cocktel".equals(tipoProducto)) {
-				coctel.actualizarCantidad(nombreProducto, nuevaCantidad);
-				inventario.actualizarCantidad(nombreProducto, nuevaCantidad);
+				inventario.actualizarCantidadCocteles(nombreProducto, nuevaCantidad);
+				elementoSeleccionado = tipoProducto + "- Cantidad: " + nuevaCantidad+"-"+precio;
+				model.setElementAt(elementoSeleccionado, selectedIndex);
+
 			} else if ("Ingrediente".equals(tipoProducto)) {
-				ingrediente.actualizarCantidad(nombreProducto, nuevaCantidad);
-				inventario.actualizarCantidad(nombreProducto, nuevaCantidad);
+				inventario.actualizarCantidadIngredientes(nombreProducto, nuevaCantidad);
+				elementoSeleccionado = tipoProducto + "- Cantidad: " + nuevaCantidad+"-"+precio;
+				model.setElementAt(elementoSeleccionado, selectedIndex);
+
 			} else if ("Vino".equals(tipoProducto)) {
-				vino.actualizarCantidad(nombreProducto, nuevaCantidad);
-				inventario.actualizarCantidad(nombreProducto, nuevaCantidad);
+				inventario.actualizarCantidadVinos(nombreProducto, nuevaCantidad);
+				elementoSeleccionado = tipoProducto + "- Cantidad: " + nuevaCantidad+"-"+precio;
+				model.setElementAt(elementoSeleccionado, selectedIndex);
+
 			}
 			// Actualizamos el modelo del JList
 			if ("Refresco".equals(tipoProducto)) {
@@ -1209,7 +1135,7 @@ public class Controlador implements ActionListener, ListSelectionListener {
 	}// FIN actualizarCantidadSeleccionada
 
 	// Metodo para eliminar cambios en inventario/btnEliminarCambios
-	public void eliminarCambios() {
+	/*public void eliminarCambios() {
 
 		// Restauramos las cantidades originales de los refrescos
 		refresco.restaurarCantidadesOriginales();
@@ -1236,7 +1162,7 @@ public class Controlador implements ActionListener, ListSelectionListener {
 		listarCocktels();
 		listarIngredientes();
 		listarVinos();
-	}// FIN eliminarCambios
+	}// FIN eliminarCambios*/
 		// Metodo que recoge los ListSelectionEvents
 	/*-------------------------------- Metodos para manejar los ListSelectionEvents-------------------------------------------*/
 
@@ -1291,24 +1217,123 @@ public class Controlador implements ActionListener, ListSelectionListener {
 			switch (listIdentifier) {
 			case 1:
 				handleListSelection(vista.listRefrescos, vista.spinnerCantidadRefrescos);
+				if (vista.listRefrescos.getSelectedIndex() != -1) {
+					// Show the spinnerCantidad if an item is selected
+					vista.spinnerCantidadRefrescos.setVisible(true);
+					String producto = (String) vista.listRefrescos.getSelectedValue();
+					producto = producto.split("-")[0];
+					for (HashMap.Entry<Refresco, Integer> entry : inventario.getRefrescos().entrySet()) {
+						if(entry.getKey().getNombre().equals(producto)) {
+							vista.spinnerCantidadRefrescos.setValue(entry.getValue());
+						}
+					}
+					
+				} else {
+					// Hide the spinnerCantidad if no item is selected
+					vista.spinnerCantidadRefrescos.setVisible(false);
+				}
 				break;
 			case 2:
 				handleListSelection(vista.listCerveza, vista.spinnerCantidadCerveza);
+				if (vista.listCerveza.getSelectedIndex() != -1) {
+					// Show the spinnerCantidad if an item is selected
+					vista.spinnerCantidadCerveza.setVisible(true);
+					String producto = (String) vista.listCerveza.getSelectedValue();
+					producto = producto.split("-")[0];
+					for (HashMap.Entry<Cerveza, Integer> entry : inventario.getCervezas().entrySet()) {
+						if(entry.getKey().getNombre().equals(producto)) {
+							vista.spinnerCantidadCerveza.setValue(entry.getValue());
+						}
+					}
+				} else {
+					// Hide the spinnerCantidad if no item is selected
+					vista.spinnerCantidadCerveza.setVisible(false);
+				}
 				break;
 			case 3:
 				handleListSelection(vista.listAperitivos, vista.spinnerCantidadAperitivos);
+				if (vista.listAperitivos.getSelectedIndex() != -1) {
+					// Show the spinnerCantidad if an item is selected
+					vista.spinnerCantidadAperitivos.setVisible(true);
+					String producto = (String) vista.listAperitivos.getSelectedValue();
+					producto = producto.split("-")[0];
+					for (HashMap.Entry<Aperitivo, Integer> entry : inventario.getAperitivos().entrySet()) {
+						if(entry.getKey().getNombre().equals(producto)) {
+							vista.spinnerCantidadAperitivos.setValue(entry.getValue());
+						}
+					}
+				} else {
+					// Hide the spinnerCantidad if no item is selected
+					vista.spinnerCantidadAperitivos.setVisible(false);
+				}
 				break;
 			case 4:
 				handleListSelection(vista.listBotellas, vista.spinnerCantidadBotellas);
+				if (vista.listBotellas.getSelectedIndex() != -1) {
+					// Show the spinnerCantidad if an item is selected
+					vista.spinnerCantidadBotellas.setVisible(true);
+					String producto = (String) vista.listBotellas.getSelectedValue();
+					producto = producto.split("-")[0];
+					for (HashMap.Entry<Botella, Integer> entry : inventario.getBotellas().entrySet()) {
+						if(entry.getKey().getNombre().equals(producto)) {
+							vista.spinnerCantidadBotellas.setValue(entry.getValue());
+						}
+					}
+				} else {
+					// Hide the spinnerCantidad if no item is selected
+					vista.spinnerCantidadBotellas.setVisible(false);
+				}
 				break;
 			case 5:
 				handleListSelection(vista.listCocktels, vista.spinnerCantidadCocktels);
+				if (vista.listCocktels.getSelectedIndex() != -1) {
+					// Show the spinnerCantidad if an item is selected
+					vista.spinnerCantidadCocktels.setVisible(true);
+					String producto = (String) vista.listCocktels.getSelectedValue();
+					producto = producto.split("-")[0];
+					for (HashMap.Entry<Coctel, Integer> entry : inventario.getCocteles().entrySet()) {
+						if(entry.getKey().getNombre().equals(producto)) {
+							vista.spinnerCantidadCocktels.setValue(entry.getValue());
+						}
+					}
+				} else {
+					// Hide the spinnerCantidad if no item is selected
+					vista.spinnerCantidadCocktels.setVisible(false);
+				}
 				break;
 			case 6:
 				handleListSelection(vista.listIngredientes, vista.spinnerCantidadIngredientes);
+				if (vista.listIngredientes.getSelectedIndex() != -1) {
+					// Show the spinnerCantidad if an item is selected
+					vista.spinnerCantidadIngredientes.setVisible(true);
+					String producto = (String) vista.listIngredientes.getSelectedValue();
+					producto = producto.split("-")[0];
+					for (HashMap.Entry<Ingrediente, Integer> entry : inventario.getIngredientes().entrySet()) {
+						if(entry.getKey().getNombre().equals(producto)) {
+							vista.spinnerCantidadIngredientes.setValue(entry.getValue());
+						}
+					}
+				} else {
+					// Hide the spinnerCantidad if no item is selected
+					vista.spinnerCantidadIngredientes.setVisible(false);
+				}
 				break;
 			case 7:
 				handleListSelection(vista.listVinos, vista.spinnerCantidadVinos);
+				if (vista.listVinos.getSelectedIndex() != -1) {
+					// Show the spinnerCantidad if an item is selected
+					vista.spinnerCantidadVinos.setVisible(true);
+					String producto = (String) vista.listVinos.getSelectedValue();
+					producto = producto.split("-")[0];
+					for (HashMap.Entry<Vino, Integer> entry : inventario.getVinos().entrySet()) {
+						if(entry.getKey().getNombre().equals(producto)) {
+							vista.spinnerCantidadVinos.setValue(entry.getValue());
+						}
+					}
+				} else {
+					// Hide the spinnerCantidad if no item is selected
+					vista.spinnerCantidadVinos.setVisible(false);
+				}
 				break;
 			case 8:
 				handleListSelection(vista.listRefrescospanelPedidoNuevo, vista.spinnerCantidadRefrescos);
@@ -1349,7 +1374,6 @@ public class Controlador implements ActionListener, ListSelectionListener {
 	}// FIN UPDATE ULTIMA SELECCION
 
 	private void handleListSelection(JList<String> list, JSpinner spinner) {
-		// Verify if there is an item selected
 		if (list.getSelectedIndex() != -1) {
 			// Show the spinnerCantidad if an item is selected
 			spinner.setVisible(true);

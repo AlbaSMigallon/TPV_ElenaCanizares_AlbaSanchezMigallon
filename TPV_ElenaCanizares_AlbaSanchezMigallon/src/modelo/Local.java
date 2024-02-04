@@ -53,6 +53,7 @@ public class Local {
 	private void inicializarMesas() {
 		for(int i=0; i<7; i++) {
 			Mesa mesa= new Mesa(i+1);//crear mesas y asignar numero
+			this.mesas.add(mesa);
 		}
 	}
 	
