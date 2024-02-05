@@ -66,7 +66,7 @@ public class Caja {
 		return total;
 	}
 
-	private double cerrarCaja() {// calcula el total de los pedidos pagados y resetea la lista de pedidos pagados
+	public double cerrarCaja() {// calcula el total de los pedidos pagados y resetea la lista de pedidos pagados
 		double total=0;
 		synchronized (object) {
 			try {
@@ -86,7 +86,6 @@ public class Caja {
 
 			try {
 				if (contrasenia.equals("1234")) {
-					cerrarCaja();
 					esCerrada = true;
 				}
 

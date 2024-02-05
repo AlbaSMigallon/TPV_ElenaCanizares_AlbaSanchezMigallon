@@ -26,13 +26,15 @@ import javax.swing.JScrollPane;
 import javax.swing.JComboBox;
 import java.awt.ScrollPane;
 import javax.swing.JScrollBar;
+import javax.swing.JTextField;
+import javax.swing.JPasswordField;
 
 public class Vista extends JFrame {
 
 	public static final long serialVersionUID = 1L;
 	public JPanel contentPane, panelInicio, panelCocteleria, panelCaja, panelPedido, panelInventario, panelMusica,
-			panelPedidoNuevo, panelPagarPedido;
-	public JLabel lblInicio, lblRefrescosInventario, lblCervezasInventario, lblBotellasInventario,
+			panelPedidoNuevo, panelPagarPedido, panelUsuarioCaja;
+	public JLabel lblInicio, lblRefrescosInventario, lblCervezasInventario, lblBotellasInventario,labelRetroalimentacionContrasenia,
 			lblCocktelsInventario, lblVinosInventario, lblAperitivosInventario, lblIngredientesInventario, lblFondoTPV;
 	public JList listRefrescos, listCerveza, listBotellas, listCocktels, listVinos, listAperitivos, listIngredientes,
 			listPedido, listRefrescospanelPedidoNuevo, listCervezaspanelPedidoNuevo, listAperitivospanelPedidoNuevo,
@@ -43,17 +45,20 @@ public class Vista extends JFrame {
 	public JSpinner spinnerCantidadRefrescos, spinnerCantidadCerveza, spinnerCantidadBotellas, spinnerCantidadCocktels,
 			spinnerCantidadVinos, spinnerCantidadAperitivos, spinnerCantidadIngredientes;
 	public JList<String> listPedidoMesa;
-	public JScrollBar verticalScrollBarRefrescospanelPedidoNuevo, verticalScrollBarPedidoMesa,
+	public JScrollBar verticalScrollBarRefrescospanelPedidoNuevo, verticalScrollBarIngredientes, verticalScrollBarAperitivos, verticalScrollBarCocktels, verticalScrollBarBotellas, verticalScrollBarPedidoMesa,
 			verticalScrollBarCervezaspanelPedidoNuevo, verticalScrollBarPedido,
-			verticalScrollBarAperitivospanelPedidoNuevo, verticalScrollBarBotellaspanelPedidoNuevo,
-			verticalScrollBarCocktelspanelPedidoNuevo, verticalScrollBarVinopanelPedidoNuevo;
-	public JScrollPane scrollPaneRefrescospanelPedidoNuevo, scrollPanePedidoMesa, scrollPanelCervezaspanelPedidoNuevo,
+			verticalScrollBarAperitivospanelPedidoNuevo, verticalScrollBarVinos, verticalScrollBarInventario, verticalScrollBarBotellaspanelPedidoNuevo,
+			verticalScrollBarCocktelspanelPedidoNuevo, verticalScrollBarVinopanelPedidoNuevo, verticalScrollBarRefrescos;
+	public JScrollPane scrollPaneRefrescospanelPedidoNuevo,scrollPaneIngredientes, scrollPaneAperitivos, scrollPaneVinos, scrollPaneCocktels,  scrollPanePedidoMesa, scrollPanelCervezaspanelPedidoNuevo,
 			scrollPanePedido, scrollPaneAperitivospanelPedidoNuevo, scrollPaneBotellaspanelPedidoNuevo,
-			scrollPaneCocktelspanelPedidoNuevo, scrollPaneVinopanelPedidoNuevo;
+			scrollPaneCocktelspanelPedidoNuevo, scrollPaneInventario, scrollPaneBotellas, scrollPaneVinopanelPedidoNuevo, scrollPaneRefrescos;
 	public JComboBox comboBoxMesa, comboBoxMusica;
-	private JButton btnVolverACaja;
-	private JButton btnVolver;
+	public JButton btnVolverACaja;
+	public JButton btnVolver;
 	public JButton btnAgregar;
+	public JPasswordField passwordField;
+	public JButton btnAceptarContrasenia;
+	public JButton btnVolverContrasenia;
 
 	/**
 	 * Launch the application.
@@ -84,6 +89,25 @@ public class Vista extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		/*---------------------------------PANEL INICIO---------------------------------------------------*/
+		
+		panelUsuarioCaja = new JPanel();
+		panelUsuarioCaja.setBounds(0, 0, 1684, 861);
+		panelUsuarioCaja.setVisible(false);
+		contentPane.add(panelUsuarioCaja);
+		
+		labelRetroalimentacionContrasenia = new JLabel();
+		labelRetroalimentacionContrasenia.setText("Introduzca la contrasenia para hacer cierre de caja:");
+		panelUsuarioCaja.add(labelRetroalimentacionContrasenia);
+		
+		
+		passwordField = new JPasswordField();
+		panelUsuarioCaja.add(passwordField);
+		
+		btnAceptarContrasenia = new JButton("New button");
+		panelUsuarioCaja.add(btnAceptarContrasenia);
+		
+		btnVolverContrasenia = new JButton("New button");
+		panelUsuarioCaja.add(btnVolverContrasenia);
 		panelInicio = new JPanel() {
 			@Override
 			protected void paintComponent(Graphics g) {
@@ -266,11 +290,11 @@ public class Vista extends JFrame {
 		listRefrescos = new JList();
 		listRefrescos.setBounds(71, 49, 261, 72);
 
-		JScrollPane scrollPaneRefrescos = new JScrollPane(listRefrescos);
+		scrollPaneRefrescos = new JScrollPane(listRefrescos);
 		scrollPaneRefrescos.setBounds(71, 49, 261, 72);
 		panelInventario.add(scrollPaneRefrescos);
 
-		JScrollBar verticalScrollBarRefrescos = new JScrollBar(JScrollBar.VERTICAL);
+		verticalScrollBarRefrescos = new JScrollBar(JScrollBar.VERTICAL);
 		scrollPaneRefrescos.setVerticalScrollBar(verticalScrollBarRefrescos);
 
 		spinnerCantidadRefrescos = new JSpinner();
@@ -286,11 +310,11 @@ public class Vista extends JFrame {
 		listCerveza = new JList();
 		listCerveza.setBounds(71, 179, 261, 72);
 
-		JScrollPane scrollPaneInventario = new JScrollPane(listCerveza);
+		scrollPaneInventario = new JScrollPane(listCerveza);
 		scrollPaneInventario.setBounds(71, 179, 261, 72);
 		panelInventario.add(scrollPaneInventario);
 
-		JScrollBar verticalScrollBarInventario = new JScrollBar(JScrollBar.VERTICAL);
+		verticalScrollBarInventario = new JScrollBar(JScrollBar.VERTICAL);
 		scrollPaneInventario.setVerticalScrollBar(verticalScrollBarInventario);
 
 		spinnerCantidadCerveza = new JSpinner();
@@ -307,11 +331,11 @@ public class Vista extends JFrame {
 		listBotellas = new JList();
 		listBotellas.setBounds(71, 309, 261, 72);
 
-		JScrollPane scrollPaneBotellas = new JScrollPane(listBotellas);
+		scrollPaneBotellas = new JScrollPane(listBotellas);
 		scrollPaneBotellas.setBounds(71, 309, 261, 72);
 		panelInventario.add(scrollPaneBotellas);
 
-		JScrollBar verticalScrollBarBotellas = new JScrollBar(JScrollBar.VERTICAL);
+		verticalScrollBarBotellas = new JScrollBar(JScrollBar.VERTICAL);
 		scrollPaneBotellas.setVerticalScrollBar(verticalScrollBarBotellas);
 
 		spinnerCantidadBotellas = new JSpinner();
@@ -329,11 +353,11 @@ public class Vista extends JFrame {
 		listCocktels = new JList();
 		listCocktels.setBounds(71, 439, 261, 72);
 
-		JScrollPane scrollPaneCocktels = new JScrollPane(listCocktels);
+		scrollPaneCocktels = new JScrollPane(listCocktels);
 		scrollPaneCocktels.setBounds(71, 439, 261, 72);
 		panelInventario.add(scrollPaneCocktels);
 
-		JScrollBar verticalScrollBarCocktels = new JScrollBar(JScrollBar.VERTICAL);
+		verticalScrollBarCocktels = new JScrollBar(JScrollBar.VERTICAL);
 		scrollPaneCocktels.setVerticalScrollBar(verticalScrollBarCocktels);
 
 		spinnerCantidadCocktels = new JSpinner();
@@ -350,11 +374,11 @@ public class Vista extends JFrame {
 		listVinos = new JList();
 		listVinos.setBounds(638, 309, 261, 72);
 
-		JScrollPane scrollPaneVinos = new JScrollPane(listVinos);
+		scrollPaneVinos = new JScrollPane(listVinos);
 		scrollPaneVinos.setBounds(638, 309, 261, 72);
 		panelInventario.add(scrollPaneVinos);
 
-		JScrollBar verticalScrollBarVinos = new JScrollBar(JScrollBar.VERTICAL);
+		verticalScrollBarVinos = new JScrollBar(JScrollBar.VERTICAL);
 		scrollPaneVinos.setVerticalScrollBar(verticalScrollBarVinos);
 
 		spinnerCantidadVinos = new JSpinner();
@@ -371,11 +395,11 @@ public class Vista extends JFrame {
 		listAperitivos = new JList();
 		listAperitivos.setBounds(638, 179, 261, 72);
 
-		JScrollPane scrollPaneAperitivos = new JScrollPane(listAperitivos);
+		scrollPaneAperitivos = new JScrollPane(listAperitivos);		
 		scrollPaneAperitivos.setBounds(638, 179, 261, 72);
 		panelInventario.add(scrollPaneAperitivos);
 
-		JScrollBar verticalScrollBarAperitivos = new JScrollBar(JScrollBar.VERTICAL);
+		verticalScrollBarAperitivos = new JScrollBar(JScrollBar.VERTICAL);
 		scrollPaneAperitivos.setVerticalScrollBar(verticalScrollBarAperitivos);
 
 		spinnerCantidadAperitivos = new JSpinner();
@@ -392,11 +416,11 @@ public class Vista extends JFrame {
 		listIngredientes = new JList();
 		listIngredientes.setBounds(71, 829, 261, 72);
 
-		JScrollPane scrollPaneIngredientes = new JScrollPane(listIngredientes);
+		scrollPaneIngredientes = new JScrollPane(listIngredientes);
 		scrollPaneIngredientes.setBounds(638, 49, 261, 72);
 		panelInventario.add(scrollPaneIngredientes);
 
-		JScrollBar verticalScrollBarIngredientes = new JScrollBar(JScrollBar.VERTICAL);
+		verticalScrollBarIngredientes = new JScrollBar(JScrollBar.VERTICAL);
 		scrollPaneIngredientes.setVerticalScrollBar(verticalScrollBarIngredientes);
 
 		spinnerCantidadIngredientes = new JSpinner();
