@@ -35,13 +35,13 @@ public class Vista extends JFrame {
 	public JPanel contentPane, panelInicio, panelCocteleria, panelCaja, panelPedido, panelInventario, panelMusica,
 			panelPedidoNuevo, panelPagarPedido, panelUsuarioCaja;
 	public JLabel lblInicio, lblRefrescosInventario, lblCervezasInventario, lblBotellasInventario,labelRetroalimentacionContrasenia,
-			lblCocktelsInventario, lblVinosInventario, lblAperitivosInventario, lblIngredientesInventario, lblFondoTPV;
+			lblCocktelsInventario, lblVinosInventario, lblAperitivosInventario, lblIngredientesInventario, lblFondoTPV, lblPagado;
 	public JList listRefrescos, listCerveza, listBotellas, listCocktels, listVinos, listAperitivos, listIngredientes,
 			listPedido, listRefrescospanelPedidoNuevo, listCervezaspanelPedidoNuevo, listAperitivospanelPedidoNuevo,
-			listBotellaspanelPedidoNuevo, listCocktelspanelPedidoNuevo, listVinopanelPedidoNuevo;
+			listBotellaspanelPedidoNuevo, listCocktelspanelPedidoNuevo, listVinopanelPedidoNuevo, listPedidos;
 	public JButton btnCaja, btnPedido, btnInventario, btnMusica, btnMesa1, btnMesa2, btnMesa3, btnMesa4, btnMesa5,
 			btnMesa6, btnMesa7, btnBarra, btnAceptarCambios, btnRevertirCambios, btnRefrescos, btnAnadirAlPedido,
-			btnCervezas, btnAperitivos, btnVino, btnBotellas, btnCocktels, btnVolverInicio, btnVolverInicio2, btnCierreCaja, btnArqueo, btnPagarPedido;
+			btnCervezas, btnAperitivos, btnVino, btnBotellas, btnCocktels, btnVolverInicio, btnVolverInicio2, btnCierreCaja, btnArqueo, btnPagarPedido, btnVerPedidos;
 	public JSpinner spinnerCantidadRefrescos, spinnerCantidadCerveza, spinnerCantidadBotellas, spinnerCantidadCocktels,
 			spinnerCantidadVinos, spinnerCantidadAperitivos, spinnerCantidadIngredientes;
 	public JList<String> listPedidoMesa;
@@ -51,7 +51,7 @@ public class Vista extends JFrame {
 			verticalScrollBarCocktelspanelPedidoNuevo, verticalScrollBarVinopanelPedidoNuevo, verticalScrollBarRefrescos;
 	public JScrollPane scrollPaneRefrescospanelPedidoNuevo,scrollPaneIngredientes, scrollPaneAperitivos, scrollPaneVinos, scrollPaneCocktels,  scrollPanePedidoMesa, scrollPanelCervezaspanelPedidoNuevo,
 			scrollPanePedido, scrollPaneAperitivospanelPedidoNuevo, scrollPaneBotellaspanelPedidoNuevo,
-			scrollPaneCocktelspanelPedidoNuevo, scrollPaneInventario, scrollPaneBotellas, scrollPaneVinopanelPedidoNuevo, scrollPaneRefrescos;
+			scrollPaneCocktelspanelPedidoNuevo, scrollPaneInventario, scrollPaneBotellas, scrollPaneVinopanelPedidoNuevo, scrollPaneRefrescos, scrollPanePedidos;
 	public JComboBox comboBoxMesa, comboBoxMusica;
 	public JButton btnVolverACaja;
 	public JButton btnVolver;
@@ -446,18 +446,34 @@ public class Vista extends JFrame {
 		panelCaja.setLayout(null);
 		panelCaja.setVisible(false);
 		
+		btnVerPedidos = new JButton("VER PEDIDOS");
+		btnVerPedidos.setBounds(225, 311, 208, 132);
+		panelCaja.add(btnVerPedidos);
+		
 		btnPagarPedido = new JButton("PAGAR PEDIDO");
-		btnPagarPedido.setBounds(225, 311, 306, 132);
+		btnPagarPedido.setBounds(900, 311, 225, 132);
+		btnPagarPedido.setVisible(false);
 		panelCaja.add(btnPagarPedido);
 		
+		lblPagado = new JLabel("");
+		lblPagado.setFont(new Font("Garamond", Font.ITALIC, 20));
+		lblPagado.setBounds(834, 236, 291, 42);
+		panelCaja.add(lblPagado);
 		
 		btnArqueo = new JButton("ARQUEO");
-		btnArqueo.setBounds(225, 311, 306, 132);
+		btnArqueo.setBounds(900, 311, 225, 132);
 		panelCaja.add(btnArqueo);
 		
 		btnCierreCaja = new JButton("CIERRE CAJA");
-		btnCierreCaja.setBounds(225, 311, 306, 132);
+		btnCierreCaja.setBounds(900, 487, 225, 132);
 		panelCaja.add(btnCierreCaja);
+		
+		listPedidos = new JList();
+		listPedidos.setBounds(71, 49, 261, 72);
+
+		scrollPanePedidos = new JScrollPane(listPedidos);
+		scrollPanePedidos.setBounds(488, 236, 368, 286);
+		panelCaja.add(scrollPanePedidos);
 		
 		
 		// ------------------------PANEL PAGAR PEDIDO, DENTRO DE CAJA---------------------------------------

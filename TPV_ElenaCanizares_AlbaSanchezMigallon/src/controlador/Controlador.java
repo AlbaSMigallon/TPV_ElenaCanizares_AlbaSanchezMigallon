@@ -2,6 +2,7 @@ package controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.swing.DefaultComboBoxModel;
@@ -78,6 +79,7 @@ public class Controlador implements ActionListener, ListSelectionListener {
 		this.vista.btnArqueo.addActionListener(this);
 		this.vista.btnAceptarContrasenia.addActionListener(this);
 		this.vista.btnVolverContrasenia.addActionListener(this);
+		this.vista.btnVerPedidos.addActionListener(this);
 
 		this.vista.listRefrescospanelPedidoNuevo.addListSelectionListener(this);
 		this.vista.listCervezaspanelPedidoNuevo.addListSelectionListener(this);
@@ -85,6 +87,7 @@ public class Controlador implements ActionListener, ListSelectionListener {
 		this.vista.listBotellaspanelPedidoNuevo.addListSelectionListener(this);
 		this.vista.listCocktelspanelPedidoNuevo.addListSelectionListener(this);
 		this.vista.listVinopanelPedidoNuevo.addListSelectionListener(this);
+		this.vista.listPedidos.addListSelectionListener(this);
 
 		this.vista.listPedidoMesa.addListSelectionListener(this);
 		
@@ -133,6 +136,12 @@ public class Controlador implements ActionListener, ListSelectionListener {
 		if (e.getSource() == vista.btnCaja) {
 			vista.panelInicio.setVisible(false);
 			vista.panelCaja.setVisible(true);
+			
+			//Limpiamos el listado de pedidos
+			DefaultListModel<String> model = new DefaultListModel<>();
+			model.clear();
+			
+			vista.listPedidos.setModel(model);
 		} // PANEL CAJA
 		/*
 		 * if (e.getSource() == vista.btnPedido) { mostrarTodosLosPedidosPorMesa(); //
@@ -152,6 +161,24 @@ public class Controlador implements ActionListener, ListSelectionListener {
 		 */
 
 		// PANEL CAJA
+		if(e.getSource() == vista.btnPagarPedido) {
+			pagarPedido();
+		}
+		
+		if(e.getSource() == vista.btnVerPedidos) {
+			listarPedidos();
+		}
+		
+		if(e.getSource()== vista.btnCaja) {
+			vista.panelInicio.setVisible(false);///////////////////////////////////////
+			vista.panelCaja.setVisible(true);
+		}
+		
+		// panel cierre caja
+		if(e.getSource()== vista.btnCierreCaja) {
+			vista.panelUsuarioCaja.setVisible(false);///////////////////////////////////////
+			vista.panelCaja.setVisible(false);
+		}
 		if (e.getSource() == vista.btnAceptarContrasenia) {
 			// envia la contrasenia del passwordField y retorna si es correcta
 			
@@ -176,6 +203,18 @@ public class Controlador implements ActionListener, ListSelectionListener {
 			vista.panelCaja.setVisible(true);
 			vista.panelUsuarioCaja.setVisible(false);
 		}
+		
+		// panel pagar pedido
+		
+		
+		// arqueo
+		
+		if(e.getSource()== vista.btnArqueo) {
+			// boton para bolver de panel de caontrasenia en caja a caja
+			vista.panelCaja.setVisible(true);
+			//vista.panelUsuarioCaja.setVisible(false);
+		}
+		
 
 		// FIN PANEL CAJA
 
@@ -379,6 +418,14 @@ public class Controlador implements ActionListener, ListSelectionListener {
 	// Metodo para indicar el clic en un boton/mesa
 	private void clicMesa(Mesa mesa) {
 		vista.panelInicio.setVisible(false);
+		DefaultListModel<String> model = new DefaultListModel<>();
+		model.clear();
+		
+		vista.listAperitivospanelPedidoNuevo.setModel(model);
+		vista.listRefrescospanelPedidoNuevo.setModel(model);
+		vista.listCervezaspanelPedidoNuevo.setModel(model);
+		vista.listCocktelspanelPedidoNuevo.setModel(model);
+		vista.listVinopanelPedidoNuevo.setModel(model);
 
 		// Verificamos si la mesa esta ocupada
 		if (mesa.isEsOcupada()) {
@@ -438,42 +485,43 @@ public class Controlador implements ActionListener, ListSelectionListener {
 
 	private void agregarElementoRefrescoAlPedido() {
 		Object elementoSeleccionadoObject = vista.listRefrescospanelPedidoNuevo.getSelectedValue();
-		agregarElemento(elementoSeleccionadoObject);
+		agregarElemento(elementoSeleccionadoObject, "Refresco");
 	}// FIN AGREGAR ELEMENTO REFRESCO AL PEDIDO
 
 	// Metodo para agregar el elemento seleccionado de cerveza al pedido
 	private void agregarElementoCervezaAlPedido() {
 		Object elementoSeleccionadoObject = vista.listCervezaspanelPedidoNuevo.getSelectedValue();
-		agregarElemento(elementoSeleccionadoObject);
+		agregarElemento(elementoSeleccionadoObject, "Cerveza");
 	}// FIN AGREGAR ELEMENTO CERVEZA AL PEDIDO
 
 	// Metodo para agregar el elemento seleccionado de aperitivo al pedido
 	private void agregarElementoAperativoAlPedido() {
 		Object elementoSeleccionadoObject = vista.listAperitivospanelPedidoNuevo.getSelectedValue();
-		agregarElemento(elementoSeleccionadoObject);
+		agregarElemento(elementoSeleccionadoObject, "Aperitivo");
 	}// FIN AGREGAR ELEMENTO APERITIVO AL PEDIDO
 
+	//-------------------Hay que eliminarlo, no se pueden pedir botellas---------------------------//
 	// Metodo para agregar el elemento seleccionado de botella al pedido
 	private void agregarElementoBotellaAlPedido() {
 		Object elementoSeleccionadoObject = vista.listBotellaspanelPedidoNuevo.getSelectedValue();
-		agregarElemento(elementoSeleccionadoObject);
+		agregarElemento(elementoSeleccionadoObject, "Botella");
 	}// FIN AGREGAR ELEMENTO BOTELLA AL PEDIDO
 
 	// Metodo para agregar el elemento seleccionado de cocktels al pedido
 	private void agregarElementoCoctelAlPedido() {
 		Object elementoSeleccionadoObject = vista.listCocktelspanelPedidoNuevo.getSelectedValue();
-		agregarElemento(elementoSeleccionadoObject);
+		agregarElemento(elementoSeleccionadoObject, "Coctel");
 	}// FIN AGREGAR ELEMENTO COCKTEL AL PEDIDO
 
 	// Metodo para agregar el elemento seleccionado de vino al pedido
 	private void agregarElementoVinoAlPedido() {
 		Object elementoSeleccionadoObject = vista.listVinopanelPedidoNuevo.getSelectedValue();
-		agregarElemento(elementoSeleccionadoObject);
+		agregarElemento(elementoSeleccionadoObject, "Vino");
 	}// FIN AGREGAR ELEMENTO VINO AL PEDIDO*/
 
 	// Agregar elemento al pedido
 
-	private void agregarElemento(Object elementoSeleccionadoObject) {
+	private void agregarElemento(Object elementoSeleccionadoObject, String producto) {
 
 		if (elementoSeleccionadoObject instanceof String) {
 			String elementoSeleccionado = (String) elementoSeleccionadoObject;
@@ -486,8 +534,28 @@ public class Controlador implements ActionListener, ListSelectionListener {
 
 				DefaultListModel<String> modelPedidoMesa = (DefaultListModel<String>) vista.listPedidoMesa.getModel();
 				modelPedidoMesa.addElement(nombre + " - Cantidad: 1 - Precio: " + precio);
-				Refresco refresco = new Refresco(Double.parseDouble(precio.split("€")[0]), nombre);
-				pedidoMesa.getproductos().add(refresco);
+				switch (producto) {
+				case "Aperitivo":
+					Aperitivo aperitivo = new Aperitivo(Double.parseDouble(precio.split("€")[0]), nombre);
+					pedidoMesa.getproductos().add(aperitivo);
+					break;
+				case "Cerveza":
+					Cerveza cerveza = new Cerveza(Double.parseDouble(precio.split("€")[0]), nombre);
+					pedidoMesa.getproductos().add(cerveza);
+					break;
+				case "Refresco":
+					Refresco refresco = new Refresco(Double.parseDouble(precio.split("€")[0]), nombre);
+					pedidoMesa.getproductos().add(refresco);
+					break;
+				case "Vino":
+					Vino vino = new Vino(Double.parseDouble(precio.split("€")[0]), nombre);
+					pedidoMesa.getproductos().add(vino);
+					break;
+				case "Coctel":
+					Coctel coctel = new Coctel(Double.parseDouble(precio.split("€")[0]), nombre);
+					pedidoMesa.getproductos().add(coctel);
+					break;
+				}
 				mesaActiva.setPedido(pedidoMesa);
 				vista.listPedidoMesa.setModel(modelPedidoMesa);
 			}
@@ -635,6 +703,52 @@ public class Controlador implements ActionListener, ListSelectionListener {
 			vista.listPedidoMesa.setModel(modelPedido);
 		}
 	}// FIN MOSTRAR PEDIDO
+	/*--------------------------------Metodos de listar de pedidos y pagar-------------------------------------------*/
+	private void listarPedidos () {
+		
+		HashMap <Integer, Pedido> mesaPedido = new HashMap();
+		// Limpiamos el modelo del JList antes de agregar nuevos elementos
+		DefaultListModel<String> model = new DefaultListModel<>();
+		model.clear();
+		for (int i = 0; i< local.getMesas().size(); i++) {
+			if(local.getMesas().get(i).isEsOcupada()) {
+				mesaPedido.put(local.getMesas().get(i).getNumeroMesa(), local.getMesas().get(i).getPedido());
+			}
+		}
+		
+		for (HashMap.Entry<Integer, Pedido> entry : mesaPedido.entrySet()) {
+			model.addElement("Mesa "+entry.getKey()+ "- Total: " + entry.getValue().calcularTotalPedido()+ "€");
+		}
+		
+		vista.listPedidos.setModel(model);
+	}
+	
+	private void pagarPedido() {
+		Object elementoSeleccionadoObject = vista.listPedidos.getSelectedValue();
+		
+		if (elementoSeleccionadoObject instanceof String) {
+			String elementoSeleccionado = (String) elementoSeleccionadoObject;
+			String[] partes = elementoSeleccionado.split("- ");
+
+			if (partes.length == 2) {
+				int numMesa = Integer.parseInt(partes[0].split(" ")[1]);
+				
+				for (int i = 0; i< local.getMesas().size(); i++) {
+					if(numMesa == local.getMesas().get(i).getNumeroMesa()) {
+						local.getMesas().get(i).getPedido().pagarPedido();
+						local.getMesas().get(i).setEsOcupada(false);
+					}
+				}
+				
+				ocultarPaneles();
+				vista.panelInicio.setVisible(true);
+				vista.btnArqueo.setVisible(true);
+				vista.btnCierreCaja.setVisible(true);
+				vista.btnPagarPedido.setVisible(false);
+			}
+		}
+	}
+	
 	/*--------------------------------Metodos de listar en inventario por clase-------------------------------------------*/
 
 	private void listarRefrescos() {
@@ -974,6 +1088,8 @@ public class Controlador implements ActionListener, ListSelectionListener {
 
 			} else if (source == vista.listPedidoMesa) {
 				listIdentifier = 14;
+			} else if (source == vista.listPedidos) {
+				listIdentifier = 15;
 			}
 
 			switch (listIdentifier) {
@@ -1119,6 +1235,10 @@ public class Controlador implements ActionListener, ListSelectionListener {
 				int numeroMesa = vista.listPedidoMesa.getSelectedIndex() + 1;
 				// actualizarListaPedidosMesa(numeroMesa);
 				break;
+			case 15:
+				vista.btnArqueo.setVisible(false);
+				vista.btnCierreCaja.setVisible(false);
+				vista.btnPagarPedido.setVisible(true);
 			default:
 				// Manejo de excepcion si hace falta
 			}

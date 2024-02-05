@@ -51,6 +51,8 @@ public class Pedido {
 	}
 
 	public void pagarPedido() {
+		Caja caja = Caja.getInstance();
+		caja.getPedidosPagados().add(this);
 		this.productos.removeAll(productos);
 	}
 
