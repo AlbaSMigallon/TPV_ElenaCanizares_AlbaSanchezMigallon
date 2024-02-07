@@ -49,13 +49,14 @@ public class Caja {
 	}
 
 	public double calcularArqueo() {// calcula el total de los pedidos pagados
-		double total=0;
+		double total = 0;
 		synchronized (object) {
-			
+
 			try {
-				for(int i=0; i<this.pedidosPagados.size();i++) {//recorremos pedidos pagados
-					for(int j=0; j<this.pedidosPagados.get(i).getproductos().size();j++) {// recorremos lista de productos del pedido
-						total*=this.pedidosPagados.get(i).getproductos().get(j).getPrecio();
+				for (int i = 0; i < this.pedidosPagados.size(); i++) {// recorremos pedidos pagados
+					for (int j = 0; j < this.pedidosPagados.get(i).getproductos().size(); j++) {// recorremos lista de
+																								// productos del pedido
+						total *= this.pedidosPagados.get(i).getproductos().get(j).getPrecio();
 					}
 				}
 			} catch (Exception e) {
@@ -67,10 +68,10 @@ public class Caja {
 	}
 
 	public double cerrarCaja() {// calcula el total de los pedidos pagados y resetea la lista de pedidos pagados
-		double total=0;
+		double total = 0;
 		synchronized (object) {
 			try {
-				total=calcularArqueo();
+				total = calcularArqueo();
 				this.pedidosPagados.removeAll(pedidosPagados);
 			} catch (Exception e) {
 				// TODO: handle exception
@@ -80,21 +81,32 @@ public class Caja {
 		return total;
 	}
 
-	public boolean entrarEnCierreCaja(String contrasenia) { // para cerrar caja tienes que logearte
-		boolean esCerrada = false;
+	public boolean comprobarContrasenia(char[] contraseniaIntroducida) { // para cerrar caja tienes que logearte
+		boolean esCorrecta = true;
+		char[] contraseniaDefinida = {'1', '2', '3', '4'};
+		int lengthContraseniaDefinida = contraseniaDefinida.length;
+		int lengthContraseniaIntroducida = contraseniaIntroducida.length;
+
 		synchronized (object) {
 
 			try {
-				if (contrasenia.equals("1234")) {
-					esCerrada = true;
-				}
+				if (lengthContraseniaDefinida == lengthContraseniaIntroducida) {
+	                for (int i = 0; i < contraseniaDefinida.length; i++) {
+	                    if (contraseniaDefinida[i] != contraseniaIntroducida[i]) { 
+	                        esCorrecta = false;
+	                        i=contraseniaDefinida.length;// para salir del for
+	                    }
+	                }
+	            } else {
+	                esCorrecta = false;
+	            }
 
 			} catch (Exception e) {
 				// TODO: handle exception
 				e.printStackTrace();
 			}
 		}
-		return esCerrada;
+		return esCorrecta;
 
 	}
 

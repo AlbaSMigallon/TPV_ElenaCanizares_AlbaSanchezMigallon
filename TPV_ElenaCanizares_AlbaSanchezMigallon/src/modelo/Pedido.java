@@ -6,6 +6,8 @@ import java.util.HashMap;
 public class Pedido {
 
 	private ArrayList<Producto> productos;
+	
+	private static Object object = new Object();
 
 	public Pedido() {
 		this.productos = new ArrayList<>();
@@ -51,9 +53,8 @@ public class Pedido {
 	}
 
 	public void pagarPedido() {
-		Caja caja = Caja.getInstance();
-		caja.getPedidosPagados().add(this);
 		this.productos.removeAll(productos);
+
 	}
 
 	public boolean pedirProducto(Producto producto) {// le pasamos el producto, retorna boolean si deja pedirlo

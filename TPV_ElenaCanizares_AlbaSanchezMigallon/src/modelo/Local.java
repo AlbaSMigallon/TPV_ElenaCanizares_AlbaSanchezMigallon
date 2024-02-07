@@ -9,7 +9,7 @@ public class Local {
 	 * clase que gestiona el local. las localizaciones con sus pedidos asociados
 	 */
 	private ArrayList<Mesa> mesas;
-	private Barra barra;
+
 // patron singleton
 	private static Object object = new Object();
 	private static Local instance = null;
@@ -17,7 +17,7 @@ public class Local {
 	public Local() {
 		this.mesas = new ArrayList<>();
 		inicializarMesas();
-		this.barra= new Barra();
+	
 
 	}// FIN LOCAL
 
@@ -42,13 +42,7 @@ public class Local {
 		this.mesas = mesas;
 	}
 
-	public Barra getBarra() {
-		return barra;
-	}
 
-	public void setBarra(Barra barra) {
-		this.barra = barra;
-	}
 	
 	private void inicializarMesas() {
 		for(int i=0; i<7; i++) {

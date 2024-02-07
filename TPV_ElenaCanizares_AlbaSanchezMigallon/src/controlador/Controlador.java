@@ -9,11 +9,12 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import javax.swing.JSpinner;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import modelo.Aperitivo;
-import modelo.Barra;
 import modelo.Botella;
 import modelo.Caja;
 import modelo.Cerveza;
@@ -28,9 +29,8 @@ import modelo.Refresco;
 import modelo.Vino;
 import vista.Vista;
 
-public class Controlador implements ActionListener, ListSelectionListener {
+public class Controlador implements ActionListener, ListSelectionListener, ChangeListener {
 	Vista vista = new Vista();
-	Barra barra = new Barra();
 	Local local = Local.getInstance();
 	Musica musica = new Musica();
 	Inventario inventario = Inventario.getInstance();
@@ -40,7 +40,6 @@ public class Controlador implements ActionListener, ListSelectionListener {
 
 	public Controlador(Vista vista) {
 		this.vista = vista;
-		this.barra = barra;
 		this.musica = musica;
 
 		this.vista.btnCaja.addActionListener(this);
@@ -53,7 +52,6 @@ public class Controlador implements ActionListener, ListSelectionListener {
 		this.vista.btnMesa5.addActionListener(this);
 		this.vista.btnMesa6.addActionListener(this);
 		this.vista.btnMesa7.addActionListener(this);
-		this.vista.btnBarra.addActionListener(this);
 		this.vista.btnAceptarCambios.addActionListener(this);
 		this.vista.btnRevertirCambios.addActionListener(this);
 		this.vista.btnRefrescos.addActionListener(this);
@@ -71,7 +69,6 @@ public class Controlador implements ActionListener, ListSelectionListener {
 		this.vista.listCerveza.addListSelectionListener(this);
 		this.vista.listAperitivos.addListSelectionListener(this);
 		this.vista.listBotellas.addListSelectionListener(this);
-		this.vista.listCocktels.addListSelectionListener(this);
 		this.vista.listIngredientes.addListSelectionListener(this);
 		this.vista.listVinos.addListSelectionListener(this);
 		this.vista.btnCierreCaja.addActionListener(this);
@@ -79,7 +76,7 @@ public class Controlador implements ActionListener, ListSelectionListener {
 		this.vista.btnArqueo.addActionListener(this);
 		this.vista.btnAceptarContrasenia.addActionListener(this);
 		this.vista.btnVolverContrasenia.addActionListener(this);
-		this.vista.btnVerPedidos.addActionListener(this);
+		this.vista.btnVolverCaja.addActionListener(this);
 
 		this.vista.listRefrescospanelPedidoNuevo.addListSelectionListener(this);
 		this.vista.listCervezaspanelPedidoNuevo.addListSelectionListener(this);
@@ -87,9 +84,15 @@ public class Controlador implements ActionListener, ListSelectionListener {
 		this.vista.listBotellaspanelPedidoNuevo.addListSelectionListener(this);
 		this.vista.listCocktelspanelPedidoNuevo.addListSelectionListener(this);
 		this.vista.listVinopanelPedidoNuevo.addListSelectionListener(this);
-		this.vista.listPedidos.addListSelectionListener(this);
 
 		this.vista.listPedidoMesa.addListSelectionListener(this);
+		
+		this.vista.spinnerCantidadAperitivos.addChangeListener(this);
+		this.vista.spinnerCantidadBotellas.addChangeListener(this);
+		this.vista.spinnerCantidadCerveza.addChangeListener(this);
+		this.vista.spinnerCantidadIngredientes.addChangeListener(this);
+		this.vista.spinnerCantidadRefrescos.addChangeListener(this);
+		this.vista.spinnerCantidadVinos.addChangeListener(this);
 		
 		caja = Caja.getInstance();
 
@@ -140,8 +143,9 @@ public class Controlador implements ActionListener, ListSelectionListener {
 			//Limpiamos el listado de pedidos
 			DefaultListModel<String> model = new DefaultListModel<>();
 			model.clear();
-			
 			vista.listPedidos.setModel(model);
+			
+			listarPedidos();
 		} // PANEL CAJA
 		/*
 		 * if (e.getSource() == vista.btnPedido) { mostrarTodosLosPedidosPorMesa(); //
@@ -161,39 +165,44 @@ public class Controlador implements ActionListener, ListSelectionListener {
 		 */
 
 		// PANEL CAJA
+		if(e.getSource()== vista.btnVolverCaja) {
+			ocultarPaneles();
+			vista.panelInicio.setVisible(true);
+			vista.lblPagado.setVisible(false);
+			
+			
+		}
 		if(e.getSource() == vista.btnPagarPedido) {
 			pagarPedido();
 		}
 		
-		if(e.getSource() == vista.btnVerPedidos) {
-			listarPedidos();
-		}
-		
 		if(e.getSource()== vista.btnCaja) {
-			vista.panelInicio.setVisible(false);///////////////////////////////////////
+			vista.panelInicio.setVisible(false);
 			vista.panelCaja.setVisible(true);
 		}
 		
 		// panel cierre caja
 		if(e.getSource()== vista.btnCierreCaja) {
-			vista.panelUsuarioCaja.setVisible(false);///////////////////////////////////////
+			vista.panelUsuarioCaja.setVisible(true);///////////////////////////////////////
 			vista.panelCaja.setVisible(false);
 		}
 		if (e.getSource() == vista.btnAceptarContrasenia) {
 			// envia la contrasenia del passwordField y retorna si es correcta
 			
-			boolean esCorrecta =caja.entrarEnCierreCaja(vista.passwordField.getUIClassID());
-			vista.passwordField.setVisible(false);
+			boolean esCorrecta =caja.comprobarContrasenia(vista.passwordField.getPassword());
+			//vista.passwordField.setVisible(false);
 			if (esCorrecta) {
 				double total = caja.cerrarCaja();
 				vista.labelRetroalimentacionContrasenia
 						.setText("Contrasenia correcta. Se ha cerrado la caja caja.\nTOTAL: " + total);
+				vista.passwordField.setText("");
 			}else {
 				vista.labelRetroalimentacionContrasenia
 				.setText("Contrasenia incorrecta.");
 				vista.passwordField.setVisible(true);
 				vista.labelRetroalimentacionContrasenia
-				.setText("Vuelva a introducir la contrasenia para cerrar caja.");
+				.setText("Vuelva a introducir la contrasenia para cerrar caja:");
+				vista.passwordField.setText("");
 			}
 
 		}
@@ -202,6 +211,8 @@ public class Controlador implements ActionListener, ListSelectionListener {
 			// boton para bolver de panel de caontrasenia en caja a caja
 			vista.panelCaja.setVisible(true);
 			vista.panelUsuarioCaja.setVisible(false);
+			vista.labelRetroalimentacionContrasenia
+			.setText("Introduzca la contrasenia para hacer cierre de caja:");
 		}
 		
 		// panel pagar pedido
@@ -211,7 +222,8 @@ public class Controlador implements ActionListener, ListSelectionListener {
 		
 		if(e.getSource()== vista.btnArqueo) {
 			// boton para bolver de panel de caontrasenia en caja a caja
-			vista.panelCaja.setVisible(true);
+			vista.lblPagado.setText("Se ha recaudado "+caja.calcularArqueo());
+			vista.lblPagado.setVisible(true);
 			//vista.panelUsuarioCaja.setVisible(false);
 		}
 		
@@ -227,7 +239,6 @@ public class Controlador implements ActionListener, ListSelectionListener {
 			listarCervezas();
 			listarAperitivos();
 			listarBotellas();
-			listarCocktels();
 			listarIngredientes();
 			listarVinos();
 
@@ -727,6 +738,7 @@ public class Controlador implements ActionListener, ListSelectionListener {
 		Object elementoSeleccionadoObject = vista.listPedidos.getSelectedValue();
 		
 		if (elementoSeleccionadoObject instanceof String) {
+			
 			String elementoSeleccionado = (String) elementoSeleccionadoObject;
 			String[] partes = elementoSeleccionado.split("- ");
 
@@ -735,17 +747,13 @@ public class Controlador implements ActionListener, ListSelectionListener {
 				
 				for (int i = 0; i< local.getMesas().size(); i++) {
 					if(numMesa == local.getMesas().get(i).getNumeroMesa()) {
-						local.getMesas().get(i).getPedido().pagarPedido();
+						caja.getPedidosPagados().add(local.getMesas().get(i).getPedido());
 						local.getMesas().get(i).setEsOcupada(false);
 					}
 				}
-				
-				ocultarPaneles();
-				vista.panelInicio.setVisible(true);
-				vista.btnArqueo.setVisible(true);
-				vista.btnCierreCaja.setVisible(true);
-				vista.btnPagarPedido.setVisible(false);
 			}
+
+			listarPedidos();
 		}
 	}
 	
@@ -810,26 +818,6 @@ public class Controlador implements ActionListener, ListSelectionListener {
 		JSpinner.NumberEditor editor = new JSpinner.NumberEditor(vista.spinnerCantidadBotellas, "#");
 		vista.spinnerCantidadBotellas.setEditor(editor);
 	}// FIN LISTAR BOTELLAS
-
-	private void listarCocktels() {
-		// Obtenemos el HashMap de refrescos y cantidades desde la instancia de la clase
-		HashMap<Coctel, Integer> listaCocktels = inventario.getCocteles();
-
-		// Limpiamos el modelo del JList antes de agregar nuevos elementos
-		DefaultListModel<String> model = new DefaultListModel<>();
-		vista.listCocktels.setModel(model);
-
-		// Llenamos el modelo del JList con los elementos del HashMap
-		for (HashMap.Entry<Coctel, Integer> entry : listaCocktels.entrySet()) {
-			model.addElement(entry.getKey().getNombre() + "- Cantidad: " + entry.getValue() + "- Precio: "
-					+ entry.getKey().getPrecio() + "€");
-		}
-
-		// Configuramos el spinnerCantidad para que solo nos permita modificar la
-		// cantidad, no el precio
-		JSpinner.NumberEditor editor = new JSpinner.NumberEditor(vista.spinnerCantidadCocktels, "#");
-		vista.spinnerCantidadCocktels.setEditor(editor);
-	}// FIN LISTAR COCKTELS
 
 	private void listarIngredientes() {
 		// Obtenemos el HashMap de refrescos y cantidades desde la instancia de la clase
@@ -909,9 +897,6 @@ public class Controlador implements ActionListener, ListSelectionListener {
 		} else if ("Botella".equals(tipoProducto)) {
 			model = (DefaultListModel<String>) vista.listBotellas.getModel();
 			spinnerCantidad = vista.spinnerCantidadBotellas;
-		} else if ("Cocktel".equals(tipoProducto)) {
-			model = (DefaultListModel<String>) vista.listCocktels.getModel();
-			spinnerCantidad = vista.spinnerCantidadCocktels;
 		} else if ("Ingrediente".equals(tipoProducto)) {
 			model = (DefaultListModel<String>) vista.listIngredientes.getModel();
 			spinnerCantidad = vista.spinnerCantidadIngredientes;
@@ -1006,8 +991,6 @@ public class Controlador implements ActionListener, ListSelectionListener {
 				listarAperitivos();
 			} else if ("Botella".equals(tipoProducto)) {
 				listarBotellas();
-			} else if ("Cocktel".equals(tipoProducto)) {
-				listarCocktels();
 			} else if ("Ingrediente".equals(tipoProducto)) {
 				listarIngredientes();
 			} else if ("Vino".equals(tipoProducto)) {
@@ -1057,8 +1040,6 @@ public class Controlador implements ActionListener, ListSelectionListener {
 				listIdentifier = 3;
 			} else if (source == vista.listBotellas) {
 				listIdentifier = 4;
-			} else if (source == vista.listCocktels) {
-				listIdentifier = 5;
 			} else if (source == vista.listIngredientes) {
 				listIdentifier = 6;
 			} else if (source == vista.listVinos) {
@@ -1088,8 +1069,6 @@ public class Controlador implements ActionListener, ListSelectionListener {
 
 			} else if (source == vista.listPedidoMesa) {
 				listIdentifier = 14;
-			} else if (source == vista.listPedidos) {
-				listIdentifier = 15;
 			}
 
 			switch (listIdentifier) {
@@ -1162,23 +1141,6 @@ public class Controlador implements ActionListener, ListSelectionListener {
 					vista.spinnerCantidadBotellas.setVisible(false);
 				}
 				break;
-			case 5:
-				handleListSelection(vista.listCocktels, vista.spinnerCantidadCocktels);
-				if (vista.listCocktels.getSelectedIndex() != -1) {
-					// Show the spinnerCantidad if an item is selected
-					vista.spinnerCantidadCocktels.setVisible(true);
-					String producto = (String) vista.listCocktels.getSelectedValue();
-					producto = producto.split("-")[0];
-					for (HashMap.Entry<Coctel, Integer> entry : inventario.getCocteles().entrySet()) {
-						if (entry.getKey().getNombre().equals(producto)) {
-							vista.spinnerCantidadCocktels.setValue(entry.getValue());
-						}
-					}
-				} else {
-					// Hide the spinnerCantidad if no item is selected
-					vista.spinnerCantidadCocktels.setVisible(false);
-				}
-				break;
 			case 6:
 				handleListSelection(vista.listIngredientes, vista.spinnerCantidadIngredientes);
 				if (vista.listIngredientes.getSelectedIndex() != -1) {
@@ -1225,22 +1187,15 @@ public class Controlador implements ActionListener, ListSelectionListener {
 			case 11:
 				handleListSelection(vista.listBotellaspanelPedidoNuevo, vista.spinnerCantidadBotellas);
 				break;
-			case 12:
-				handleListSelection(vista.listCocktelspanelPedidoNuevo, vista.spinnerCantidadCocktels);
-				break;
 			case 13:
 				handleListSelection(vista.listVinopanelPedidoNuevo, vista.spinnerCantidadVinos);
 				break;
 			case 14:
 				int numeroMesa = vista.listPedidoMesa.getSelectedIndex() + 1;
-				// actualizarListaPedidosMesa(numeroMesa);
+				
 				break;
-			case 15:
-				vista.btnArqueo.setVisible(false);
-				vista.btnCierreCaja.setVisible(false);
-				vista.btnPagarPedido.setVisible(true);
 			default:
-				// Manejo de excepcion si hace falta
+				
 			}
 		}
 	}// FIN VALUECHANGED
@@ -1266,6 +1221,46 @@ public class Controlador implements ActionListener, ListSelectionListener {
 	}// FIN HANDLELISTSELECTION
 	/*-------------------------------- Fin metodos para manejar los ListSelectionEvents-------------------------------------------*/
 	// Metodo para actualizar la lista de pedidos de cada mesa
+
+	@Override
+	public void stateChanged(ChangeEvent e) {
+		// TODO Auto-generated method stub
+		
+		if (e.getSource() == vista.spinnerCantidadAperitivos) {
+			fijarMinimoValor(vista.spinnerCantidadAperitivos);
+		}
+		
+		if (e.getSource() == vista.spinnerCantidadBotellas) {
+			fijarMinimoValor(vista.spinnerCantidadBotellas);
+		}
+		
+		if (e.getSource() == vista.spinnerCantidadCerveza) {
+			fijarMinimoValor(vista.spinnerCantidadCerveza);
+		}
+		
+		if (e.getSource() == vista.spinnerCantidadIngredientes) {
+			fijarMinimoValor(vista.spinnerCantidadIngredientes);
+		}
+		
+		if (e.getSource() == vista.spinnerCantidadRefrescos) {
+			fijarMinimoValor(vista.spinnerCantidadRefrescos);
+		}
+		
+		if (e.getSource() == vista.spinnerCantidadVinos) {
+			fijarMinimoValor(vista.spinnerCantidadVinos);
+		}
+		
+	}
+	
+	private void fijarMinimoValor (JSpinner spinner) {
+		
+		int valor = (int) spinner.getValue();
+		int valorMinimo = 0; //Limite de valor
+		
+		if (valor < valorMinimo) {
+			spinner.setValue(valorMinimo);
+		}
+	}
 
 	/*
 	 * private void actualizarListaPedidosMesa(int numeroMesa) { // Obtenemos la

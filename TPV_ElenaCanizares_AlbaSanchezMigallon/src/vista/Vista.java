@@ -40,9 +40,9 @@ public class Vista extends JFrame {
 			listPedido, listRefrescospanelPedidoNuevo, listCervezaspanelPedidoNuevo, listAperitivospanelPedidoNuevo,
 			listBotellaspanelPedidoNuevo, listCocktelspanelPedidoNuevo, listVinopanelPedidoNuevo, listPedidos;
 	public JButton btnCaja, btnPedido, btnInventario, btnMusica, btnMesa1, btnMesa2, btnMesa3, btnMesa4, btnMesa5,
-			btnMesa6, btnMesa7, btnBarra, btnAceptarCambios, btnRevertirCambios, btnRefrescos, btnAnadirAlPedido,
-			btnCervezas, btnAperitivos, btnVino, btnBotellas, btnCocktels, btnVolverInicio, btnVolverInicio2, btnCierreCaja, btnArqueo, btnPagarPedido, btnVerPedidos;
-	public JSpinner spinnerCantidadRefrescos, spinnerCantidadCerveza, spinnerCantidadBotellas, spinnerCantidadCocktels,
+			btnMesa6, btnMesa7, btnAceptarCambios, btnRevertirCambios, btnRefrescos, btnAnadirAlPedido,
+			btnCervezas, btnAperitivos, btnVino, btnBotellas, btnCocktels, btnVolverInicio, btnVolverInicio2, btnCierreCaja, btnArqueo, btnPagarPedido, btnVolverCaja;
+	public JSpinner spinnerCantidadRefrescos, spinnerCantidadCerveza, spinnerCantidadBotellas,
 			spinnerCantidadVinos, spinnerCantidadAperitivos, spinnerCantidadIngredientes;
 	public JList<String> listPedidoMesa;
 	public JScrollBar verticalScrollBarRefrescospanelPedidoNuevo, verticalScrollBarIngredientes, verticalScrollBarAperitivos, verticalScrollBarCocktels, verticalScrollBarBotellas, verticalScrollBarPedidoMesa,
@@ -90,24 +90,7 @@ public class Vista extends JFrame {
 		contentPane.setLayout(null);
 		/*---------------------------------PANEL INICIO---------------------------------------------------*/
 		
-		panelUsuarioCaja = new JPanel();
-		panelUsuarioCaja.setBounds(0, 0, 1684, 861);
-		panelUsuarioCaja.setVisible(false);
-		contentPane.add(panelUsuarioCaja);
 		
-		labelRetroalimentacionContrasenia = new JLabel();
-		labelRetroalimentacionContrasenia.setText("Introduzca la contrasenia para hacer cierre de caja:");
-		panelUsuarioCaja.add(labelRetroalimentacionContrasenia);
-		
-		
-		passwordField = new JPasswordField();
-		panelUsuarioCaja.add(passwordField);
-		
-		btnAceptarContrasenia = new JButton("New button");
-		panelUsuarioCaja.add(btnAceptarContrasenia);
-		
-		btnVolverContrasenia = new JButton("New button");
-		panelUsuarioCaja.add(btnVolverContrasenia);
 		panelInicio = new JPanel() {
 			@Override
 			protected void paintComponent(Graphics g) {
@@ -159,6 +142,30 @@ public class Vista extends JFrame {
 		btnPedido.setBorderPainted(true);
 		panelInicio.add(btnPedido);
 		*/
+		
+		panelUsuarioCaja = new JPanel();
+		panelUsuarioCaja.setBounds(0, 0, 1684, 861);
+		panelUsuarioCaja.setVisible(false);
+		contentPane.add(panelUsuarioCaja);
+		panelUsuarioCaja.setLayout(null);
+		
+		passwordField = new JPasswordField();
+		passwordField.setBounds(615, 45, 238, 47);
+		panelUsuarioCaja.add(passwordField);
+		
+		
+		labelRetroalimentacionContrasenia = new JLabel();
+		labelRetroalimentacionContrasenia.setBounds(623, 9, 392, 25);
+		labelRetroalimentacionContrasenia.setText("Introduzca la contrasenia para hacer cierre de caja:");
+		panelUsuarioCaja.add(labelRetroalimentacionContrasenia);
+		
+		btnAceptarContrasenia = new JButton("ACEPTAR");
+		btnAceptarContrasenia.setBounds(877, 45, 89, 47);
+		panelUsuarioCaja.add(btnAceptarContrasenia);
+		
+		btnVolverContrasenia = new JButton("VOLVER");
+		btnVolverContrasenia.setBounds(329, 5, 274, 103);
+		panelUsuarioCaja.add(btnVolverContrasenia);
 
 		btnInventario = new JButton("INVENTARIO");
 		btnInventario.setBounds(1270, 470, 317, 129);
@@ -263,15 +270,8 @@ public class Vista extends JFrame {
 		btnMesa7.setContentAreaFilled(false);
 		btnMesa7.setBorderPainted(true);
 		panelCocteleria.add(btnMesa7);
-
-		btnBarra = new JButton("");
-		btnBarra.setBounds(73, 459, 862, 127);
-		btnBarra.setIcon(new ImageIcon(
-				"/resources/Barra.png"));
-		//btnBarra.setOpaque(false);
-		btnBarra.setContentAreaFilled(false);
-		btnBarra.setBorderPainted(true);
-		panelCocteleria.add(btnBarra);
+		
+		
 		
 	
 		// ---------------------------------PANEL INVENTARIO-----------------------------------------------
@@ -343,28 +343,6 @@ public class Vista extends JFrame {
 		panelInventario.add(spinnerCantidadBotellas);
 		spinnerCantidadBotellas.setVisible(false);
 
-		// ------------------------------------------------------------------------------------
-
-		lblCocktelsInventario = new JLabel("COCTELS");
-		lblCocktelsInventario.setFont(new Font("Garamond", Font.ITALIC, 20));
-		lblCocktelsInventario.setBounds(150, 398, 120, 30);
-		panelInventario.add(lblCocktelsInventario);
-
-		listCocktels = new JList();
-		listCocktels.setBounds(71, 439, 261, 72);
-
-		scrollPaneCocktels = new JScrollPane(listCocktels);
-		scrollPaneCocktels.setBounds(71, 439, 261, 72);
-		panelInventario.add(scrollPaneCocktels);
-
-		verticalScrollBarCocktels = new JScrollBar(JScrollBar.VERTICAL);
-		scrollPaneCocktels.setVerticalScrollBar(verticalScrollBarCocktels);
-
-		spinnerCantidadCocktels = new JSpinner();
-		spinnerCantidadCocktels.setBounds(340, 439, 39, 33);
-		panelInventario.add(spinnerCantidadCocktels);
-		spinnerCantidadCocktels.setVisible(false);
-
 		// -----------------------------------------------------------------------------------
 		lblVinosInventario = new JLabel("VINOS");
 		lblVinosInventario.setFont(new Font("Garamond", Font.ITALIC, 20));
@@ -433,7 +411,7 @@ public class Vista extends JFrame {
 		btnAceptarCambios.setBounds(1133, 36, 151, 85);
 		panelInventario.add(btnAceptarCambios);
 
-		btnRevertirCambios = new JButton("REVERTIR CAMBIOS");
+		btnRevertirCambios = new JButton("VOLVER AL INICIO");
 		btnRevertirCambios.setBounds(1133, 213, 151, 85);
 		panelInventario.add(btnRevertirCambios);
 		// ----------------------------------FIN DEFINICION DE ELEMENTOS DE PANEL INVENTARIO------------------
@@ -446,26 +424,27 @@ public class Vista extends JFrame {
 		panelCaja.setLayout(null);
 		panelCaja.setVisible(false);
 		
-		btnVerPedidos = new JButton("VER PEDIDOS");
-		btnVerPedidos.setBounds(225, 311, 208, 132);
-		panelCaja.add(btnVerPedidos);
+		btnVolverCaja = new JButton("VOLVER");
+		btnVolverCaja.setBounds(142, 137, 208, 91);
+		panelCaja.add(btnVolverCaja);
 		
 		btnPagarPedido = new JButton("PAGAR PEDIDO");
 		btnPagarPedido.setBounds(900, 311, 225, 132);
-		btnPagarPedido.setVisible(false);
+		//btnPagarPedido.setVisible(false);
 		panelCaja.add(btnPagarPedido);
 		
 		lblPagado = new JLabel("");
 		lblPagado.setFont(new Font("Garamond", Font.ITALIC, 20));
-		lblPagado.setBounds(834, 236, 291, 42);
+		lblPagado.setBounds(944, 236, 208, 42);
+		lblPagado.setVisible(false);
 		panelCaja.add(lblPagado);
 		
 		btnArqueo = new JButton("ARQUEO");
-		btnArqueo.setBounds(900, 311, 225, 132);
+		btnArqueo.setBounds(900, 73, 225, 103);
 		panelCaja.add(btnArqueo);
 		
 		btnCierreCaja = new JButton("CIERRE CAJA");
-		btnCierreCaja.setBounds(900, 487, 225, 132);
+		btnCierreCaja.setBounds(900, 613, 225, 111);
 		panelCaja.add(btnCierreCaja);
 		
 		listPedidos = new JList();
