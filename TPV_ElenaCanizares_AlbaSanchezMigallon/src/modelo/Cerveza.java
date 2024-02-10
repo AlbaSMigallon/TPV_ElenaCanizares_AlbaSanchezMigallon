@@ -5,8 +5,8 @@ public class Cerveza extends Producto {
 	 * Clase que extiende de producto
 	 */
 
-	public Cerveza(double precio, String nombre) {
-		super(precio, nombre);
+	public Cerveza(double precio, String nombre, boolean pedido) {
+		super(precio, nombre, pedido);
 
 	}
 

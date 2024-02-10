@@ -35,13 +35,13 @@ public class Vista extends JFrame {
 	public JPanel contentPane, panelInicio, panelCocteleria, panelCaja, panelPedido, panelInventario, panelMusica,
 			panelPedidoNuevo, panelPagarPedido, panelUsuarioCaja;
 	public JLabel lblInicio, lblRefrescosInventario, lblCervezasInventario, lblBotellasInventario,labelRetroalimentacionContrasenia,
-			lblCocktelsInventario, lblVinosInventario, lblAperitivosInventario, lblIngredientesInventario, lblFondoTPV, lblPagado;
+			lblCocktelsInventario, lblVinosInventario, lblAperitivosInventario, lblIngredientesInventario, lblFondoTPV, lblPagado, lblPedidoDisponible;
 	public JList listRefrescos, listCerveza, listBotellas, listCocktels, listVinos, listAperitivos, listIngredientes,
 			listPedido, listRefrescospanelPedidoNuevo, listCervezaspanelPedidoNuevo, listAperitivospanelPedidoNuevo,
 			listBotellaspanelPedidoNuevo, listCocktelspanelPedidoNuevo, listVinopanelPedidoNuevo, listPedidos;
 	public JButton btnCaja, btnPedido, btnInventario, btnMusica, btnMesa1, btnMesa2, btnMesa3, btnMesa4, btnMesa5,
 			btnMesa6, btnMesa7, btnAceptarCambios, btnRevertirCambios, btnRefrescos, btnAnadirAlPedido,
-			btnCervezas, btnAperitivos, btnVino, btnBotellas, btnCocktels, btnVolverInicio, btnVolverInicio2, btnCierreCaja, btnArqueo, btnPagarPedido, btnVolverCaja;
+			btnCervezas, btnAperitivos, btnVino, btnCocktels, btnVolverInicio, btnVolverInicio2, btnCierreCaja, btnArqueo, btnPagarPedido, btnVolverCaja, btnQuitar;
 	public JSpinner spinnerCantidadRefrescos, spinnerCantidadCerveza, spinnerCantidadBotellas,
 			spinnerCantidadVinos, spinnerCantidadAperitivos, spinnerCantidadIngredientes;
 	public JList<String> listPedidoMesa;
@@ -270,10 +270,7 @@ public class Vista extends JFrame {
 		btnMesa7.setContentAreaFilled(false);
 		btnMesa7.setBorderPainted(true);
 		panelCocteleria.add(btnMesa7);
-		
-		
-		
-	
+
 		// ---------------------------------PANEL INVENTARIO-----------------------------------------------
 		panelInventario = new JPanel();
 		panelInventario.setBounds(0, 0, 1684, 861);
@@ -481,17 +478,27 @@ public class Vista extends JFrame {
 		btnAnadirAlPedido = new JButton("AÑADIR AL PEDIDO");
 		btnAnadirAlPedido.setBounds(1318, 39, 145, 90);
 		panelPedidoNuevo.add(btnAnadirAlPedido);
+		
+		lblPedidoDisponible = new JLabel("El pedido no es posible. Insuficiente stock");
+		lblPedidoDisponible.setBounds(1318, 502, 322, 47);
+		lblPedidoDisponible.setFont(new Font("Garamond", Font.ITALIC, 20));
+		lblPedidoDisponible.setVisible(false);
+		panelPedidoNuevo.add(lblPedidoDisponible);
 
 		btnVolverInicio = new JButton("VOLVER A INICIO");
 		btnVolverInicio.setBounds(78, 39, 137, 58);
 		panelPedidoNuevo.add(btnVolverInicio);
 		
 		btnAgregar = new JButton("AGREGAR");
-		btnAgregar.setBounds(1084, 345, 145, 90);
+		btnAgregar.setBounds(1084, 202, 145, 90);
 		panelPedidoNuevo.add(btnAgregar);
+		
+		btnQuitar = new JButton("QUITAR");
+		btnQuitar.setBounds(1084, 328, 145, 90);
+		panelPedidoNuevo.add(btnQuitar);
 
 		scrollPanelCervezaspanelPedidoNuevo = new JScrollPane();
-		scrollPanelCervezaspanelPedidoNuevo.setBounds(611, 300, 448, 300);
+		scrollPanelCervezaspanelPedidoNuevo.setBounds(611, 175, 448, 260);
 		panelPedidoNuevo.add(scrollPanelCervezaspanelPedidoNuevo);
 
 		verticalScrollBarCervezaspanelPedidoNuevo = new JScrollBar(JScrollBar.VERTICAL);
@@ -505,10 +512,6 @@ public class Vista extends JFrame {
 		btnCervezas = new JButton("CERVEZAS");
 		btnCervezas.setBounds(297, 144, 205, 158);
 		panelPedidoNuevo.add(btnCervezas);
-
-		btnBotellas = new JButton("BOTELLAS");
-		btnBotellas.setBounds(57, 356, 205, 158);
-		panelPedidoNuevo.add(btnBotellas);
 
 		btnCocktels = new JButton("COCKTELS");
 		btnCocktels.setBounds(297, 356, 205, 158);
@@ -527,7 +530,7 @@ public class Vista extends JFrame {
 		scrollPaneRefrescospanelPedidoNuevo = new JScrollPane();
 		scrollPaneRefrescospanelPedidoNuevo.setViewportView(listRefrescospanelPedidoNuevo);
 
-		scrollPaneRefrescospanelPedidoNuevo.setBounds(611, 300, 448, 300);
+		scrollPaneRefrescospanelPedidoNuevo.setBounds(611, 175, 448, 260);
 		panelPedidoNuevo.add(scrollPaneRefrescospanelPedidoNuevo);
 
 		verticalScrollBarRefrescospanelPedidoNuevo = new JScrollBar(JScrollBar.VERTICAL);
@@ -545,10 +548,10 @@ public class Vista extends JFrame {
 		scrollPanePedidoMesa.setVerticalScrollBar(verticalScrollBarPedidoMesa);
 
 		listAperitivospanelPedidoNuevo = new JList();
-		listAperitivospanelPedidoNuevo.setBounds(611, 300, 448, 300);
+		listAperitivospanelPedidoNuevo.setBounds(611, 175, 448, 260);
 		scrollPaneAperitivospanelPedidoNuevo = new JScrollPane(listAperitivospanelPedidoNuevo);
 		// scrollPaneAperitivospanelPedidoNuevo.setViewportView(listAperitivospanelPedidoNuevo);
-		scrollPaneAperitivospanelPedidoNuevo.setBounds(611, 300, 448, 300);
+		scrollPaneAperitivospanelPedidoNuevo.setBounds(611, 175, 448, 260);
 		panelPedidoNuevo.add(scrollPaneAperitivospanelPedidoNuevo);
 
 		verticalScrollBarAperitivospanelPedidoNuevo = new JScrollBar(JScrollBar.VERTICAL);
@@ -561,7 +564,7 @@ public class Vista extends JFrame {
 		scrollPaneBotellaspanelPedidoNuevo = new JScrollPane();
 		scrollPaneBotellaspanelPedidoNuevo.setViewportView(listBotellaspanelPedidoNuevo);
 
-		scrollPaneBotellaspanelPedidoNuevo.setBounds(611, 300, 448, 300);
+		scrollPaneBotellaspanelPedidoNuevo.setBounds(611, 175, 448, 260);
 		panelPedidoNuevo.add(scrollPaneBotellaspanelPedidoNuevo);
 
 		verticalScrollBarBotellaspanelPedidoNuevo = new JScrollBar(JScrollBar.VERTICAL);
@@ -573,7 +576,7 @@ public class Vista extends JFrame {
 		scrollPaneCocktelspanelPedidoNuevo = new JScrollPane();
 		scrollPaneCocktelspanelPedidoNuevo.setViewportView(listCocktelspanelPedidoNuevo);
 
-		scrollPaneCocktelspanelPedidoNuevo.setBounds(611, 300, 448, 300);
+		scrollPaneCocktelspanelPedidoNuevo.setBounds(611, 175, 448, 260);
 		panelPedidoNuevo.add(scrollPaneCocktelspanelPedidoNuevo);
 
 		verticalScrollBarCocktelspanelPedidoNuevo = new JScrollBar(JScrollBar.VERTICAL);
@@ -585,7 +588,7 @@ public class Vista extends JFrame {
 		scrollPaneVinopanelPedidoNuevo = new JScrollPane();
 		scrollPaneVinopanelPedidoNuevo.setViewportView(listVinopanelPedidoNuevo);
 
-		scrollPaneVinopanelPedidoNuevo.setBounds(611, 300, 448, 300);
+		scrollPaneVinopanelPedidoNuevo.setBounds(611, 175, 448, 260);
 		panelPedidoNuevo.add(scrollPaneVinopanelPedidoNuevo);
 
 		verticalScrollBarVinopanelPedidoNuevo = new JScrollBar(JScrollBar.VERTICAL);

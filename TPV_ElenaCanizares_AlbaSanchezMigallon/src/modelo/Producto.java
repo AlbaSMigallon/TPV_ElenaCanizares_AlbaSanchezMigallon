@@ -9,12 +9,14 @@ public abstract class Producto {
 	 */
 	protected double precio;
 	protected String nombre;
+	protected boolean pedido;
 
-	public Producto(double precio, String nombre) {
+	public Producto(double precio, String nombre, boolean pedido) {
 		// TODO Auto-generated constructor stub
 
 		this.nombre = nombre;
 		this.precio = precio;
+		this.pedido = pedido;
 	}
 
 	public double getPrecio() {
@@ -31,6 +33,14 @@ public abstract class Producto {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+
+	public boolean isPedido() {
+		return pedido;
+	}
+
+	public void setPedido(boolean pedido) {
+		this.pedido = pedido;
 	}
 
 	// para manejar que los objetos que extienden de producto puedan estar dentro de

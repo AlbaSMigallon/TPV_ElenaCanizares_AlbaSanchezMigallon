@@ -56,7 +56,7 @@ public class Caja {
 				for (int i = 0; i < this.pedidosPagados.size(); i++) {// recorremos pedidos pagados
 					for (int j = 0; j < this.pedidosPagados.get(i).getproductos().size(); j++) {// recorremos lista de
 																								// productos del pedido
-						total *= this.pedidosPagados.get(i).getproductos().get(j).getPrecio();
+						total += this.pedidosPagados.get(i).getproductos().get(j).getPrecio();
 					}
 				}
 			} catch (Exception e) {
