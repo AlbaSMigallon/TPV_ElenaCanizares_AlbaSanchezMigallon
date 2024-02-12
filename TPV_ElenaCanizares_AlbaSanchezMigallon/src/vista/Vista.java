@@ -120,7 +120,7 @@ public class Vista extends JFrame {
 				super.paintComponent(g);
 				// Dibuja la imagen de fondo
 				Image image = new ImageIcon(
-						"C:\\Users\\ELENA\\git\\TPV_ElenaCanizares_AlbaSanchezMigallon\\TPV_ElenaCanizares_AlbaSanchezMigallon\\resources\\fondo_efapolitan_.jpg")
+						"resources/fondo_efapolitan_.jpg")
 						.getImage();
 				g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
 			}
@@ -171,7 +171,7 @@ public class Vista extends JFrame {
 		panelCocteleria.add(btnMesa4);
 		btnMesa4.setBackground(new Color(255, 255, 255));
 		btnMesa4.setIcon(new ImageIcon(
-				"C:\\Users\\ELENA\\git\\TPV_ElenaCanizares_AlbaSanchezMigallon\\TPV_ElenaCanizares_AlbaSanchezMigallon\\resources\\mesaAlba.png"));
+				"resources/mesaAlba.png"));
 		btnMesa4.setOpaque(false);
 		btnMesa4.setContentAreaFilled(false);
 		btnMesa4.setBorderPainted(true);
