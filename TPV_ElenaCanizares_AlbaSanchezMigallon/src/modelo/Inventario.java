@@ -459,4 +459,4 @@ public class Inventario {
 		}
 		return esModificado;
 	}
-}
+}//FIN CLASS

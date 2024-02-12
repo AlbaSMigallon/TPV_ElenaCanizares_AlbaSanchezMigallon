@@ -1,6 +1,7 @@
 package vista;
 
 import javax.swing.DefaultListModel;
+
 import java.awt.Color;
 import java.awt.EventQueue;
 
@@ -12,8 +13,6 @@ import controlador.Controlador;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -21,12 +20,9 @@ import java.awt.Image;
 
 import javax.swing.JList;
 import javax.swing.JSpinner;
-import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
 import javax.swing.JComboBox;
-import java.awt.ScrollPane;
 import javax.swing.JScrollBar;
-import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 
 public class Vista extends JFrame {
@@ -43,7 +39,8 @@ public class Vista extends JFrame {
 	public JButton btnCaja, btnPedido, btnInventario, btnMusica, btnMesa1, btnMesa2, btnMesa3, btnMesa4, btnMesa5,
 			btnMesa6, btnMesa7, btnAceptarCambios, btnRevertirCambios, btnRefrescos, btnAnadirAlPedido, btnCervezas,
 			btnAperitivos, btnVino, btnCocktels, btnVolverInicio, btnVolverInicio2, btnCierreCaja, btnArqueo,
-			btnPagarPedido, btnVolverCaja, btnQuitar;
+			btnPagarPedido, btnVolverCaja, btnQuitar, btnVolverACaja, btnVolver, btnAgregar, btnAceptarContrasenia,
+			btnVolverContrasenia;
 	public JSpinner spinnerCantidadRefrescos, spinnerCantidadCerveza, spinnerCantidadBotellas, spinnerCantidadVinos,
 			spinnerCantidadAperitivos, spinnerCantidadIngredientes;
 	public JList<String> listPedidoMesa;
@@ -59,12 +56,7 @@ public class Vista extends JFrame {
 			scrollPaneCocktelspanelPedidoNuevo, scrollPaneInventario, scrollPaneBotellas,
 			scrollPaneVinopanelPedidoNuevo, scrollPaneRefrescos, scrollPanePedidos;
 	public JComboBox comboBoxMesa, comboBoxMusica;
-	public JButton btnVolverACaja;
-	public JButton btnVolver;
-	public JButton btnAgregar;
 	public JPasswordField passwordField;
-	public JButton btnAceptarContrasenia;
-	public JButton btnVolverContrasenia;
 
 	/**
 	 * Launch the application.
@@ -95,14 +87,14 @@ public class Vista extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		/*---------------------------------PANEL INICIO---------------------------------------------------*/
-		
+
 		panelUsuarioCaja = new JPanel() {
 			@Override
 			protected void paintComponent(Graphics g) {
 				super.paintComponent(g);
 				// Dibuja la imagen de fondo
 				Image image = new ImageIcon(
-						"C:\\Users\\ELENA\\git\\TPV_ElenaCanizares_AlbaSanchezMigallon\\TPV_ElenaCanizares_AlbaSanchezMigallon\\resources\\fondo_efapolitan2.jpg")
+						"resources/fondo_efapolitan2.jpg")
 						.getImage();
 				g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
 			}
@@ -112,16 +104,13 @@ public class Vista extends JFrame {
 		panelUsuarioCaja.setOpaque(false);
 		panelUsuarioCaja.setLayout(null);
 		panelUsuarioCaja.setVisible(false);
-		
-		
+
 		panelInicio = new JPanel() {
 			@Override
 			protected void paintComponent(Graphics g) {
 				super.paintComponent(g);
 				// Dibuja la imagen de fondo
-				Image image = new ImageIcon(
-						"resources/fondo_efapolitan_.jpg")
-						.getImage();
+				Image image = new ImageIcon("resources/fondo_efapolitan_.jpg").getImage();
 				g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
 			}
 		};
@@ -129,7 +118,7 @@ public class Vista extends JFrame {
 		contentPane.add(panelInicio);
 		panelInicio.setOpaque(false);
 		panelInicio.setLayout(null);
-
+		/*---------------------------------DEFINICION ELEMENTOS PANEL INICIO---------------------------------------------------*/
 		btnCaja = new JButton("CAJA");
 		btnCaja.setBounds(1225, 199, 317, 129);
 		btnCaja.setForeground(new Color(193, 154, 71));
@@ -159,6 +148,8 @@ public class Vista extends JFrame {
 		btnMusica.setContentAreaFilled(false);
 		btnMusica.setBorderPainted(true);
 		panelInicio.add(btnMusica);
+		
+		/*---------------------------------PANEL COCTELERIA---------------------------------------------------*/
 		panelCocteleria = new JPanel();
 		panelCocteleria.setBounds(135, 135, 1031, 597);
 		panelInicio.add(panelCocteleria);
@@ -170,8 +161,7 @@ public class Vista extends JFrame {
 		btnMesa4.setBounds(708, 396, 136, 117);
 		panelCocteleria.add(btnMesa4);
 		btnMesa4.setBackground(new Color(255, 255, 255));
-		btnMesa4.setIcon(new ImageIcon(
-				"resources/mesaAlba.png"));
+		btnMesa4.setIcon(new ImageIcon("resources/mesaAlba.png"));
 		btnMesa4.setOpaque(false);
 		btnMesa4.setContentAreaFilled(false);
 		btnMesa4.setBorderPainted(true);
@@ -182,7 +172,7 @@ public class Vista extends JFrame {
 		panelCocteleria.add(btnMesa5);
 		btnMesa5.setBackground(new Color(255, 255, 255));
 		btnMesa5.setIcon(new ImageIcon(
-				"C:\\Users\\ELENA\\git\\TPV_ElenaCanizares_AlbaSanchezMigallon\\TPV_ElenaCanizares_AlbaSanchezMigallon\\resources\\mesaAlba.png"));
+				"resources/mesaAlba.png"));
 		btnMesa5.setOpaque(false);
 		btnMesa5.setContentAreaFilled(false);
 		btnMesa5.setBorderPainted(true);
@@ -193,7 +183,7 @@ public class Vista extends JFrame {
 		panelCocteleria.add(btnMesa6);
 		btnMesa6.setBackground(new Color(255, 255, 255));
 		btnMesa6.setIcon(new ImageIcon(
-				"C:\\Users\\ELENA\\git\\TPV_ElenaCanizares_AlbaSanchezMigallon\\TPV_ElenaCanizares_AlbaSanchezMigallon\\resources\\mesaAlba.png"));
+				"resources/mesaAlba.png"));
 		btnMesa6.setOpaque(false);
 		btnMesa6.setContentAreaFilled(false);
 		btnMesa6.setBorderPainted(true);
@@ -204,7 +194,7 @@ public class Vista extends JFrame {
 		panelCocteleria.add(btnMesa3);
 		btnMesa3.setBackground(new Color(255, 255, 255));
 		btnMesa3.setIcon(new ImageIcon(
-				"C:\\Users\\ELENA\\git\\TPV_ElenaCanizares_AlbaSanchezMigallon\\TPV_ElenaCanizares_AlbaSanchezMigallon\\resources\\mesaAlba.png"));
+				"resources/mesaAlba.png"));
 		btnMesa3.setOpaque(false);
 		btnMesa3.setContentAreaFilled(false);
 		btnMesa3.setBorderPainted(true);
@@ -215,7 +205,7 @@ public class Vista extends JFrame {
 		panelCocteleria.add(btnMesa2);
 		btnMesa2.setBackground(new Color(255, 255, 255));
 		btnMesa2.setIcon(new ImageIcon(
-				"C:\\Users\\ELENA\\git\\TPV_ElenaCanizares_AlbaSanchezMigallon\\TPV_ElenaCanizares_AlbaSanchezMigallon\\resources\\mesaAlba.png"));
+				"resources/mesaAlba.png"));
 		btnMesa2.setOpaque(false);
 		btnMesa2.setContentAreaFilled(false);
 		btnMesa2.setBorderPainted(true);
@@ -226,7 +216,7 @@ public class Vista extends JFrame {
 		panelCocteleria.add(btnMesa1);
 		btnMesa1.setBackground(new Color(255, 255, 255));
 		btnMesa1.setIcon(new ImageIcon(
-				"C:\\Users\\ELENA\\git\\TPV_ElenaCanizares_AlbaSanchezMigallon\\TPV_ElenaCanizares_AlbaSanchezMigallon\\resources\\mesaAlba.png"));
+				"resources/mesaAlba.png"));
 		btnMesa1.setOpaque(false);
 		btnMesa1.setContentAreaFilled(false);
 		btnMesa1.setBorderPainted(true);
@@ -237,16 +227,13 @@ public class Vista extends JFrame {
 		panelCocteleria.add(btnMesa7);
 		btnMesa7.setBackground(new Color(255, 255, 255));
 		btnMesa7.setIcon(new ImageIcon(
-				"C:\\Users\\ELENA\\git\\TPV_ElenaCanizares_AlbaSanchezMigallon\\TPV_ElenaCanizares_AlbaSanchezMigallon\\resources\\mesaAlba.png"));
-		// btnMesa7.setOpaque(false);
+				"resources/mesaAlba.png"));
 		btnMesa7.setContentAreaFilled(false);
 		btnMesa7.setBorderPainted(true);
 		panelCocteleria.add(btnMesa7);
-		// ----------------------------------FIN DEFINICION DE ELEMENTOS DE PANEL
-		// INVENTARIO------------------
+		
 
-		// ---------------------------------PANEL
-		// CAJA---------------------------------------------------
+		/* ---------------------------------PANEL CAJA---------------------------------------------------*/
 
 		panelCaja = new JPanel() {
 			@Override
@@ -254,7 +241,7 @@ public class Vista extends JFrame {
 				super.paintComponent(g);
 				// Dibuja la imagen de fondo
 				Image image = new ImageIcon(
-						"C:\\Users\\ELENA\\git\\TPV_ElenaCanizares_AlbaSanchezMigallon\\TPV_ElenaCanizares_AlbaSanchezMigallon\\resources\\fondo_efapolitan2.jpg")
+						"resources/fondo_efapolitan2.jpg")
 						.getImage();
 				g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
 			}
@@ -286,9 +273,11 @@ public class Vista extends JFrame {
 		panelCaja.add(btnPagarPedido);
 
 		lblPagado = new JLabel("");
-		lblPagado.setFont(new Font("Garamond", Font.ITALIC, 20));
-		lblPagado.setBounds(944, 236, 225, 42);
+		lblPagado.setBounds(923, 203, 288, 42);
 		lblPagado.setVisible(false);
+		lblPagado.setFont(new Font("Arial", Font.BOLD, 18));
+		lblPagado.setOpaque(false);
+		lblPagado.setForeground(new Color(193, 154, 71));
 		panelCaja.add(lblPagado);
 
 		btnArqueo = new JButton("ARQUEO");
@@ -325,7 +314,7 @@ public class Vista extends JFrame {
 		panelUsuarioCaja.add(passwordField);
 
 		labelRetroalimentacionContrasenia = new JLabel();
-		labelRetroalimentacionContrasenia.setBounds(659, 274, 459, 25);
+		labelRetroalimentacionContrasenia.setBounds(622, 274, 617, 25);
 		labelRetroalimentacionContrasenia.setText("Introduzca la contrasenia para hacer cierre de caja:");
 		labelRetroalimentacionContrasenia.setFont(new Font("Arial", Font.BOLD, 18));
 		labelRetroalimentacionContrasenia.setOpaque(false);
@@ -341,9 +330,8 @@ public class Vista extends JFrame {
 		btnAceptarContrasenia.setBorderPainted(true);
 		btnAceptarContrasenia.setForeground(new Color(193, 154, 71));
 		panelUsuarioCaja.add(btnAceptarContrasenia);
-		
+
 		btnVolverContrasenia = new JButton("VOLVER");
-		// btnVolverACaja.setBounds(125, 65, 189, 62);
 		btnVolverContrasenia.setBounds(57, 34, 208, 91);
 		btnVolverContrasenia.setFont(new Font("Arial", Font.BOLD, 18));
 		btnVolverContrasenia.setFocusPainted(false);
@@ -353,40 +341,15 @@ public class Vista extends JFrame {
 		btnVolverContrasenia.setForeground(new Color(193, 154, 71));
 		panelUsuarioCaja.add(btnVolverContrasenia);
 
-		/*
-		 * lblFondoTPV = new JLabel(""); lblFondoTPV.setBounds(0, 0, 1684, 861);
-		 * lblFondoTPV.setIcon(new ImageIcon(
-		 * "C:\\Users\\ELENA\\git\\TPV_ElenaCanizares_AlbaSanchezMigallon\\TPV_ElenaCanizares_AlbaSanchezMigallon\\TPV_ElenaCanizares_AlbaSanchezMigallon\\resources\\fondo_efapolitan_.jpg"
-		 * )); panelInicio.add(lblFondoTPV);
-		 */
-		/*---------------------------------DEFINICION ELEMENTOS PANEL INICIO---------------------------------------------------*/
+		/* ---------------------------------PANEL INVENTARIO-----------------------------------------------*/
 
-		/*
-		 * lblInicio = new JLabel("INICIO"); lblInicio.setFont(new Font("Garamond",
-		 * Font.ITALIC, 54)); lblInicio.setBounds(431, 36, 169, 55);
-		 * panelInicio.add(lblInicio);
-		 */
-
-		/*
-		 * metemos los pedidos en caja, aqui no hacen falta btnPedido = new
-		 * JButton("PEDIDO"); btnPedido.setBounds(1270, 286, 317, 129);
-		 * btnPedido.setForeground(new Color(193, 154, 71)); btnPedido.setFont(new
-		 * Font("Arial", Font.BOLD, 18)); btnPedido.setFocusPainted(false);
-		 * btnPedido.setOpaque(false); btnPedido.setContentAreaFilled(false);
-		 * btnPedido.setBorderPainted(true); panelInicio.add(btnPedido);
-		 */
-		/*---------------------------------PANEL COCTELERIA---------------------------------------------------*/
-
-		// ---------------------------------PANEL
-		// INVENTARIO-----------------------------------------------
-		
 		panelInventario = new JPanel() {
 			@Override
 			protected void paintComponent(Graphics g) {
 				super.paintComponent(g);
 				// Dibuja la imagen de fondo
 				Image image = new ImageIcon(
-						"C:\\Users\\ELENA\\git\\TPV_ElenaCanizares_AlbaSanchezMigallon\\TPV_ElenaCanizares_AlbaSanchezMigallon\\resources\\fondo_efapolitan2.jpg")
+						"resources/fondo_efapolitan2.jpg")
 						.getImage();
 				g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
 			}
@@ -396,9 +359,7 @@ public class Vista extends JFrame {
 		panelInventario.setOpaque(false);
 		panelInventario.setLayout(null);
 		panelInventario.setVisible(false);
-		// ------------------------------------------------------------------------------------------------
-		// ----------------------------------DEFINICION DE ELEMENTOS DE PANEL
-		// INVENTARIO-------------------
+		/* ----------------------------------DEFINICION DE ELEMENTOS DE PANEL INVENTARIO-------------------*/
 		lblRefrescosInventario = new JLabel("REFRESCOS");
 		lblRefrescosInventario.setBounds(450, 218, 135, 30);
 		lblRefrescosInventario.setOpaque(false);
@@ -556,8 +517,7 @@ public class Vista extends JFrame {
 		btnRevertirCambios.setForeground(new Color(193, 154, 71));
 		panelInventario.add(btnRevertirCambios);
 
-		// ------------------------PANEL PAGAR PEDIDO, DENTRO DE
-		// CAJA---------------------------------------
+		/* ------------------------PANEL PAGAR PEDIDO, DENTRO DE CAJA---------------------------------------*/
 		panelPagarPedido = new JPanel();
 		panelPagarPedido.setBounds(0, 0, 1684, 861);
 		contentPane.add(panelPagarPedido);
@@ -565,7 +525,6 @@ public class Vista extends JFrame {
 		panelPagarPedido.setVisible(false);
 
 		btnVolverACaja = new JButton("VOLVER");
-		// btnVolverACaja.setBounds(125, 65, 189, 62);
 		btnVolverACaja.setBounds(57, 34, 208, 91);
 		btnVolverACaja.setFont(new Font("Arial", Font.BOLD, 18));
 		btnVolverACaja.setFocusPainted(false);
@@ -575,8 +534,7 @@ public class Vista extends JFrame {
 		btnVolverACaja.setForeground(new Color(193, 154, 71));
 		panelPagarPedido.add(btnVolverACaja);
 
-		// ---------------------------------PANEL PEDIDO
-		// NUEVO---------------------------------------------------
+		/* ---------------------------------PANEL PEDIDO NUEVO---------------------------------------------------*/
 
 		panelPedidoNuevo = new JPanel() {
 			@Override
@@ -584,7 +542,7 @@ public class Vista extends JFrame {
 				super.paintComponent(g);
 				// Dibuja la imagen de fondo
 				Image image = new ImageIcon(
-						"C:\\Users\\ELENA\\git\\TPV_ElenaCanizares_AlbaSanchezMigallon\\TPV_ElenaCanizares_AlbaSanchezMigallon\\resources\\fondo_efapolitan2.jpg")
+						"resources/fondo_efapolitan2.jpg")
 						.getImage();
 				g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
 			}
@@ -592,7 +550,7 @@ public class Vista extends JFrame {
 		panelPedidoNuevo.setBounds(0, 0, 1684, 861);
 		contentPane.add(panelPedidoNuevo);
 		panelPedidoNuevo.setLayout(null);
-
+		/* --------------------------------- DEFINICION ELEMENTOS PANEL PEDIDO NUEVO---------------------------------------------------*/
 		btnRefrescos = new JButton("REFRESCOS");
 		btnRefrescos.setBounds(57, 207, 205, 158);
 		btnRefrescos.setFont(new Font("Arial", Font.BOLD, 18));
@@ -606,7 +564,7 @@ public class Vista extends JFrame {
 
 		DefaultListModel<String> modelPedido = new DefaultListModel<>();
 
-		btnVolverInicio = new JButton("VOLVER A INICIO");
+		btnVolverInicio = new JButton("VOLVER");
 		btnVolverInicio.setBounds(57, 34, 208, 91);
 		btnVolverInicio.setFont(new Font("Arial", Font.BOLD, 18));
 		btnVolverInicio.setFocusPainted(false);
@@ -617,7 +575,7 @@ public class Vista extends JFrame {
 		panelPedidoNuevo.add(btnVolverInicio);
 
 		btnAnadirAlPedido = new JButton("AÑADIR AL PEDIDO");
-		btnAnadirAlPedido.setBounds(1313, 149, 257, 90);
+		btnAnadirAlPedido.setBounds(1301, 540, 257, 90);
 		btnAnadirAlPedido.setFont(new Font("Arial", Font.BOLD, 18));
 		btnAnadirAlPedido.setFocusPainted(false);
 		btnAnadirAlPedido.setOpaque(false);
@@ -627,8 +585,10 @@ public class Vista extends JFrame {
 		panelPedidoNuevo.add(btnAnadirAlPedido);
 
 		lblPedidoDisponible = new JLabel("El pedido no es posible. Insuficiente stock");
-		lblPedidoDisponible.setBounds(1301, 540, 322, 47);
-		lblPedidoDisponible.setFont(new Font("Garamond", Font.ITALIC, 20));
+		lblPedidoDisponible.setBounds(1253, 179, 397, 47);
+		lblPedidoDisponible.setFont(new Font("Arial", Font.BOLD, 18));
+		lblPedidoDisponible.setOpaque(false);
+		lblPedidoDisponible.setForeground(new Color(193, 154, 71));
 		lblPedidoDisponible.setVisible(false);
 		panelPedidoNuevo.add(lblPedidoDisponible);
 
@@ -704,8 +664,6 @@ public class Vista extends JFrame {
 		btnAperitivos.setBorderPainted(true);
 		btnAperitivos.setForeground(new Color(193, 154, 71));
 		panelPedidoNuevo.add(btnAperitivos);
-		// --------------------------------- DEFINICION PANEL PEDIDO
-		// NUEVO---------------------------------------------------
 
 		listRefrescospanelPedidoNuevo = new JList();
 		listRefrescospanelPedidoNuevo.setBounds(611, 250, 397, 279);
@@ -780,16 +738,15 @@ public class Vista extends JFrame {
 		scrollPaneVinopanelPedidoNuevo.setHorizontalScrollBar(verticalScrollBarVinopanelPedidoNuevo);
 		listVinopanelPedidoNuevo.setVisible(false);
 		scrollPaneVinopanelPedidoNuevo.setVisible(false);
-		// ---------------------------------PANEL
-		// MUSICA---------------------------------------------------
-		
+		/* ---------------------------------PANEL MUSICA---------------------------------------------------*/
+
 		panelMusica = new JPanel() {
 			@Override
 			protected void paintComponent(Graphics g) {
 				super.paintComponent(g);
 				// Dibuja la imagen de fondo
 				Image image = new ImageIcon(
-						"C:\\Users\\ELENA\\git\\TPV_ElenaCanizares_AlbaSanchezMigallon\\TPV_ElenaCanizares_AlbaSanchezMigallon\\resources\\fondo_efapolitan4.jpg")
+						"resources/fondo_efapolitan4.jpg")
 						.getImage();
 				g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
 			}
@@ -799,8 +756,7 @@ public class Vista extends JFrame {
 		panelMusica.setOpaque(false);
 		panelMusica.setLayout(null);
 		panelMusica.setVisible(false);
-		// ---------------------------------
-		
+		/* --------------------------------- DEFINICION ELEMENTOS PANEL MUSICA---------------------------------------------------*/
 
 		comboBoxMusica = new JComboBox();
 		comboBoxMusica.setBounds(640, 273, 467, 314);
@@ -810,8 +766,7 @@ public class Vista extends JFrame {
 		comboBoxMusica.setForeground(new Color(193, 154, 71));
 		panelMusica.add(comboBoxMusica);
 
-		
-		btnVolverInicio2 = new JButton("VOLVER INICIO");
+		btnVolverInicio2 = new JButton("VOLVER");
 		btnVolverInicio2.setBounds(57, 34, 208, 91);
 		btnVolverInicio2.setFont(new Font("Arial", Font.BOLD, 18));
 		btnVolverInicio2.setFocusPainted(false);
@@ -821,6 +776,5 @@ public class Vista extends JFrame {
 		btnVolverInicio2.setForeground(new Color(193, 154, 71));
 		panelMusica.add(btnVolverInicio2);
 
-
 	}
-}
+}//FIN CLASS

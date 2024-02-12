@@ -14,27 +14,7 @@ public class Pedido {
 
 	}
 
-	/*
-	 * public Pedido(int idPedido) { this.productos = new HashMap<>(); this.idPedido
-	 * = idPedido;
-	 * 
-	 * }
-	 * 
-	 * public void agregarBebida(String nombreBebida, int cantidad) {
-	 * 
-	 * productos.put(nombreBebida, cantidad);
-	 * 
-	 * }
-	 * 
-	 * public void eliminarBebida(String nombreBebida, int cantidad) {
-	 * productos.computeIfPresent(nombreBebida, (bebida, actualCantidad) ->
-	 * actualCantidad - cantidad); productos.remove(nombreBebida, 0); // Elimina si
-	 * la cantidad es cero o negativa }
-	 * 
-	 * public void actualizarCantidadBebida(String nombreBebida, int nuevaCantidad)
-	 * { // Actualizamos la cantidad de la bebida si ya existe en el pedido
-	 * productos.put(nombreBebida, nuevaCantidad); }
-	 */
+	
 	public ArrayList<Producto> getproductos() {
 		return productos;
 	}
@@ -127,4 +107,4 @@ public class Pedido {
 		}
 		return esPedido;
 	}
-}
+}//FIN CLASS

@@ -10,7 +10,7 @@ public class Local {
 	 */
 	private ArrayList<Mesa> mesas;
 
-// patron singleton
+	// patron singleton
 	private static Object object = new Object();
 	private static Local instance = null;
 
@@ -58,23 +58,5 @@ public class Local {
 			this.mesas.get(posicionMesa).getPedido().pagarPedido(); // completamos el pagado borrando datos de pedido	
 		}
 	}
-
-	/*
-	 * public void registrarPedido(Pedido pedido) { synchronized (object) {
-	 * pedidos.add(pedido); } }// FIN AGREGAR PEDIDO
-	 */
-
-
-
-
-
-	/*
-	 * public List<Pedido> getPedidos() { if (pedidos.isEmpty()) { for (int i = 0; i
-	 * <= 6; i++) { pedidos.add(new Pedido(i)); }
-	 * 
-	 * } return pedidos; }
-	 * 
-	 * public void setPedidos(List<Pedido> pedidos) { this.pedidos = pedidos; }
-	 */
 
 }// FIN CLASS

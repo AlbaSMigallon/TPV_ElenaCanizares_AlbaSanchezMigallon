@@ -18,12 +18,9 @@ public class Musica {
 	private ArrayList<String> opcionesMusica;
 
 	public Musica() {
-		// Inicializa la lista de opciones de música
 		opcionesMusica = new ArrayList<>();
 		opcionesMusica.add("resources/3DInstrumental.mp3");
-		//opcionesMusica.add("resources/musica/otra_musica.mp3");
-		// Agrega más opciones según sea necesario
-		//lanzar();
+
 	}
 
 	public ArrayList<String> getOpcionesMusica() {
@@ -31,12 +28,9 @@ public class Musica {
 	}
 
 	public void lanzar(int indice) {
-		// VERIFICA SI EL INDICE ESTA DENTRO DEL RANGO
 		if (indice >= 0 && indice < opcionesMusica.size()) {
-			// OBTIENE LA RUTA DEL ARCHIVO MP3 BASANDOSE EN EL INDICE
 			String rutaMP3 = opcionesMusica.get(indice);
 
-			// Reproducir el sonido en bucle
 			this.reproducirEnBucle(rutaMP3);
 		}
 	}
@@ -51,7 +45,6 @@ public class Musica {
 
 			AdvancedPlayer player = new AdvancedPlayer(new FileInputStream(rutaMP3));
 
-			// Agregar un listener para manejar eventos de reproducción
 			player.setPlayBackListener(new PlaybackListener() {
 				@Override
 				public void playbackFinished(PlaybackEvent evt) {
@@ -67,7 +60,6 @@ public class Musica {
 				}
 			});
 
-			// Iniciar la reproducción
 			player.play();
 		} catch (Exception e) {
 			e.printStackTrace();

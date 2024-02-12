@@ -12,7 +12,6 @@ public abstract class Producto {
 	protected boolean pedido;
 
 	public Producto(double precio, String nombre, boolean pedido) {
-		// TODO Auto-generated constructor stub
 
 		this.nombre = nombre;
 		this.precio = precio;
