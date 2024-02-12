@@ -546,8 +546,8 @@ public class Vista extends JFrame {
 		btnAceptarCambios.setForeground(new Color(193, 154, 71));
 		panelInventario.add(btnAceptarCambios);
 
-		btnRevertirCambios = new JButton("VOLVER AL INICIO");
-		btnRevertirCambios.setBounds(21, 22, 279, 85);
+		btnRevertirCambios = new JButton("VOLVER");
+		btnRevertirCambios.setBounds(57, 34, 208, 91);
 		btnRevertirCambios.setFont(new Font("Arial", Font.BOLD, 18));
 		btnRevertirCambios.setFocusPainted(false);
 		btnRevertirCambios.setOpaque(false);
