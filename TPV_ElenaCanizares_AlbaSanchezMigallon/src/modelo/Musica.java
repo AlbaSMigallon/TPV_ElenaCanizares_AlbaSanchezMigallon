@@ -20,7 +20,10 @@ public class Musica {
 	public Musica() {
 		// Inicializa la lista de opciones de música
 		opcionesMusica = new ArrayList<>();
-		opcionesMusica.add("/resources/musicaPeliculas.mp3");
+		opcionesMusica.add("resources/musicaPeliculas.mp3");
+		opcionesMusica.add("resources/3D_Instrumental.mp3");
+		opcionesMusica.add("resources/Ariana_Grande_Yes_And.mp3");
+		opcionesMusica.add("resources/Sabrina_Carpenter_Feather.mp3");
 		//opcionesMusica.add("resources/musica/otra_musica.mp3");
 		// Agrega más opciones según sea necesario
 		//lanzar();
