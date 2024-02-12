@@ -127,7 +127,6 @@ public class Controlador implements ActionListener, ListSelectionListener, Chang
 					public void run() {
 						// Llama al metodo lanzar del objeto Musica
 						musica.lanzar(indiceSeleccionado);
-						
 					}
 				}).start();
 			}

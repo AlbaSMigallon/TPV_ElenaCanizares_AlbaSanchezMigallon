@@ -95,11 +95,25 @@ public class Vista extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		/*---------------------------------PANEL INICIO---------------------------------------------------*/
-
-		panelUsuarioCaja = new JPanel();
+		
+		panelUsuarioCaja = new JPanel() {
+			@Override
+			protected void paintComponent(Graphics g) {
+				super.paintComponent(g);
+				// Dibuja la imagen de fondo
+				Image image = new ImageIcon(
+						"C:\\Users\\ELENA\\git\\TPV_ElenaCanizares_AlbaSanchezMigallon\\TPV_ElenaCanizares_AlbaSanchezMigallon\\resources\\fondo_efapolitan2.jpg")
+						.getImage();
+				g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
+			}
+		};
 		panelUsuarioCaja.setBounds(0, 0, 1684, 861);
+		contentPane.add(panelUsuarioCaja);
+		panelUsuarioCaja.setOpaque(false);
+		panelUsuarioCaja.setLayout(null);
 		panelUsuarioCaja.setVisible(false);
-
+		
+		
 		panelInicio = new JPanel() {
 			@Override
 			protected void paintComponent(Graphics g) {
@@ -307,20 +321,36 @@ public class Vista extends JFrame {
 		panelUsuarioCaja.setLayout(null);
 
 		passwordField = new JPasswordField();
-		passwordField.setBounds(385, 53, 238, 47);
+		passwordField.setBounds(659, 364, 238, 47);
 		panelUsuarioCaja.add(passwordField);
 
 		labelRetroalimentacionContrasenia = new JLabel();
-		labelRetroalimentacionContrasenia.setBounds(385, 17, 392, 25);
+		labelRetroalimentacionContrasenia.setBounds(659, 274, 459, 25);
 		labelRetroalimentacionContrasenia.setText("Introduzca la contrasenia para hacer cierre de caja:");
+		labelRetroalimentacionContrasenia.setFont(new Font("Arial", Font.BOLD, 18));
+		labelRetroalimentacionContrasenia.setOpaque(false);
+		labelRetroalimentacionContrasenia.setForeground(new Color(193, 154, 71));
 		panelUsuarioCaja.add(labelRetroalimentacionContrasenia);
 
 		btnAceptarContrasenia = new JButton("ACEPTAR");
-		btnAceptarContrasenia.setBounds(677, 53, 155, 47);
+		btnAceptarContrasenia.setBounds(940, 362, 155, 47);
+		btnAceptarContrasenia.setFont(new Font("Arial", Font.BOLD, 18));
+		btnAceptarContrasenia.setFocusPainted(false);
+		btnAceptarContrasenia.setOpaque(false);
+		btnAceptarContrasenia.setContentAreaFilled(false);
+		btnAceptarContrasenia.setBorderPainted(true);
+		btnAceptarContrasenia.setForeground(new Color(193, 154, 71));
 		panelUsuarioCaja.add(btnAceptarContrasenia);
-
+		
 		btnVolverContrasenia = new JButton("VOLVER");
-		btnVolverContrasenia.setBounds(20, 17, 274, 103);
+		// btnVolverACaja.setBounds(125, 65, 189, 62);
+		btnVolverContrasenia.setBounds(57, 34, 208, 91);
+		btnVolverContrasenia.setFont(new Font("Arial", Font.BOLD, 18));
+		btnVolverContrasenia.setFocusPainted(false);
+		btnVolverContrasenia.setOpaque(false);
+		btnVolverContrasenia.setContentAreaFilled(false);
+		btnVolverContrasenia.setBorderPainted(true);
+		btnVolverContrasenia.setForeground(new Color(193, 154, 71));
 		panelUsuarioCaja.add(btnVolverContrasenia);
 
 		/*
